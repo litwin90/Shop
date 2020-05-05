@@ -1,0 +1,41 @@
+.wrapper {
+    max-width: 400px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 20px;
+}
+
+.header {
+    .title {
+        font-size: xx-large;
+    }
+
+    .sub-title {
+        margin-top: 10px;
+        font-size: large;
+    }
+}
+
+.content {
+    padding: 15px;
+}
+
+.description {
+    font-size: medium;
+}
+
+.price,
+.category,
+.availability,
+.colors-header,
+.sizes-header {
+    margin-top: 10px;
+    font-size: medium;
+}
+
+.colors,
+.sizes {
+    margin: 5px 0;
+    font-size: small;
+}
