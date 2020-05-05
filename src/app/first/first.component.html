@@ -1,0 +1,20 @@
+<mat-card class="wrapper">
+    <mat-card-header class="header">
+        <mat-card-title class="title">First Component</mat-card-title>
+        <mat-card-subtitle class="sub-title">{{ name }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="content">
+        <div class="description">{{ description }}</div>
+        <div class="price">Price: {{ price }}$</div>
+        <div class="category">Category: {{ category }}</div>
+        <div class="availability">Is Available: {{ isAvailable }}</div>
+        <span class="colors-header">Available Colors:</span>
+        <ul class="colors">
+            <li *ngFor="let color of colors" class="color">{{color}}</li>
+        </ul>
+        <span class="sizes-header">Available Sizes:</span>
+        <ul class="sizes">
+            <li *ngFor="let size of sizes" class="size">{{size}}</li>
+        </ul>
+    </mat-card-content>
+</mat-card>
