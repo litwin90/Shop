@@ -1,0 +1,41 @@
+{
+    "editor.insertSpaces": true,
+    "files.eol": "\n",
+    "search.exclude": {
+        ".vscode": true,
+        "dist": true,
+        "node_modules": true,
+        "aot": true
+    },
+    "files.insertFinalNewline": true,
+    "prettier.singleQuote": true,
+    "prettier.trailingComma": "all",
+    "prettier.useTabs": false,
+    "prettier.tabWidth": 4,
+    "prettier.printWidth": 120,
+    "prettier.stylelintIntegration": true,
+    "[typescript]": {
+        "editor.formatOnSave": true
+    },
+    "[scss]": {
+        "editor.formatOnSave": true
+    },
+    "[json]": {
+        "editor.quickSuggestions": {
+            "strings": true
+        },
+        "editor.formatOnSave": true,
+        "editor.suggest.insertMode": "replace"
+    },
+    "editor.formatOnPaste": false,
+    "typescript.tsdk": "./node_modules/typescript/lib",
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    },
+    "workbench.editor.highlightModifiedTabs": true,
+    "files.trimFinalNewlines": true,
+    "javascript.preferences.importModuleSpecifier": "relative",
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+}
