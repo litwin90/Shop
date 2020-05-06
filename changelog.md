@@ -1,7 +1,8 @@
 **Task 1.  Introduction**
 
-1. Установлен CLI  
-2. Настроены бызовые линтинги/форматеры  
-2. Создан проект и залит на Github.   
-3. Создан First Component
-4. Добавлен Product Component 
+1. Project is created and pushed to Github.   
+2. Configured linters settings
+3. Added First Component
+4. Added Product Component
+5. Added Product List Component
+6. Added Cart Component 
