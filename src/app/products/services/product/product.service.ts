@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { IProduct, Category, ProductColors, ProductSizes } from './product.models';
+import { IProduct, Category, ProductColors, ProductSizes } from '../../models/product.models';
 
 export const PRODUCTS: IProduct[] = [
     {

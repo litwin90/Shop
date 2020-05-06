@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Category, ProductColors, ProductSizes } from './first.component.models';
+import { Category, ProductColors, ProductSizes } from '../../first.models';
 
 @Component({
     selector: 'app-first',
