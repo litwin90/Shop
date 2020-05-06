@@ -1,0 +1,19 @@
+<mat-card class="wrapper">
+    <mat-card-header class="header">
+        <mat-card-title class="title">Cart Component</mat-card-title>
+        <mat-card-subtitle class="sub-title">{{ title }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="content">
+        <ng-container *ngIf="isCartFull; then thenTemplate; else elseTemplate"></ng-container>
+        <ng-template #thenTemplate>
+            <mat-list>
+                <mat-list-item *ngFor="let product of products">{{product.name}}</mat-list-item>
+            </mat-list>
+        </ng-template>
+        <ng-template #elseTemplate>
+            <span>There is no items</span>
+        </ng-template>
+
+
+    </mat-card-content>
+</mat-card>

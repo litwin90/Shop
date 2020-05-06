@@ -6,6 +6,7 @@
 
 .wrapper {
     flex-direction: column;
+    flex-basis: 330px;
     margin-top: 20px;
 }
 
@@ -21,27 +22,5 @@
 }
 
 .content {
-    display: flex;
-    flex-wrap: wrap;
     padding: 15px;
-
-}
-
-.description {
-    font-size: medium;
-}
-
-.price,
-.category,
-.availability,
-.colors-header,
-.sizes-header {
-    margin-top: 10px;
-    font-size: medium;
-}
-
-.colors,
-.sizes {
-    margin: 5px 0;
-    font-size: small;
 }

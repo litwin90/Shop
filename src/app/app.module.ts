@@ -9,13 +9,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatListModule } from '@angular/material/list';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { ProductComponent } from './product/product.component';
 import { FirstComponent } from './first/first.component';
 import { ProductListComponent } from './product-list/product-list.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
-    declarations: [AppComponent, FirstComponent, ProductComponent, ProductListComponent],
+    declarations: [AppComponent, FirstComponent, ProductComponent, ProductListComponent, CartComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -24,6 +26,7 @@ import { ProductListComponent } from './product-list/product-list.component';
         MatButtonModule,
         MatCardModule,
         MatListModule,
+        MatToolbarModule,
     ],
     providers: [],
     bootstrap: [AppComponent],
