@@ -13,3 +13,14 @@ export enum ProductSizes {
     M = 'M',
     L = 'L',
 }
+
+export interface IProduct {
+    name: string;
+    description: string;
+    price: number;
+    category: Category;
+    isAvailable: boolean;
+
+    colors: ProductColors[];
+    sizes: ProductSizes[];
+}

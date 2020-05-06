@@ -7,13 +7,24 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatListModule } from '@angular/material/list';
 
 import { ProductComponent } from './product/product.component';
 import { FirstComponent } from './first/first.component';
+import { ProductListComponent } from './product-list/product-list.component';
 
 @NgModule({
-    declarations: [AppComponent, FirstComponent, ProductComponent],
-    imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, MatButtonModule, MatCardModule],
+    declarations: [AppComponent, FirstComponent, ProductComponent, ProductListComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatGridListModule,
+        MatButtonModule,
+        MatCardModule,
+        MatListModule,
+    ],
     providers: [],
     bootstrap: [AppComponent],
 })
