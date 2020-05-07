@@ -8,6 +8,6 @@ import { PRODUCTS } from '../../products/services/product/product.service';
 })
 export class CartService {
     getProductsInCart(): IProduct[] {
-        return PRODUCTS;
+        return PRODUCTS; // тут должны быть не товары, а то, что в корзине
     }
 }

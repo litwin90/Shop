@@ -1,3 +1,4 @@
+// можно рассмотреть вариант создания папки shared/enums/и в нее перенести все эти энамы
 export enum Category {
     Primary = 'Primary',
     Secondary = 'Secondary',
