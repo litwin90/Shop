@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 import { IProduct } from '../../models/product.models';
 
@@ -6,11 +6,18 @@ import { IProduct } from '../../models/product.models';
     selector: 'app-product',
     templateUrl: './product.component.html',
     styleUrls: ['./product.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductComponent {
     @Input() product: IProduct;
 
+    @Output() addToCart = new EventEmitter<IProduct>();
+
     onBuy() {
-        console.log('Product is bought');
+        this.addToCart.emit(this.product);
+    }
+
+    get availabilityTitle(): string {
+        return this.product.isAvailable ? 'Available' : 'Not Available';
     }
 }

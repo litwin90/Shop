@@ -6,15 +6,15 @@
         <div class="description">{{ product.description }}</div>
         <div class="price">Price: {{ product.price }}$</div>
         <div class="category">Category: {{ product.category }}</div>
-        <div class="availability">Is Available: {{ product.isAvailable }}</div>
-        <span class="colors-header">Available Colors:</span>
+        <div class="availability" [class.not-available]="!product.isAvailable">{{ availabilityTitle }}</div>
+        <span class="colors-header">Colors:</span>
         <ul class="colors">
             <li *ngFor="let color of product.colors" class="color">{{color}}</li>
         </ul>
-        <span class="sizes-header">Available Sizes:</span>
+        <span class="sizes-header">Sizes:</span>
         <ul class="sizes">
             <li *ngFor="let size of product.sizes" class="size">{{size}}</li>
         </ul>
-        <button mat-stroked-button (click)="onBuy()">Buy</button>
+        <button *ngIf="product.isAvailable" mat-stroked-button (click)="onBuy()">Add to Cart</button>
     </mat-card-content>
 </mat-card>

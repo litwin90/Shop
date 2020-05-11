@@ -1,0 +1,23 @@
+:host {
+    width: 100%;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+}
+
+.name,
+.quantity,
+.cost {
+    margin: 0 10px;
+    flex-basis: 250px;
+}
+
+.controls {
+    flex-basis: 200px;
+    display: flex;
+    flex-direction: row;
+}

@@ -7,7 +7,27 @@
         <ng-container *ngIf="isCartFull; then thenTemplate; else elseTemplate"></ng-container>
         <ng-template #thenTemplate>
             <mat-list>
-                <mat-list-item *ngFor="let product of products">{{product.name}}</mat-list-item>
+                <mat-list-item>
+                    <div class="table-title">
+                        <div class="name">Product Name</div>
+                        <div class="quantity">Quantity</div>
+                        <div class="cost">Cost</div>
+                        <div class="controls"></div>
+                    </div>
+                    <mat-divider></mat-divider>
+                </mat-list-item>
+
+                <mat-list-item *ngFor="let product of products; trackBy: trackBy" >
+                    <app-cart-item [product]="product" (increase)="onIncrease($event)" (decrease)="onDecrease($event)"></app-cart-item>
+                </mat-list-item>
+
+                <mat-list-item>
+                    <div class="table-footer">
+                        <div>Total</div>
+                        <div>{{totalCost | currency}}</div>
+                    </div>
+                    <mat-divider></mat-divider>
+                </mat-list-item>
             </mat-list>
         </ng-template>
         <ng-template #elseTemplate>
