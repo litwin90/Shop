@@ -28,6 +28,12 @@
                     </div>
                     <mat-divider></mat-divider>
                 </mat-list-item>
+
+                <mat-list-item>
+                    <div class="table-controls">
+                        <button *ngIf="isSomeItemSelected()" mat-raised-button color="warn" (click)="removeSelectedItems()">Remove selected items from cart</button>
+                    </div>
+                </mat-list-item>
             </mat-list>
         </ng-template>
         <ng-template #elseTemplate>

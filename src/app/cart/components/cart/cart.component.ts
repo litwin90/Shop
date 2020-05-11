@@ -49,4 +49,14 @@ export class CartComponent implements OnInit, OnDestroy {
     onDecrease(product: ICartProduct) {
         this.cartService.decreaseQuantity(product);
     }
+
+    isSomeItemSelected(): boolean {
+        return this.products.some(product => product.isSelected);
+    }
+
+    removeSelectedItems() {
+        const productsToRemove = this.products.filter(product => product.isSelected);
+
+        this.cartService.removeProducts(productsToRemove);
+    }
 }

@@ -41,6 +41,15 @@
     font-weight: bold;
 }
 
+.table-controls {
+    width: 100%;
+    margin: 0 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
 .name,
 .quantity,
 .cost {
