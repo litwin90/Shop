@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="name">{{product.name}}</div>
+    <div class="quantity">{{product.quantity}}</div>
+    <div class="cost">{{product.cost | currency}}</div>
+    <div class="controls">
+        <button mat-icon-button color="primary" (click)="onIncrease()">
+            <mat-icon>add</mat-icon>
+        </button>
+
+        <button mat-icon-button color="warn" (click)="onDecrease()">
+            <mat-icon>remove</mat-icon>
+        </button>
+    </div>
+</div>
+<mat-divider></mat-divider>
