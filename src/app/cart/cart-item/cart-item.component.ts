@@ -13,6 +13,7 @@ export class CartItemComponent implements OnInit {
 
     @Output() decrease = new EventEmitter<ICartProduct>();
     @Output() increase = new EventEmitter<ICartProduct>();
+    @Output() toggleItem = new EventEmitter<ICartProduct>();
 
     ngOnInit(): void {}
 

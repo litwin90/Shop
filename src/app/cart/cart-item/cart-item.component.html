@@ -1,4 +1,5 @@
 <div class="row">
+    <mat-checkbox [(ngModel)]="product.isSelected" class="checkbox"></mat-checkbox>
     <div class="name">{{product.name}}</div>
     <div class="quantity">{{product.quantity}}</div>
     <div class="cost">{{product.cost | currency}}</div>

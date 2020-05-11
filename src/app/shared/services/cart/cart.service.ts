@@ -17,6 +17,10 @@ export class CartService {
         this.productsSubject.next(this.products);
     }
 
+    private updateProducts() {
+        this.productsSubject.next(this.products);
+    }
+
     addProduct(product: IProduct) {
         const cartProduct = this.products.find(productInCart => productInCart.id === product.id);
         if (cartProduct) {
@@ -27,14 +31,15 @@ export class CartService {
                 name: product.name,
                 cost: product.price,
                 quantity: 1,
+                isSelected: false,
             });
         }
-        this.productsSubject.next(this.products);
+        this.updateProducts();
     }
 
     removeProduct(product: ICartProduct) {
         this.products = this.products.filter(productInCart => productInCart.id !== product.id);
-        this.productsSubject.next(this.products);
+        this.updateProducts();
     }
 
     increaseQuantity(product: ICartProduct) {
@@ -49,10 +54,16 @@ export class CartService {
             product.cost = product.cost - product.cost / product.quantity;
             product.quantity--;
         }
-        this.productsSubject.next(this.products);
     }
 
     getTotalCost(): number {
         return this.products.map(product => product.cost).reduce((total, price) => total + price, 0);
+    }
+
+    removeProducts(products: ICartProduct[]) {
+        const productsToRemoveIds = products.map(product => product.id);
+
+        this.products = this.products.filter(product => !productsToRemoveIds.includes(product.id));
+        this.updateProducts();
     }
 }
