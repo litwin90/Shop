@@ -6,7 +6,7 @@
         <div class="description">{{ product.description }}</div>
         <div class="price">Price: {{ product.price }}$</div>
         <div class="category">Category: {{ product.category }}</div>
-        <div class="availability" [class.not-available]="!product.isAvailable">{{ availabilityTitle }}</div>
+        <div class="availability" [class.not-available]="!product.isAvailable">{{ getAvailabilityTitle() }}</div>
         <span class="colors-header">Colors:</span>
         <ul class="colors">
             <li *ngFor="let color of product.colors" class="color">{{color}}</li>

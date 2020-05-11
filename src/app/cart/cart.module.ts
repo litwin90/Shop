@@ -11,6 +11,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { CartComponent } from './components/cart/cart.component';
 import { CartItemComponent } from './cart-item/cart-item.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     declarations: [CartComponent, CartItemComponent],
@@ -18,6 +19,7 @@ import { CartItemComponent } from './cart-item/cart-item.component';
     imports: [
         CommonModule,
         FormsModule,
+        SharedModule,
         MatDividerModule,
         MatCardModule,
         MatListModule,

@@ -1,10 +1,10 @@
 <mat-card class="wrapper">
     <mat-card-header class="header">
-        <mat-card-title class="title">Cart Component</mat-card-title>
+        <mat-card-title class="title" >Cart Component</mat-card-title>
         <mat-card-subtitle class="sub-title" #title></mat-card-subtitle>
     </mat-card-header>
     <mat-card-content class="content">
-        <ng-container *ngIf="isCartFull; then thenTemplate; else elseTemplate"></ng-container>
+        <ng-container *ngIf="isCartFull(); then thenTemplate; else elseTemplate"></ng-container>
         <ng-template #thenTemplate>
             <mat-list>
                 <mat-list-item>
@@ -17,14 +17,14 @@
                     <mat-divider></mat-divider>
                 </mat-list-item>
 
-                <mat-list-item *ngFor="let product of products; trackBy: trackBy" >
+                <mat-list-item *ngFor="let product of products; trackBy: trackBy" [appBackGroundOnHover]="HOVER_BACKGROUND_COLOR">
                     <app-cart-item [product]="product" (increase)="onIncrease($event)" (decrease)="onDecrease($event)"></app-cart-item>
                 </mat-list-item>
 
                 <mat-list-item>
                     <div class="table-footer">
                         <div>Total</div>
-                        <div>{{totalCost | currency}}</div>
+                        <div>{{getTotalCost() | currency}}</div>
                     </div>
                     <mat-divider></mat-divider>
                 </mat-list-item>
