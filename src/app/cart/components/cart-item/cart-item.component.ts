@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
-import { ICartProduct } from '../models/cart-product';
+import { ICartProduct } from '../../models/cart-product';
 
 @Component({
     selector: 'app-cart-item',
