@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
 
 import { CartService } from '../../../shared/services/cart/cart.service';
 import { ICartProduct } from '../../models/cart-product';
@@ -9,17 +9,24 @@ import { Subscription } from 'rxjs';
     templateUrl: './cart.component.html',
     styleUrls: ['./cart.component.scss'],
 })
-export class CartComponent implements OnInit, OnDestroy {
+export class CartComponent implements OnInit, OnDestroy, AfterViewInit {
+    @ViewChild('title', { static: false }) titleElementRef: ElementRef<HTMLElement>;
+
     private products$: Subscription;
 
     products: ICartProduct[] = [];
 
-    constructor(private cartService: CartService) {}
+    constructor(private cartService: CartService, private renderer: Renderer2) {}
 
     ngOnInit(): void {
         this.products$ = this.cartService.productsSubject.subscribe(products => {
             this.products = products;
         });
+    }
+
+    ngAfterViewInit(): void {
+        const title = this.renderer.createText('This is product cart');
+        this.renderer.appendChild(this.titleElementRef.nativeElement, title);
     }
 
     ngOnDestroy(): void {
