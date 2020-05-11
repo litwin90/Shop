@@ -4,6 +4,8 @@ import { CartService } from '../../../shared/services/cart/cart.service';
 import { ICartProduct } from '../../models/cart-product';
 import { Subscription } from 'rxjs';
 
+const HOVER_BACKGROUND_COLOR = '#d3d3d31f';
+
 @Component({
     selector: 'app-cart',
     templateUrl: './cart.component.html',
@@ -15,6 +17,8 @@ export class CartComponent implements OnInit, OnDestroy, AfterViewInit {
     private products$: Subscription;
 
     products: ICartProduct[] = [];
+
+    HOVER_BACKGROUND_COLOR = HOVER_BACKGROUND_COLOR;
 
     constructor(private cartService: CartService, private renderer: Renderer2) {}
 
@@ -33,15 +37,11 @@ export class CartComponent implements OnInit, OnDestroy, AfterViewInit {
         this.products$.unsubscribe();
     }
 
-    get isCartFull(): boolean {
+    isCartFull(): boolean {
         return !!this.products.length;
     }
 
-    get title(): string {
-        return 'Products in cart:';
-    }
-
-    get totalCost() {
+    getTotalCost() {
         return this.cartService.getTotalCost();
     }
 

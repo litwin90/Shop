@@ -17,7 +17,7 @@ export class ProductComponent {
         this.addToCart.emit(this.product);
     }
 
-    get availabilityTitle(): string {
+    getAvailabilityTitle(): string {
         return this.product.isAvailable ? 'Available' : 'Not Available';
     }
 }
