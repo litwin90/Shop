@@ -9,24 +9,22 @@ import { ICartProduct } from '../../../cart/models/cart-product';
     providedIn: 'root',
 })
 export class CartService {
-    private products: ICartProduct[] = [];
+    private cartProducts: ICartProduct[] = [];
+    private totalQuantity: number;
+    private totalSum: number;
 
     public productsSubject = new Subject<ICartProduct[]>();
 
     constructor() {
-        this.productsSubject.next(this.products);
-    }
-
-    private updateProducts() {
-        this.productsSubject.next(this.products);
+        this.productsSubject.next(this.cartProducts);
     }
 
     addProduct(product: IProduct) {
-        const cartProduct = this.products.find(productInCart => productInCart.id === product.id);
+        const cartProduct = this.cartProducts.find(productInCart => productInCart.id === product.id);
         if (cartProduct) {
             this.increaseQuantity(cartProduct);
         } else {
-            this.products.push({
+            this.cartProducts.push({
                 id: product.id,
                 name: product.name,
                 cost: product.price,
@@ -34,12 +32,12 @@ export class CartService {
                 isSelected: false,
             });
         }
-        this.updateProducts();
+        this.updateCartData();
     }
 
     removeProduct(product: ICartProduct) {
-        this.products = this.products.filter(productInCart => productInCart.id !== product.id);
-        this.updateProducts();
+        this.cartProducts = this.cartProducts.filter(productInCart => productInCart.id !== product.id);
+        this.updateCartData();
     }
 
     increaseQuantity(product: ICartProduct) {
@@ -57,13 +55,27 @@ export class CartService {
     }
 
     getTotalCost(): number {
-        return this.products.map(product => product.cost).reduce((total, price) => total + price, 0);
+        return this.totalSum;
+    }
+
+    getTotalQuantity(): number {
+        return this.totalQuantity;
     }
 
     removeProducts(products: ICartProduct[]) {
         const productsToRemoveIds = products.map(product => product.id);
 
-        this.products = this.products.filter(product => !productsToRemoveIds.includes(product.id));
-        this.updateProducts();
+        this.cartProducts = this.cartProducts.filter(product => !productsToRemoveIds.includes(product.id));
+        this.updateCartData();
+    }
+
+    removeAllProducts() {
+        this.removeProducts(this.cartProducts);
+    }
+
+    private updateCartData() {
+        this.productsSubject.next(this.cartProducts);
+        this.totalQuantity = this.cartProducts.reduce((quantity, product) => quantity + product.quantity, 0);
+        this.totalSum = this.cartProducts.reduce((sum, product) => sum + product.cost, 0);
     }
 }
