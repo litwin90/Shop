@@ -1,7 +1,7 @@
 <mat-card class="wrapper">
     <mat-card-header class="header">
         <mat-card-title class="title">Cart Component</mat-card-title>
-        <mat-card-subtitle class="sub-title">{{ title }}</mat-card-subtitle>
+        <mat-card-subtitle class="sub-title" #title></mat-card-subtitle>
     </mat-card-header>
     <mat-card-content class="content">
         <ng-container *ngIf="isCartFull; then thenTemplate; else elseTemplate"></ng-container>
