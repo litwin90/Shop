@@ -7,11 +7,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CartModule } from './cart/cart.module';
 import { FirstModule } from './first/first.module';
 import { ProductsModule } from './products/products.module';
+import { LocalStorageService } from './core/services/local-storage/local-storage.service';
+import { APP_CONSTANTS } from './provider-tokens';
+import { ConstantsService } from './core/services/constants/constants.service';
 
 @NgModule({
     declarations: [AppComponent],
     imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, CartModule, FirstModule, ProductsModule],
-    providers: [],
+    providers: [
+        {
+            provide: LocalStorageService,
+            useClass: LocalStorageService,
+        },
+        {
+            provide: APP_CONSTANTS,
+            useValue: ConstantsService,
+        },
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

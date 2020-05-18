@@ -1,9 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { APP_LOCAL_STORAGE } from '../../../provider-tokens';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Injectable()
 export class LocalStorageService {
     constructor(@Inject(APP_LOCAL_STORAGE) private localStorage: Storage) {}
 
