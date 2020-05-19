@@ -18,3 +18,12 @@
 8. Used @ViewChild for rendering CartListComponent's title
 9. Added custom directive ChangeBackgroundDirective for changing host element background color
 10. Added ability for batch remove products from cart
+
+**Task 3. Services and DI**  
+1. Existing `CartService` was corrected to match all task requirements.   
+2. Created `AboutComponent` for temporary testing of DI mentioned below.
+3. Created (and registered in `AppModule` using `useClass`) `LocalStorageService` to provide the same functionality as native `window.localStorage`.  
+4. Created (and registered in `@Injectable` decorator) `ConfigOptionsService` to store/get options. Under the hood id uses `LocalStorageService` from above.
+5. Created (and registered using `useValue` in `AppModule`) `ConstantsService` as ready object literal.
+6. Created (and registered in `AppModule` using `useFactory` ) `GeneratorService` and `GeneratorFactory` for generating random string with specified length 
+7. Created `HighlightOnClickDirective` which uses `Renderer2`, `ElementRef`, `@HostListener` to change `background` and `border` of hosted element on `click`. (added in `ProductComponent` on product description field)
