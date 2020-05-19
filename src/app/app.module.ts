@@ -11,10 +11,19 @@ import { LocalStorageService } from './core/services/local-storage/local-storage
 import { APP_CONSTANTS, APP_RANDOM_STRING_5 } from './provider-tokens';
 import { ConstantsService } from './core/services/constants/constants.service';
 import { GeneratorFactory, GeneratorService } from './core/services/generator/generator.service';
+import { LayoutModule } from './layout/layout.module';
 
 @NgModule({
     declarations: [AppComponent],
-    imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, CartModule, FirstModule, ProductsModule],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        CartModule,
+        FirstModule,
+        ProductsModule,
+        LayoutModule,
+    ],
     providers: [
         {
             provide: LocalStorageService,
@@ -26,7 +35,7 @@ import { GeneratorFactory, GeneratorService } from './core/services/generator/ge
         },
         {
             provide: APP_RANDOM_STRING_5,
-            useFactory: GeneratorFactory,
+            useFactory: GeneratorFactory(5),
             deps: [GeneratorService],
         },
     ],
