@@ -4,8 +4,9 @@
     </mat-card-header>
     <mat-card-content class="content">
         <div class="description" appHighlightOnClick>{{ product.description }}</div>
-        <div class="price">Price: {{ product.price }}$</div>
-        <div class="category">Category: {{ product.category }}</div>
+        <div class="price">Price: {{ product.price | currency }}</div>
+        <div class="category">Category: {{ product.category | uppercase }}</div>
+        <div class="update-date">Updated: {{ product.updateDate | date:'fullDate' }}</div>
         <div class="availability" [class.not-available]="!product.isAvailable">{{ getAvailabilityTitle() }}</div>
         <span class="colors-header">Colors:</span>
         <ul class="colors">

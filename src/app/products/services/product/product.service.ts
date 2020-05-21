@@ -12,6 +12,7 @@ export const PRODUCTS: IProduct[] = [
         isAvailable: true,
         colors: [ProductColors.Blue, ProductColors.Red],
         sizes: [ProductSizes.L, ProductSizes.M, ProductSizes.S],
+        updateDate: 1590076699063,
     },
     {
         id: '2',
@@ -22,6 +23,7 @@ export const PRODUCTS: IProduct[] = [
         isAvailable: true,
         colors: [ProductColors.Blue, ProductColors.Red],
         sizes: [ProductSizes.L, ProductSizes.M, ProductSizes.S],
+        updateDate: 1590076699063,
     },
     {
         id: '3',
@@ -32,6 +34,7 @@ export const PRODUCTS: IProduct[] = [
         isAvailable: false,
         colors: [ProductColors.Blue, ProductColors.Red],
         sizes: [ProductSizes.L, ProductSizes.M, ProductSizes.S],
+        updateDate: 1590076699063,
     },
     {
         id: '4',
@@ -42,6 +45,7 @@ export const PRODUCTS: IProduct[] = [
         isAvailable: true,
         colors: [ProductColors.Blue, ProductColors.Red],
         sizes: [ProductSizes.L, ProductSizes.M, ProductSizes.S],
+        updateDate: 1590076699063,
     },
 ];
 

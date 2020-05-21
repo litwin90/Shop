@@ -21,6 +21,7 @@ export interface IProduct {
     price: number;
     category: Category;
     isAvailable: boolean;
+    updateDate: number;
 
     colors: ProductColors[];
     sizes: ProductSizes[];
