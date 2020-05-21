@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product/product.service';
 import { IProduct } from '../../models/product.models';
 import { CartService } from '../../../shared/services/cart/cart.service';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-product-list',
@@ -10,7 +11,7 @@ import { CartService } from '../../../shared/services/cart/cart.service';
     styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
-    products: IProduct[];
+    products: Observable<IProduct[]>;
 
     constructor(private productService: ProductService, private cartService: CartService) {}
 
