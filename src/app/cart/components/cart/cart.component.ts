@@ -28,13 +28,13 @@ export class CartComponent implements OnInit, OnDestroy, AfterViewInit {
         { id: 'name', name: 'Name' },
         { id: 'quantity', name: 'Quantity' },
     ];
-    activeSortByFieldId: ICartSortByFieldId = 'name';
     isDescOrder = true;
     isCheckAllSelected = false;
     HOVER_BACKGROUND_COLOR = HOVER_BACKGROUND_COLOR;
 
     private products$: Subscription;
     private cartInfo$: Subscription;
+    private activeSortByFieldId: ICartSortByFieldId = 'name';
 
     constructor(private cartService: CartService, private renderer: Renderer2, private orderBy: OrderByPipe) {}
 
@@ -79,6 +79,14 @@ export class CartComponent implements OnInit, OnDestroy, AfterViewInit {
         } else {
             this.cartService.unCheckAllItems();
         }
+    }
+
+    get sortBy(): ICartSortByFieldId {
+        return this.activeSortByFieldId;
+    }
+
+    set sortBy(sortBy: ICartSortByFieldId) {
+        this.activeSortByFieldId = sortBy;
     }
 
     isCartFull(): boolean {

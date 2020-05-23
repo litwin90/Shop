@@ -16,7 +16,7 @@
                         <div class="sort-by">
                             <mat-form-field >
                                 <mat-label>Sort By</mat-label>
-                                <mat-select (selectionChange)="onSelectOrderBy($event)" [(value)]="activeSortByFieldId">
+                                <mat-select (selectionChange)="onSelectOrderBy($event)" [(value)]="sortBy">
                                     <mat-option *ngFor="let sortField of sortByFields" [value]="sortField.id">
                                     {{sortField.name}}
                                     </mat-option>
