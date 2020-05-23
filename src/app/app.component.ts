@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { PRODUCTS } from './products/services/product/product.service';
+
+import { appTabsConfig } from './app-routing.module';
 
 @Component({
     selector: 'app-root',
@@ -7,6 +8,5 @@ import { PRODUCTS } from './products/services/product/product.service';
     styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-    title = 'shop';
-    product = PRODUCTS[0];
+    appTabsConfig = appTabsConfig;
 }

@@ -7,19 +7,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
-
-const MaterialModules = [
-    MatDividerModule,
-    MatCardModule,
-    MatListModule,
-    MatIconModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatSelectModule,
-];
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
-    imports: [MaterialModules],
-    exports: [MaterialModules],
+    exports: [
+        MatDividerModule,
+        MatCardModule,
+        MatListModule,
+        MatIconModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatSelectModule,
+        MatTabsModule,
+    ],
 })
 export class MaterialModule {}
