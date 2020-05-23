@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
 import { ICartProduct } from '../../models/cart-product';
 
@@ -8,14 +8,12 @@ import { ICartProduct } from '../../models/cart-product';
     styleUrls: ['./cart-item.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CartItemComponent implements OnInit {
+export class CartItemComponent {
     @Input() product: ICartProduct;
 
     @Output() decrease = new EventEmitter<ICartProduct>();
     @Output() increase = new EventEmitter<ICartProduct>();
     @Output() toggleItem = new EventEmitter<ICartProduct>();
-
-    ngOnInit(): void {}
 
     onDecrease() {
         this.decrease.emit(this.product);

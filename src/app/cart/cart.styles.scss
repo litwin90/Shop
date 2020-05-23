@@ -1,0 +1,56 @@
+$table-basis: 1000px;
+$table-margins: 20px 0 0 0;
+
+$table-items-margins: 0 5px 0 5px;
+
+$check-box-basis: 25px;
+$name-basis: 200px;
+$quantity-basis: 65px;
+$cost-basis: 250px;
+
+@mixin table-row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+}
+
+@mixin table-row-controls {
+    margin-left: auto;
+    min-width: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+@mixin check-box-cell {
+    margin: $table-items-margins;
+    min-width: $check-box-basis;
+}
+
+@mixin name-cell {
+    margin: $table-items-margins;
+    min-width: $name-basis;
+    font-weight: bold;
+
+    .nowrap {
+        white-space: nowrap;
+    }
+}
+
+@mixin quantity-cell {
+    margin: $table-items-margins;
+    min-width: $quantity-basis;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+}
+
+@mixin cost-cell {
+    margin: $table-items-margins;
+    min-width: $cost-basis;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+}

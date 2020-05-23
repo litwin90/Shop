@@ -8,27 +8,29 @@
         <ng-template #thenTemplate>
             <mat-list>
                 <mat-list-item class="table-title">
-                    <div class="name">Product Name</div>
-                    <div class="quantity">Quantity</div>
-                    <div class="cost">Cost</div>
-                    <div class="controls"></div>
-                    <div class="sort-by">
-                        <mat-form-field >
-                            <mat-label>Sort By</mat-label>
-                            <mat-select (selectionChange)="onSelectOrderBy($event)" [(value)]="activeSortByFieldId">
-                                <mat-option *ngFor="let sortField of sortByFields" [value]="sortField.id">
-                                {{sortField.name}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="sort-order">
-                        <button *ngIf="!isDescOrder" mat-icon-button color="primary" (click)="onToggleOrder()">
-                            <mat-icon>arrow_upward</mat-icon>
-                        </button>
-                        <button *ngIf="isDescOrder" mat-icon-button color="primary" (click)="onToggleOrder()">
-                            <mat-icon>arrow_downward</mat-icon>
-                        </button>
+                    <div class="checkbox"></div>
+                    <div class="name"><span class="nowrap">Product Name</span></div>
+                    <div class="quantity"><span class="nowrap">Quantity</span></div>
+                    <div class="cost"><span class="nowrap">Cost</span></div>
+                    <div class="controls">
+                        <div class="sort-by">
+                            <mat-form-field >
+                                <mat-label>Sort By</mat-label>
+                                <mat-select (selectionChange)="onSelectOrderBy($event)" [(value)]="activeSortByFieldId">
+                                    <mat-option *ngFor="let sortField of sortByFields" [value]="sortField.id">
+                                    {{sortField.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="sort-order">
+                            <button *ngIf="!isDescOrder" mat-icon-button color="primary" (click)="onToggleOrder()">
+                                <mat-icon>arrow_upward</mat-icon>
+                            </button>
+                            <button *ngIf="isDescOrder" mat-icon-button color="primary" (click)="onToggleOrder()">
+                                <mat-icon>arrow_downward</mat-icon>
+                            </button>
+                        </div>
                     </div>
                     <mat-divider></mat-divider>
                 </mat-list-item>
@@ -39,8 +41,10 @@
 
                 <mat-list-item>
                     <div class="table-footer">
-                        <div>Total</div>
-                        <div>{{cartInfo.totalSum | currency}}</div>
+                        <div class="checkbox"></div>
+                        <div class="name">Total</div>
+                        <div class="quantity">{{cartInfo.totalQuantity }}</div>
+                        <div class="cost">{{cartInfo.totalSum | currency}}</div>
                     </div>
                     <mat-divider></mat-divider>
                 </mat-list-item>

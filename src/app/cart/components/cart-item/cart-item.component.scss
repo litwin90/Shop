@@ -1,28 +1,29 @@
+@import '../../cart.styles.scss';
+
 :host {
     width: 100%;
 }
 
 .row {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    align-items: center;
-}
-
-.name,
-.quantity,
-.cost {
-    margin: 0 10px;
-    flex-basis: 250px;
+    @include table-row;
 }
 
 .checkbox {
-    margin: 0 10px;
-    flex-basis: 50px;
+    @include check-box-cell;
+}
+
+.name {
+    @include name-cell;
+}
+
+.quantity {
+    @include quantity-cell;
+}
+
+.cost {
+    @include cost-cell;
 }
 
 .controls {
-    flex-basis: 200px;
-    display: flex;
-    flex-direction: row;
+    @include table-row-controls;
 }

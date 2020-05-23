@@ -1,3 +1,5 @@
+@import '../../cart.styles.scss';
+
 :host {
     display: flex;
     justify-content: flex-start;
@@ -7,8 +9,7 @@
 
 .wrapper {
     flex-direction: column;
-    flex-basis: 700px;
-    margin-top: 20px;
+    margin: $table-margins;
 }
 
 .header {
@@ -27,44 +28,29 @@
 }
 
 .table-title {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
+    @include table-row;
 }
 
 .table-footer {
-    width: 100%;
-    margin: 0 10px 0 50px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    font-weight: bold;
+    @include table-row;
 }
 
-.table-controls {
-    width: 100%;
-    margin: 0 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    font-weight: bold;
+.checkbox {
+    @include check-box-cell;
 }
 
 .name {
-    margin: 0 10px 0 50px;
-    flex-basis: 350px;
-    font-weight: bold;
+    @include name-cell;
 }
 
-.quantity,
+.quantity {
+    @include quantity-cell;
+}
+
 .cost {
-    margin: 0 10px;
-    flex-basis: 250px;
-    font-weight: bold;
+    @include cost-cell;
 }
 
 .controls {
-    flex-basis: 200px;
-    display: flex;
-    flex-direction: row;
+    @include table-row-controls;
 }
