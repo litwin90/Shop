@@ -7,7 +7,7 @@
 
 .wrapper {
     flex-direction: column;
-    flex-basis: 500px;
+    flex-basis: 700px;
     margin-top: 20px;
 }
 
@@ -34,7 +34,7 @@
 
 .table-footer {
     width: 100%;
-    margin: 0 10px;
+    margin: 0 10px 0 50px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -50,7 +50,12 @@
     font-weight: bold;
 }
 
-.name,
+.name {
+    margin: 0 10px 0 50px;
+    flex-basis: 350px;
+    font-weight: bold;
+}
+
 .quantity,
 .cost {
     margin: 0 10px;

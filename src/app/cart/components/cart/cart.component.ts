@@ -1,9 +1,13 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
 
+import { Subscription } from 'rxjs';
+
 import { CartService } from '../../../shared/services/cart/cart.service';
 import { ICartProduct } from '../../models/cart-product';
-import { Subscription } from 'rxjs';
 import { ICartInfo } from '../../models/cart-info';
+import { OrderByPipe } from '../../../shared/pipes/order-by/order-by.pipe';
+import { ICartSortByField, ICartSortByFieldId } from '../../models/cart-sort-by-field';
+import { MatSelectChange } from '@angular/material/select';
 
 const HOVER_BACKGROUND_COLOR = '#d3d3d31f';
 
@@ -15,15 +19,21 @@ const HOVER_BACKGROUND_COLOR = '#d3d3d31f';
 export class CartComponent implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('title', { static: false }) titleElementRef: ElementRef<HTMLElement>;
 
+    products: ICartProduct[] = [];
+    cartInfo: ICartInfo;
+    sortByFields: ICartSortByField[] = [
+        { id: 'cost', name: 'Cost' },
+        { id: 'name', name: 'Name' },
+        { id: 'quantity', name: 'Quantity' },
+    ];
+    activeSortByFieldId: ICartSortByFieldId = 'name';
+    isDescOrder = true;
+    HOVER_BACKGROUND_COLOR = HOVER_BACKGROUND_COLOR;
+
     private products$: Subscription;
     private cartInfo$: Subscription;
 
-    products: ICartProduct[] = [];
-    cartInfo: ICartInfo;
-
-    HOVER_BACKGROUND_COLOR = HOVER_BACKGROUND_COLOR;
-
-    constructor(public cartService: CartService, private renderer: Renderer2) {}
+    constructor(private cartService: CartService, private renderer: Renderer2, private orderBy: OrderByPipe) {}
 
     ngOnInit(): void {
         this.products$ = this.cartService.productsSubject.subscribe(products => {
@@ -44,20 +54,28 @@ export class CartComponent implements OnInit, OnDestroy, AfterViewInit {
         this.cartInfo$.unsubscribe();
     }
 
-    isCartFull(): boolean {
-        return !!this.products.length;
-    }
-
-    trackBy(_, product?: ICartProduct) {
-        return product ? `${product.id}${product.quantity}` : undefined;
-    }
-
     onIncrease(product: ICartProduct) {
         this.cartService.increaseQuantity(product);
     }
 
     onDecrease(product: ICartProduct) {
         this.cartService.decreaseQuantity(product);
+    }
+
+    onSelectOrderBy(sortByField: MatSelectChange) {
+        this.activeSortByFieldId = this.sortByFields.find(field => field.id === sortByField.value)?.id;
+    }
+
+    onToggleOrder() {
+        this.isDescOrder = !this.isDescOrder;
+    }
+
+    isCartFull(): boolean {
+        return !!this.products.length;
+    }
+
+    trackBy(_, product?: ICartProduct) {
+        return product ? `${product.id}${product.quantity}` : undefined;
     }
 
     isSomeItemSelected(): boolean {
@@ -68,5 +86,9 @@ export class CartComponent implements OnInit, OnDestroy, AfterViewInit {
         const productsToRemove = this.products.filter(product => product.isSelected);
 
         this.cartService.removeProducts(productsToRemove);
+    }
+
+    getSortedProducts() {
+        return this.orderBy.transform(this.products, this.activeSortByFieldId, this.isDescOrder);
     }
 }
