@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Renderer2, AfterVi
 import { CartService } from '../../../shared/services/cart/cart.service';
 import { ICartProduct } from '../../models/cart-product';
 import { Subscription } from 'rxjs';
+import { ICartInfo } from '../../models/cart-info';
 
 const HOVER_BACKGROUND_COLOR = '#d3d3d31f';
 
@@ -15,16 +16,21 @@ export class CartComponent implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('title', { static: false }) titleElementRef: ElementRef<HTMLElement>;
 
     private products$: Subscription;
+    private cartInfo$: Subscription;
 
     products: ICartProduct[] = [];
+    cartInfo: ICartInfo;
 
     HOVER_BACKGROUND_COLOR = HOVER_BACKGROUND_COLOR;
 
-    constructor(private cartService: CartService, private renderer: Renderer2) {}
+    constructor(public cartService: CartService, private renderer: Renderer2) {}
 
     ngOnInit(): void {
         this.products$ = this.cartService.productsSubject.subscribe(products => {
             this.products = products;
+        });
+        this.cartInfo$ = this.cartService.cartInfoSubject.subscribe(cartInfo => {
+            this.cartInfo = cartInfo;
         });
     }
 
@@ -35,14 +41,11 @@ export class CartComponent implements OnInit, OnDestroy, AfterViewInit {
 
     ngOnDestroy(): void {
         this.products$.unsubscribe();
+        this.cartInfo$.unsubscribe();
     }
 
     isCartFull(): boolean {
         return !!this.products.length;
-    }
-
-    getTotalCost() {
-        return this.cartService.getTotalCost();
     }
 
     trackBy(_, product?: ICartProduct) {

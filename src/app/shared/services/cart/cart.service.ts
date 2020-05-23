@@ -4,6 +4,7 @@ import { Subject, Subscription } from 'rxjs';
 
 import { IProduct } from '../../../products/models/product.models';
 import { ICartProduct } from '../../../cart/models/cart-product';
+import { ICartInfo } from '../../../cart/models/cart-info';
 
 @Injectable({
     providedIn: 'root',
@@ -14,9 +15,10 @@ export class CartService {
     private totalSum: number;
 
     public productsSubject = new Subject<ICartProduct[]>();
+    public cartInfoSubject = new Subject<ICartInfo>();
 
     constructor() {
-        this.productsSubject.next(this.cartProducts);
+        this.updateCartData();
     }
 
     addProduct(product: IProduct) {
@@ -43,6 +45,7 @@ export class CartService {
     increaseQuantity(product: ICartProduct) {
         product.cost = product.cost + product.cost / product.quantity;
         product.quantity++;
+        this.updateCartData();
     }
 
     decreaseQuantity(product: ICartProduct) {
@@ -52,14 +55,7 @@ export class CartService {
             product.cost = product.cost - product.cost / product.quantity;
             product.quantity--;
         }
-    }
-
-    getTotalCost(): number {
-        return this.totalSum;
-    }
-
-    getTotalQuantity(): number {
-        return this.totalQuantity;
+        this.updateCartData();
     }
 
     removeProducts(products: ICartProduct[]) {
@@ -71,11 +67,13 @@ export class CartService {
 
     removeAllProducts() {
         this.removeProducts(this.cartProducts);
+        this.updateCartData();
     }
 
     private updateCartData() {
         this.productsSubject.next(this.cartProducts);
         this.totalQuantity = this.cartProducts.reduce((quantity, product) => quantity + product.quantity, 0);
         this.totalSum = this.cartProducts.reduce((sum, product) => sum + product.cost, 0);
+        this.cartInfoSubject.next({ totalSum: this.totalSum, totalQuantity: this.totalQuantity });
     }
 }
