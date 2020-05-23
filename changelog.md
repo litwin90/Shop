@@ -27,3 +27,9 @@
 5. Created (and registered using `useValue` in `AppModule`) `ConstantsService` as ready object literal.
 6. Created (and registered in `AppModule` using `useFactory` ) `GeneratorService` and `GeneratorFactory` for generating random string with specified length 
 7. Created `HighlightOnClickDirective` which uses `Renderer2`, `ElementRef`, `@HostListener` to change `background` and `border` of hosted element on `click`. (added in `ProductComponent` on product description field)
+
+**Task 4. Pipes**
+1. Used `currency`, `uppercase`, `date` pipes in `product.component.html`
+2. Made `getProducts` method of `ProductsService` to return observable and used `async` build in pipe to extract data in template `product-list.component.html`.
+3. Implemented `OrderByPipe` according to the task requirements and used in `cart.component.html`
+4. App modules was refactored according to the task requirements. `CommonModule`, `FormsModule` now are provided by `SharedModule`. Additionally implemented `MaterialModule`, which reexports all needed `MatModules` to `SharedNodule`
