@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CartModule } from './cart/cart.module';
-import { FirstModule } from './first/first.module';
 import { ProductsModule } from './products/products.module';
 import { LocalStorageService } from './core/services/local-storage/local-storage.service';
 import { APP_CONSTANTS, APP_RANDOM_STRING_5 } from './provider-tokens';
@@ -14,15 +13,7 @@ import { GeneratorFactory, GeneratorService } from './core/services/generator/ge
 import { LayoutModule } from './layout/layout.module';
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        CartModule,
-        FirstModule,
-        ProductsModule,
-        LayoutModule,
-    ],
+    imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, CartModule, ProductsModule, LayoutModule],
     declarations: [AppComponent],
     providers: [
         {
