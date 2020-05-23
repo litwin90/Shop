@@ -1,5 +1,8 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
 
+import { MatSelectChange } from '@angular/material/select';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+
 import { Subscription } from 'rxjs';
 
 import { CartService } from '../../../shared/services/cart/cart.service';
@@ -7,7 +10,6 @@ import { ICartProduct } from '../../models/cart-product';
 import { ICartInfo } from '../../models/cart-info';
 import { OrderByPipe } from '../../../shared/pipes/order-by/order-by.pipe';
 import { ICartSortByField, ICartSortByFieldId } from '../../models/cart-sort-by-field';
-import { MatSelectChange } from '@angular/material/select';
 
 const HOVER_BACKGROUND_COLOR = '#d3d3d31f';
 
@@ -28,6 +30,7 @@ export class CartComponent implements OnInit, OnDestroy, AfterViewInit {
     ];
     activeSortByFieldId: ICartSortByFieldId = 'name';
     isDescOrder = true;
+    isCheckAllSelected = false;
     HOVER_BACKGROUND_COLOR = HOVER_BACKGROUND_COLOR;
 
     private products$: Subscription;
@@ -70,12 +73,20 @@ export class CartComponent implements OnInit, OnDestroy, AfterViewInit {
         this.isDescOrder = !this.isDescOrder;
     }
 
+    onToggleCheckAll(event: MatCheckboxChange) {
+        if (event.checked) {
+            this.cartService.checkAllItems();
+        } else {
+            this.cartService.unCheckAllItems();
+        }
+    }
+
     isCartFull(): boolean {
         return !!this.products.length;
     }
 
     trackBy(_, product?: ICartProduct) {
-        return product ? `${product.id}${product.quantity}` : undefined;
+        return product ? `${product.id}${product.quantity}${product.isSelected}` : undefined;
     }
 
     isSomeItemSelected(): boolean {
@@ -86,6 +97,7 @@ export class CartComponent implements OnInit, OnDestroy, AfterViewInit {
         const productsToRemove = this.products.filter(product => product.isSelected);
 
         this.cartService.removeProducts(productsToRemove);
+        this.isCheckAllSelected = false;
     }
 
     getSortedProducts() {

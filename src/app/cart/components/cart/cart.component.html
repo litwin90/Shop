@@ -8,7 +8,7 @@
         <ng-template #thenTemplate>
             <mat-list>
                 <mat-list-item class="table-title">
-                    <div class="checkbox"></div>
+                    <mat-checkbox [(ngModel)]="isCheckAllSelected" class="checkbox" (change)="onToggleCheckAll($event)"></mat-checkbox>
                     <div class="name"><span class="nowrap">Product Name</span></div>
                     <div class="quantity"><span class="nowrap">Quantity</span></div>
                     <div class="cost"><span class="nowrap">Cost</span></div>

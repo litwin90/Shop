@@ -70,6 +70,20 @@ export class CartService {
         this.updateCartData();
     }
 
+    checkAllItems() {
+        this.cartProducts.forEach(product => {
+            product.isSelected = true;
+        });
+        this.updateCartData();
+    }
+
+    unCheckAllItems() {
+        this.cartProducts.forEach(product => {
+            product.isSelected = false;
+        });
+        this.updateCartData();
+    }
+
     private updateCartData() {
         this.productsSubject.next(this.cartProducts);
         this.totalQuantity = this.cartProducts.reduce((quantity, product) => quantity + product.quantity, 0);

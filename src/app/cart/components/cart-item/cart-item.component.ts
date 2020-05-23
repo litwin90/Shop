@@ -13,7 +13,6 @@ export class CartItemComponent {
 
     @Output() decrease = new EventEmitter<ICartProduct>();
     @Output() increase = new EventEmitter<ICartProduct>();
-    @Output() toggleItem = new EventEmitter<ICartProduct>();
 
     onDecrease() {
         this.decrease.emit(this.product);
