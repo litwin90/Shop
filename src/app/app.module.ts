@@ -14,7 +14,6 @@ import { GeneratorFactory, GeneratorService } from './core/services/generator/ge
 import { LayoutModule } from './layout/layout.module';
 
 @NgModule({
-    declarations: [AppComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -24,6 +23,7 @@ import { LayoutModule } from './layout/layout.module';
         ProductsModule,
         LayoutModule,
     ],
+    declarations: [AppComponent],
     providers: [
         {
             provide: LocalStorageService,

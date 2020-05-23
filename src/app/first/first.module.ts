@@ -6,8 +6,8 @@ import { MatCardModule } from '@angular/material/card';
 import { FirstComponent } from './components/first/first.component';
 
 @NgModule({
+    imports: [CommonModule, MatCardModule],
     declarations: [FirstComponent],
     exports: [FirstComponent],
-    imports: [CommonModule, MatCardModule],
 })
 export class FirstModule {}
