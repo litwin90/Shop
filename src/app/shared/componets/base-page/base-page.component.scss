@@ -1,0 +1,34 @@
+:host {
+    display: flex;
+    min-height: 89%;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 1200px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 100%;
+}
+
+.header {
+    .title {
+        font-size: xx-large;
+    }
+
+    .sub-title {
+        margin-top: 10px;
+        font-size: large;
+    }
+}
+
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15px;
+    justify-content: space-between;
+}

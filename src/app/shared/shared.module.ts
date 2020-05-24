@@ -6,10 +6,11 @@ import { ChangeBackgroundDirective } from './directives/change-background.direct
 import { HighlightOnClickDirective } from './directives/highlightOnClick.directive';
 import { OrderByPipe } from './pipes/order-by/order-by.pipe';
 import { MaterialModule } from '../material/material.module';
+import { BasePageComponent } from './componets/base-page/base-page.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule, MaterialModule],
-    declarations: [ChangeBackgroundDirective, HighlightOnClickDirective, OrderByPipe],
+    declarations: [ChangeBackgroundDirective, HighlightOnClickDirective, OrderByPipe, BasePageComponent],
     exports: [
         CommonModule,
         FormsModule,
@@ -17,6 +18,7 @@ import { MaterialModule } from '../material/material.module';
         ChangeBackgroundDirective,
         HighlightOnClickDirective,
         OrderByPipe,
+        BasePageComponent,
     ],
     providers: [OrderByPipe],
 })
