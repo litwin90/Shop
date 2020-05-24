@@ -14,10 +14,10 @@ import { ICartSortByField, ICartSortByFieldId } from '../../models/cart-sort-by-
 const HOVER_BACKGROUND_COLOR = '#d3d3d31f';
 
 @Component({
-    templateUrl: './cart.component.html',
-    styleUrls: ['./cart.component.scss'],
+    templateUrl: './cart-table.component.html',
+    styleUrls: ['./cart-table.component.scss'],
 })
-export class CartComponent implements OnInit, OnDestroy {
+export class CartTableComponent implements OnInit, OnDestroy {
     products: ICartProduct[] = [];
     cartInfo: ICartInfo;
     sortByFields: ICartSortByField[] = [

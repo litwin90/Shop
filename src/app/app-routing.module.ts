@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { CartComponent } from './cart/components/cart/cart.component';
 import { ProductListComponent } from './products/components/product-list/product-list.component';
 import { HomeComponent } from './layout/components/home/home.component';
 import { PathNotFoundComponent } from './layout/components/path-not-found/path-not-found.component';
@@ -23,7 +22,7 @@ export const appRoutes: Routes = [
     },
     {
         path: AppPaths.Cart,
-        component: CartComponent,
+        loadChildren: () => import('./cart/cart.module').then(m => m.CartModule),
     },
     {
         path: '',
@@ -40,15 +39,15 @@ export const appRoutes: Routes = [
 
 export const appTabsConfig: { path: string; label: string }[] = [
     {
-        path: `/${AppPaths.Home}`,
+        path: AppPaths.Home,
         label: 'Home',
     },
     {
-        path: `/${AppPaths.ProductsList}`,
+        path: AppPaths.ProductsList,
         label: 'Products',
     },
     {
-        path: `/${AppPaths.Cart}`,
+        path: AppPaths.Cart,
         label: 'Cart',
     },
 ];

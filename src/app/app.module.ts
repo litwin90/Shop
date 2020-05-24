@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { Router } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 
-import { CartModule } from './cart/cart.module';
 import { ProductsModule } from './products/products.module';
 import { LocalStorageService } from './core/services/local-storage/local-storage.service';
 import { APP_CONSTANTS, APP_RANDOM_STRING_5 } from './provider-tokens';
@@ -16,12 +16,14 @@ import { LayoutModule } from './layout/layout.module';
 @NgModule({
     imports: [
         BrowserModule,
-        AppRoutingModule,
         BrowserAnimationsModule,
-        CartModule,
         ProductsModule,
         LayoutModule,
         MatTabsModule,
+        /**
+         * Should be last
+         */
+        AppRoutingModule,
     ],
     declarations: [AppComponent],
     providers: [
@@ -41,4 +43,9 @@ import { LayoutModule } from './layout/layout.module';
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+    constructor(router: Router) {
+        const replacer = (key: string, value: any): string => (typeof value === 'function' ? value.name : value);
+        console.log('App Routes: ', JSON.stringify(router.config, replacer, 2));
+    }
+}
