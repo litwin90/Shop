@@ -1,0 +1,28 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.description {
+    font-size: medium;
+}
+
+.price,
+.category,
+.availability,
+.colors-header,
+.sizes-header,
+.update-date {
+    margin-top: 10px;
+    font-size: medium;
+}
+
+.not-available {
+    color: red;
+}
+
+.colors,
+.sizes {
+    margin: 5px 0;
+    font-size: small;
+}

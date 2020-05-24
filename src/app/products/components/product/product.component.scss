@@ -30,22 +30,13 @@
     font-size: medium;
 }
 
-.price,
-.category,
-.availability,
-.colors-header,
-.sizes-header,
-.update-date {
-    margin-top: 10px;
+.price {
+    margin: 10px 0;
     font-size: medium;
 }
 
-.not-available {
-    color: red;
-}
-
-.colors,
-.sizes {
-    margin: 5px 0;
-    font-size: small;
+.controls {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 }

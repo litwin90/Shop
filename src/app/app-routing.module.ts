@@ -5,7 +5,7 @@ import { ProductListComponent } from './products/components/product-list/product
 import { HomeComponent } from './layout/components/home/home.component';
 import { PathNotFoundComponent } from './layout/components/path-not-found/path-not-found.component';
 
-enum AppPaths {
+export enum AppPaths {
     Home = 'home',
     ProductsList = 'products-list',
     Cart = 'cart',

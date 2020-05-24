@@ -3,6 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductsComponent } from './products.component';
+import { ProductCardComponent } from './components/product-card/product-card.component';
+
+export enum ProductsPaths {
+    Product = 'product',
+}
 
 const routes: Routes = [
     {
@@ -13,6 +18,10 @@ const routes: Routes = [
                 path: '',
                 component: ProductListComponent,
             },
+            {
+                path: `${ProductsPaths.Product}/:id`,
+                component: ProductCardComponent,
+            },
         ],
     },
 ];
@@ -22,5 +31,5 @@ const routes: Routes = [
     exports: [RouterModule],
 })
 export class ProductsRoutingModule {
-    static components = [ProductsComponent, ProductListComponent];
+    static components = [ProductsComponent, ProductListComponent, ProductCardComponent];
 }
