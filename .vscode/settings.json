@@ -27,10 +27,6 @@
         "editor.formatOnSave": true,
         "editor.suggest.insertMode": "replace"
     },
-    "[html]": {
-        "editor.formatOnSave": true,
-        "editor.suggest.insertMode": "replace"
-    },
     "editor.formatOnPaste": false,
     "typescript.tsdk": "./node_modules/typescript/lib",
     "editor.codeActionsOnSave": {
