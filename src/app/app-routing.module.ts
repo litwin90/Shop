@@ -18,7 +18,7 @@ export const appRoutes: Routes = [
     },
     {
         path: AppPaths.ProductsList,
-        component: ProductListComponent,
+        loadChildren: () => import('./products/products.module').then(m => m.ProductsModule),
     },
     {
         path: AppPaths.Cart,

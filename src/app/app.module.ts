@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 
-import { ProductsModule } from './products/products.module';
 import { LocalStorageService } from './core/services/local-storage/local-storage.service';
 import { APP_CONSTANTS, APP_RANDOM_STRING_5 } from './provider-tokens';
 import { ConstantsService } from './core/services/constants/constants.service';
@@ -17,7 +16,6 @@ import { LayoutModule } from './layout/layout.module';
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        ProductsModule,
         LayoutModule,
         MatTabsModule,
         /**
