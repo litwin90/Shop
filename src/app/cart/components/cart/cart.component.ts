@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 
 import { MatSelectChange } from '@angular/material/select';
 import { MatCheckboxChange } from '@angular/material/checkbox';
@@ -14,13 +14,10 @@ import { ICartSortByField, ICartSortByFieldId } from '../../models/cart-sort-by-
 const HOVER_BACKGROUND_COLOR = '#d3d3d31f';
 
 @Component({
-    selector: 'app-cart',
     templateUrl: './cart.component.html',
     styleUrls: ['./cart.component.scss'],
 })
-export class CartComponent implements OnInit, OnDestroy, AfterViewInit {
-    @ViewChild('title', { static: false }) titleElementRef: ElementRef<HTMLElement>;
-
+export class CartComponent implements OnInit, OnDestroy {
     products: ICartProduct[] = [];
     cartInfo: ICartInfo;
     sortByFields: ICartSortByField[] = [
@@ -39,17 +36,17 @@ export class CartComponent implements OnInit, OnDestroy, AfterViewInit {
     constructor(private cartService: CartService, private renderer: Renderer2, private orderBy: OrderByPipe) {}
 
     ngOnInit(): void {
+        // Init:
+        this.products = this.cartService.getProducts();
+        this.cartInfo = this.cartService.getCartInfo();
+
+        // Subscription to updates:
         this.products$ = this.cartService.productsSubject.subscribe(products => {
             this.products = products;
         });
         this.cartInfo$ = this.cartService.cartInfoSubject.subscribe(cartInfo => {
             this.cartInfo = cartInfo;
         });
-    }
-
-    ngAfterViewInit(): void {
-        const title = this.renderer.createText('This is product cart');
-        this.renderer.appendChild(this.titleElementRef.nativeElement, title);
     }
 
     ngOnDestroy(): void {

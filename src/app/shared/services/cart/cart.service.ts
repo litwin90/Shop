@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Subject, Subscription } from 'rxjs';
+import { Subject, Observable, of } from 'rxjs';
 
 import { IProduct } from '../../../products/models/product.models';
 import { ICartProduct } from '../../../cart/models/cart-product';
@@ -19,6 +19,17 @@ export class CartService {
 
     constructor() {
         this.updateCartData();
+    }
+
+    getProducts(): ICartProduct[] {
+        return this.cartProducts;
+    }
+
+    getCartInfo(): ICartInfo {
+        return {
+            totalQuantity: this.totalQuantity,
+            totalSum: this.totalSum,
+        };
     }
 
     addProduct(product: IProduct) {
