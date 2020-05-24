@@ -1,8 +1,7 @@
-<mat-card class="wrapper">
-    <mat-card-header class="header">
-        <mat-card-title class="title">Product List</mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="content">
-        <app-product *ngFor="let product of products | async " [product]="product" (addToCart)="addToCart($event)"></app-product>
-    </mat-card-content>
-</mat-card>
+<app-base-page title="Products">
+    <app-product
+        *ngFor="let product of products | async "
+        [product]="product"
+        (addToCart)="addToCart($event)">
+    </app-product>
+</app-base-page>
