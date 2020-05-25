@@ -1,4 +1,4 @@
-export interface ICartInfo {
+export interface ICartInfo { // Может CartSummary?
     totalSum: number;
     totalQuantity: number;
 }
