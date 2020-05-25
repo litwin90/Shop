@@ -6,6 +6,7 @@ export class LocalStorageService {
     constructor(@Inject(APP_LOCAL_STORAGE) private localStorage: Storage) {}
 
     setItem(key: string, value: string | { [key: string]: any }) {
+        // по моему можно не делать этой проверки, а сразу вызывать JSON.stringify даже для строк
         if (typeof value === 'string') {
             this.localStorage.setItem(key, value);
         } else {

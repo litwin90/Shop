@@ -19,6 +19,8 @@ const MaterialModules = [
 ];
 
 @NgModule({
+    // можно попробовать не импортировать модули сюда, так как тут нет компонент,
+    // которые используют директивы этих модулей
     imports: [MaterialModules],
     exports: [MaterialModules],
 })
