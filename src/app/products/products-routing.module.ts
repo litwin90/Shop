@@ -1,13 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ProductListComponent } from './components/product-list/product-list.component';
+import { ProductListComponent, ProductCardComponent } from './components';
 import { ProductsComponent } from './products.component';
-import { ProductCardComponent } from './components/product-card/product-card.component';
-
-export enum ProductsPaths {
-    Product = 'product',
-}
+import { ProductsPaths } from './products.constants';
 
 const routes: Routes = [
     {

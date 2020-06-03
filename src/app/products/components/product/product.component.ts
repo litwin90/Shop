@@ -1,8 +1,8 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { IProduct } from '../../models/product.models';
-import { ProductsPaths } from '../../products-routing.module';
+import { IProduct } from '../../models';
+import { ProductsPaths } from '../../products.constants';
 
 @Component({
     selector: 'app-product',

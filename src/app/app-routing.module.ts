@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ProductListComponent } from './products/components/product-list/product-list.component';
-import { HomeComponent } from './layout/components/home/home.component';
-import { PathNotFoundComponent } from './layout/components/path-not-found/path-not-found.component';
+import { HomeComponent, PathNotFoundComponent } from './layout';
 
 export enum AppPaths {
     Home = 'home',

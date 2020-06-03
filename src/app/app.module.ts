@@ -1,16 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 
-import { LocalStorageService } from './core/services/local-storage/local-storage.service';
+import { LayoutModule } from './layout';
+import { LocalStorageService, ConstantsService, GeneratorFactory, GeneratorService } from './core';
 import { APP_CONSTANTS, APP_RANDOM_STRING_5 } from './provider-tokens';
-import { ConstantsService } from './core/services/constants/constants.service';
-import { GeneratorFactory, GeneratorService } from './core/services/generator/generator.service';
-import { LayoutModule } from './layout/layout.module';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 
 @NgModule({
     imports: [

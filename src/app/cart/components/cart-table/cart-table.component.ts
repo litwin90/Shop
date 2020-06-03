@@ -5,10 +5,10 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 
 import { Subscription } from 'rxjs';
 
-import { CartService } from '../../../shared/services/cart/cart.service';
+import { CartService } from '../../../shared/services/cart.service';
 import { ICartProduct } from '../../models/cart-product';
 import { ICartInfo } from '../../models/cart-info';
-import { OrderByPipe } from '../../../shared/pipes/order-by/order-by.pipe';
+import { OrderByPipe } from '../../../shared/pipes/order-by.pipe';
 import { ICartSortByField, ICartSortByFieldId } from '../../models/cart-sort-by-field';
 
 const HOVER_BACKGROUND_COLOR = '#d3d3d31f';

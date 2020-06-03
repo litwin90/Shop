@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { ProductService } from '../../services/product/product.service';
+import { ProductService } from '../../services/product.service';
 import { IProduct } from '../../models/product.models';
-import { CartService } from '../../../shared/services/cart/cart.service';
+import { CartService } from '../../../shared/services/cart.service';
 
 @Component({
     selector: 'app-product-list',

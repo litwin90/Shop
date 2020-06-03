@@ -1,5 +1,6 @@
 import { InjectionToken } from '@angular/core';
-import { IAppConstants } from './core/services/constants/constants.service';
+
+import { IAppConstants } from './core';
 
 export const APP_LOCAL_STORAGE = new InjectionToken<Storage>('appLocalStorage', {
     providedIn: 'root',

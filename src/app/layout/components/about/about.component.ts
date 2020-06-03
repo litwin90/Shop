@@ -1,10 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 
-import { CartService } from '../../../shared/services/cart/cart.service';
-import { IAppConstants } from '../../../core/services/constants/constants.service';
-import { ICartProduct } from '../../../cart/models/cart-product';
-import { LocalStorageService } from '../../../core/services/local-storage/local-storage.service';
-import { ConfigOptionsService } from '../../../core/services/config-options/config-options.service';
+import { ICartProduct } from '../../../cart';
+import { CartService } from '../../../shared';
+import { LocalStorageService, ConfigOptionsService, IAppConstants } from '../../../core';
 import { APP_CONSTANTS, APP_RANDOM_STRING_5 } from '../../../provider-tokens';
 
 @Component({

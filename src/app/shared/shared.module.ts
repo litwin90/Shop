@@ -2,11 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { ChangeBackgroundDirective } from './directives/change-background.directive';
-import { HighlightOnClickDirective } from './directives/highlightOnClick.directive';
-import { OrderByPipe } from './pipes/order-by/order-by.pipe';
-import { MaterialModule } from '../material/material.module';
-import { BasePageComponent } from './componets/base-page/base-page.component';
+import { MaterialModule } from '../material';
+import { OrderByPipe } from './pipes';
+import { HighlightOnClickDirective, ChangeBackgroundDirective } from './directives';
+import { BasePageComponent } from './components';
 
 @NgModule({
     imports: [CommonModule, FormsModule, MaterialModule],

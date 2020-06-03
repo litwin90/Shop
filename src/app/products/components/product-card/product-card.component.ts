@@ -3,9 +3,9 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 import { switchMap } from 'rxjs/operators';
 
-import { ProductService } from '../../services/product/product.service';
+import { ProductService } from '../../services/product.service';
 import { IProduct } from '../../models/product.models';
-import { CartService } from '../../../shared/services/cart/cart.service';
+import { CartService } from '../../../shared/services/cart.service';
 import { AppPaths } from '../../../app-routing.module';
 
 @Component({
