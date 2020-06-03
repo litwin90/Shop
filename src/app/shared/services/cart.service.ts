@@ -32,7 +32,9 @@ export class CartService {
     }
 
     addProduct(product: IProduct) {
-        const cartProduct = this.cartProducts.find(productInCart => productInCart.id === product.id);
+        const cartProduct = this.cartProducts.find(
+            productInCart => productInCart.id === product.id,
+        );
         if (cartProduct) {
             this.increaseQuantity(cartProduct);
         } else {
@@ -48,7 +50,9 @@ export class CartService {
     }
 
     removeProduct(product: ICartProduct) {
-        this.cartProducts = this.cartProducts.filter(productInCart => productInCart.id !== product.id);
+        this.cartProducts = this.cartProducts.filter(
+            productInCart => productInCart.id !== product.id,
+        );
         this.updateCartData();
     }
 
@@ -71,7 +75,9 @@ export class CartService {
     removeProducts(products: ICartProduct[]) {
         const productsToRemoveIds = products.map(product => product.id);
 
-        this.cartProducts = this.cartProducts.filter(product => !productsToRemoveIds.includes(product.id));
+        this.cartProducts = this.cartProducts.filter(
+            product => !productsToRemoveIds.includes(product.id),
+        );
         this.updateCartData();
     }
 
@@ -96,8 +102,17 @@ export class CartService {
 
     private updateCartData() {
         this.productsSubject.next(this.cartProducts);
-        this.totalQuantity = this.cartProducts.reduce((quantity, product) => quantity + product.quantity, 0);
-        this.totalSum = this.cartProducts.reduce((sum, product) => sum + product.cost, 0);
-        this.cartInfoSubject.next({ totalSum: this.totalSum, totalQuantity: this.totalQuantity });
+        this.totalQuantity = this.cartProducts.reduce(
+            (quantity, product) => quantity + product.quantity,
+            0,
+        );
+        this.totalSum = this.cartProducts.reduce(
+            (sum, product) => sum + product.cost,
+            0,
+        );
+        this.cartInfoSubject.next({
+            totalSum: this.totalSum,
+            totalQuantity: this.totalQuantity,
+        });
     }
 }

@@ -25,7 +25,11 @@ export class ProductCardComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.paramMap
-            .pipe(switchMap((params: ParamMap) => this.productService.getProduct(params.get('id'))))
+            .pipe(
+                switchMap((params: ParamMap) =>
+                    this.productService.getProduct(params.get('id')),
+                ),
+            )
             .subscribe({
                 next: (product: IProduct) => {
                     this.product = { ...product };

@@ -21,5 +21,9 @@ const routes: Routes = [
     exports: [RouterModule],
 })
 export class ProductsRoutingModule {
-    static components = [ProductsComponent, ProductListComponent, ProductCardComponent];
+    static components = [
+        ProductsComponent,
+        ProductListComponent,
+        ProductCardComponent,
+    ];
 }

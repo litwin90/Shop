@@ -14,7 +14,10 @@ import { CartService } from '../../../shared/services/cart.service';
 export class ProductListComponent implements OnInit {
     products: Observable<IProduct[]>;
 
-    constructor(private productService: ProductService, private cartService: CartService) {}
+    constructor(
+        private productService: ProductService,
+        private cartService: CartService,
+    ) {}
 
     ngOnInit(): void {
         this.products = this.productService.getProducts();

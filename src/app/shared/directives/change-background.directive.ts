@@ -1,4 +1,11 @@
-import { Directive, HostBinding, Input, HostListener, ElementRef, AfterViewInit } from '@angular/core';
+import {
+    Directive,
+    HostBinding,
+    Input,
+    HostListener,
+    ElementRef,
+    AfterViewInit,
+} from '@angular/core';
 
 @Directive({
     selector: '[appBackGroundOnHover]',

@@ -4,12 +4,20 @@ import { FormsModule } from '@angular/forms';
 
 import { MaterialModule } from '../material';
 import { OrderByPipe } from './pipes';
-import { HighlightOnClickDirective, ChangeBackgroundDirective } from './directives';
+import {
+    HighlightOnClickDirective,
+    ChangeBackgroundDirective,
+} from './directives';
 import { BasePageComponent } from './components';
 
 @NgModule({
     imports: [CommonModule, FormsModule, MaterialModule],
-    declarations: [ChangeBackgroundDirective, HighlightOnClickDirective, OrderByPipe, BasePageComponent],
+    declarations: [
+        ChangeBackgroundDirective,
+        HighlightOnClickDirective,
+        OrderByPipe,
+        BasePageComponent,
+    ],
     exports: [
         CommonModule,
         FormsModule,

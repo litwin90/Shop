@@ -2,7 +2,11 @@ import { Component, OnInit, Inject } from '@angular/core';
 
 import { ICartProduct } from '../../../cart';
 import { CartService } from '../../../shared';
-import { LocalStorageService, ConfigOptionsService, IAppConstants } from '../../../core';
+import {
+    LocalStorageService,
+    ConfigOptionsService,
+    IAppConstants,
+} from '../../../core';
 import { APP_CONSTANTS, APP_RANDOM_STRING_5 } from '../../../provider-tokens';
 
 @Component({
@@ -46,7 +50,10 @@ export class AboutComponent implements OnInit {
     }
 
     private testConstantsInjection() {
-        if (this.appConstants.App === 'TaskManager' && this.appConstants.Ver === '1.0') {
+        if (
+            this.appConstants.App === 'TaskManager' &&
+            this.appConstants.Ver === '1.0'
+        ) {
             console.log('Constants injection works');
         } else {
             console.log('Constants injection does not works');
@@ -57,7 +64,9 @@ export class AboutComponent implements OnInit {
         this.localStorage.setItem('test1', 'test');
         this.localStorage.setItem('test2', { value: 'test' });
         const test1 = this.localStorage.getItem('test1');
-        const test2 = this.localStorage.getItem('test2') as { [key: string]: any };
+        const test2 = this.localStorage.getItem('test2') as {
+            [key: string]: any;
+        };
 
         if (test1 === 'test' && test2 && test2.value === 'test') {
             console.log('LocalStorage injection works');
@@ -68,7 +77,11 @@ export class AboutComponent implements OnInit {
 
     private testConfigOptionsService() {
         this.configOptionsService.setOptions({ id: 'ID', login: 'login' });
-        const { id, login, email } = this.configOptionsService.getOptions(['id', 'email', 'login']);
+        const { id, login, email } = this.configOptionsService.getOptions([
+            'id',
+            'email',
+            'login',
+        ]);
         if (id === 'ID' && login === 'login' && !email) {
             console.log('ConfigureOptionsService injection works');
         } else {

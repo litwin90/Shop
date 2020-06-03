@@ -13,7 +13,8 @@ export enum AppPaths {
 export const appRoutes: Routes = [
     {
         path: AppPaths.Cart,
-        loadChildren: () => import('./cart/cart.module').then(m => m.CartModule),
+        loadChildren: () =>
+            import('./cart/cart.module').then(m => m.CartModule),
     },
     {
         path: AppPaths.Empty,

@@ -1,4 +1,11 @@
-import { Directive, Input, ElementRef, Renderer2, HostListener, AfterViewInit } from '@angular/core';
+import {
+    Directive,
+    Input,
+    ElementRef,
+    Renderer2,
+    HostListener,
+    AfterViewInit,
+} from '@angular/core';
 
 @Directive({
     selector: '[appHighlightOnClick]',
@@ -15,7 +22,10 @@ export class HighlightOnClickDirective implements AfterViewInit {
     private initialBorderColor: string;
     private initialBorderStyle: string;
 
-    constructor(private elementRef: ElementRef<HTMLElement>, private renderer: Renderer2) {}
+    constructor(
+        private elementRef: ElementRef<HTMLElement>,
+        private renderer: Renderer2,
+    ) {}
 
     ngAfterViewInit(): void {
         this.initialBackgroundColor = this.elementRef.nativeElement.style.backgroundColor;
@@ -35,7 +45,9 @@ export class HighlightOnClickDirective implements AfterViewInit {
         this.renderer.setStyle(
             this.elementRef.nativeElement,
             'backgroundColor',
-            this.isInitialState ? this.backgroundColor : this.initialBackgroundColor,
+            this.isInitialState
+                ? this.backgroundColor
+                : this.initialBackgroundColor,
         );
 
         this.renderer.setStyle(

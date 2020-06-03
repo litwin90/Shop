@@ -5,11 +5,13 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 
 import { Subscription } from 'rxjs';
 
-import { CartService } from '../../../shared/services/cart.service';
-import { ICartProduct } from '../../models/cart-product';
-import { ICartInfo } from '../../models/cart-info';
-import { OrderByPipe } from '../../../shared/pipes/order-by.pipe';
-import { ICartSortByField, ICartSortByFieldId } from '../../models/cart-sort-by-field';
+import { CartService, OrderByPipe } from '../../../shared';
+import {
+    ICartProduct,
+    ICartSortByField,
+    ICartInfo,
+    ICartSortByFieldId,
+} from '../../models';
 
 const HOVER_BACKGROUND_COLOR = '#d3d3d31f';
 
@@ -33,7 +35,11 @@ export class CartTableComponent implements OnInit, OnDestroy {
     private cartInfo$: Subscription;
     private activeSortByFieldId: ICartSortByFieldId = 'name';
 
-    constructor(private cartService: CartService, private renderer: Renderer2, private orderBy: OrderByPipe) {}
+    constructor(
+        private cartService: CartService,
+        private renderer: Renderer2,
+        private orderBy: OrderByPipe,
+    ) {}
 
     ngOnInit(): void {
         // Init:
@@ -41,12 +47,16 @@ export class CartTableComponent implements OnInit, OnDestroy {
         this.cartInfo = this.cartService.getCartInfo();
 
         // Subscription to updates:
-        this.products$ = this.cartService.productsSubject.subscribe(products => {
-            this.products = products;
-        });
-        this.cartInfo$ = this.cartService.cartInfoSubject.subscribe(cartInfo => {
-            this.cartInfo = cartInfo;
-        });
+        this.products$ = this.cartService.productsSubject.subscribe(
+            products => {
+                this.products = products;
+            },
+        );
+        this.cartInfo$ = this.cartService.cartInfoSubject.subscribe(
+            cartInfo => {
+                this.cartInfo = cartInfo;
+            },
+        );
     }
 
     ngOnDestroy(): void {
@@ -63,7 +73,9 @@ export class CartTableComponent implements OnInit, OnDestroy {
     }
 
     onSelectOrderBy(sortByField: MatSelectChange) {
-        this.activeSortByFieldId = this.sortByFields.find(field => field.id === sortByField.value)?.id;
+        this.activeSortByFieldId = this.sortByFields.find(
+            field => field.id === sortByField.value,
+        )?.id;
     }
 
     onToggleOrder() {
@@ -91,7 +103,9 @@ export class CartTableComponent implements OnInit, OnDestroy {
     }
 
     trackBy(_, product?: ICartProduct) {
-        return product ? `${product.id}${product.quantity}${product.isSelected}` : undefined;
+        return product
+            ? `${product.id}${product.quantity}${product.isSelected}`
+            : undefined;
     }
 
     isSomeItemSelected(): boolean {
@@ -99,13 +113,19 @@ export class CartTableComponent implements OnInit, OnDestroy {
     }
 
     removeSelectedItems() {
-        const productsToRemove = this.products.filter(product => product.isSelected);
+        const productsToRemove = this.products.filter(
+            product => product.isSelected,
+        );
 
         this.cartService.removeProducts(productsToRemove);
         this.isCheckAllSelected = false;
     }
 
     getSortedProducts() {
-        return this.orderBy.transform(this.products, this.activeSortByFieldId, this.isDescOrder);
+        return this.orderBy.transform(
+            this.products,
+            this.activeSortByFieldId,
+            this.isDescOrder,
+        );
     }
 }
