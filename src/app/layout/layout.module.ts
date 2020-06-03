@@ -5,7 +5,7 @@ import { AboutComponent, PathNotFoundComponent } from './components';
 
 @NgModule({
     imports: [SharedModule],
-    declarations: [AboutComponent, HomeComponent, PathNotFoundComponent],
-    exports: [AboutComponent, HomeComponent, PathNotFoundComponent],
+    declarations: [AboutComponent, PathNotFoundComponent],
+    exports: [AboutComponent, PathNotFoundComponent],
 })
 export class LayoutModule {}

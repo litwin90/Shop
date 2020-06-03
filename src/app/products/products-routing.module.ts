@@ -3,22 +3,16 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ProductListComponent, ProductCardComponent } from './components';
 import { ProductsComponent } from './products.component';
-import { ProductsPaths } from './products.constants';
+import { AppPaths } from '../app-routing.module';
 
 const routes: Routes = [
     {
-        path: '',
-        component: ProductsComponent,
-        children: [
-            {
-                path: '',
-                component: ProductListComponent,
-            },
-            {
-                path: `${ProductsPaths.Product}/:id`,
-                component: ProductCardComponent,
-            },
-        ],
+        path: AppPaths.ProductsList,
+        component: ProductListComponent,
+    },
+    {
+        path: `${AppPaths.Product}/:id`,
+        component: ProductCardComponent,
     },
 ];
 

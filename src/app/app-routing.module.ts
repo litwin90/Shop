@@ -1,30 +1,23 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent, PathNotFoundComponent } from './layout';
+import { PathNotFoundComponent } from './layout';
 
 export enum AppPaths {
-    Home = 'home',
+    Empty = '',
     ProductsList = 'products-list',
+    Product = 'product',
     Cart = 'cart',
 }
 
 export const appRoutes: Routes = [
     {
-        path: AppPaths.Home,
-        component: HomeComponent,
-    },
-    {
-        path: AppPaths.ProductsList,
-        loadChildren: () => import('./products/products.module').then(m => m.ProductsModule),
-    },
-    {
         path: AppPaths.Cart,
         loadChildren: () => import('./cart/cart.module').then(m => m.CartModule),
     },
     {
-        path: '',
-        redirectTo: AppPaths.Home,
+        path: AppPaths.Empty,
+        redirectTo: AppPaths.ProductsList,
         pathMatch: 'full',
     },
     {
@@ -36,10 +29,6 @@ export const appRoutes: Routes = [
 ];
 
 export const appTabsConfig: { path: string; label: string }[] = [
-    {
-        path: AppPaths.Home,
-        label: 'Home',
-    },
     {
         path: AppPaths.ProductsList,
         label: 'Products',

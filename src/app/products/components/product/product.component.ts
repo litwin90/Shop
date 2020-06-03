@@ -1,8 +1,8 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { IProduct } from '../../models';
-import { ProductsPaths } from '../../products.constants';
+import { AppPaths } from '../../../app-routing.module';
 
 @Component({
     selector: 'app-product',
@@ -15,7 +15,7 @@ export class ProductComponent {
 
     @Output() addToCart = new EventEmitter<IProduct>();
 
-    constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+    constructor(private router: Router) {}
 
     onBuy() {
         this.addToCart.emit(this.product);
@@ -26,6 +26,6 @@ export class ProductComponent {
     }
 
     onOpenProductDetails(product: IProduct) {
-        this.router.navigate([ProductsPaths.Product, product.id], { relativeTo: this.activatedRoute });
+        this.router.navigate([AppPaths.Product, product.id]);
     }
 }

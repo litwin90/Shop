@@ -9,6 +9,7 @@ import { LocalStorageService, ConstantsService, GeneratorFactory, GeneratorServi
 import { APP_CONSTANTS, APP_RANDOM_STRING_5 } from './provider-tokens';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ProductsModule } from './products';
 
 @NgModule({
     imports: [
@@ -16,6 +17,7 @@ import { AppComponent } from './app.component';
         BrowserAnimationsModule,
         LayoutModule,
         MatTabsModule,
+        ProductsModule,
         /**
          * Should be last
          */
