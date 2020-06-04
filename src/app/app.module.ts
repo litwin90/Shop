@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTabsModule } from '@angular/material/tabs';
 
 import { LayoutModule } from './layout';
 import {
@@ -15,13 +14,14 @@ import { APP_CONSTANTS, APP_RANDOM_STRING_5 } from './provider-tokens';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductsModule } from './products';
+import { SharedModule } from './shared';
 
 @NgModule({
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
         LayoutModule,
-        MatTabsModule,
+        SharedModule,
         ProductsModule,
         /**
          * Should be last

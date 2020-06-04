@@ -8,7 +8,7 @@ import {
     HighlightOnClickDirective,
     ChangeBackgroundDirective,
 } from './directives';
-import { BasePageComponent } from './components';
+import { BasePageComponent, AuthButtonComponent } from './components';
 
 @NgModule({
     imports: [CommonModule, FormsModule, MaterialModule],
@@ -17,6 +17,7 @@ import { BasePageComponent } from './components';
         HighlightOnClickDirective,
         OrderByPipe,
         BasePageComponent,
+        AuthButtonComponent,
     ],
     exports: [
         CommonModule,
@@ -26,6 +27,7 @@ import { BasePageComponent } from './components';
         HighlightOnClickDirective,
         OrderByPipe,
         BasePageComponent,
+        AuthButtonComponent,
     ],
     providers: [OrderByPipe],
 })

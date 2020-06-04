@@ -1,12 +1,17 @@
 <nav mat-tab-nav-bar color="primary" backgroundColor="primary">
     <div class="wrapper">
-        <a mat-tab-link
-            *ngFor="let link of appTabsConfig"
-            [routerLink]="link.path"
-            routerLinkActive #rla="routerLinkActive"
-            [active]="rla.isActive">
-            {{link.label}}
-        </a>
+        <div class="nav-tabs">
+            <a mat-tab-link
+                *ngFor="let link of appTabsConfig"
+                [routerLink]="link.path"
+                routerLinkActive #rla="routerLinkActive"
+                [active]="rla.isActive">
+                {{link.label}}
+            </a>
+        </div>
+        <div class="additional-controls">
+            <app-auth-button></app-auth-button>
+        </div>
     </div>
 </nav>
 <router-outlet></router-outlet>

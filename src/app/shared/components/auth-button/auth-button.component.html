@@ -1,0 +1,10 @@
+<button
+    mat-mini-fab
+    class="auth-icon"
+    color="accent"
+    (click)="onToggleAuth()"
+    [ngSwitch]="isLoggedIn"
+>
+    <mat-icon *ngSwitchCase="false">login</mat-icon>
+    <mat-icon *ngSwitchCase="true" size="small">exit_to_app</mat-icon>
+</button>
