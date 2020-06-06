@@ -1,11 +1,12 @@
-import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { MatSelectChange } from '@angular/material/select';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
 import { Subscription } from 'rxjs';
 
-import { CartService, OrderByPipe } from '../../../shared';
+import { CartService, OrderByPipe, AppPaths } from '../../../shared';
 import {
     ICartProduct,
     ICartSortByField,
@@ -37,8 +38,9 @@ export class CartTableComponent implements OnInit, OnDestroy {
 
     constructor(
         private cartService: CartService,
-        private renderer: Renderer2,
         private orderBy: OrderByPipe,
+        private router: Router,
+        private activeRoute: ActivatedRoute,
     ) {}
 
     ngOnInit(): void {
@@ -65,7 +67,7 @@ export class CartTableComponent implements OnInit, OnDestroy {
     }
 
     onIncrease(product: ICartProduct) {
-        this.cartService.increaseQuantity(product);
+        this.cartService.increaseQuantity(product.id);
     }
 
     onDecrease(product: ICartProduct) {
@@ -127,5 +129,11 @@ export class CartTableComponent implements OnInit, OnDestroy {
             this.activeSortByFieldId,
             this.isDescOrder,
         );
+    }
+
+    onNavigateToCartProduct(cartProductId: string) {
+        this.router.navigate([AppPaths.Edit, cartProductId], {
+            relativeTo: this.activeRoute,
+        });
     }
 }

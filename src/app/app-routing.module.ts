@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { PathNotFoundComponent } from './layout';
@@ -36,8 +36,16 @@ export const appTabsConfig: { path: string; label: string }[] = [
     },
 ];
 
+function RouterErrorHandler(error) {
+    console.log(error);
+}
+
 @NgModule({
-    imports: [RouterModule.forRoot(appRoutes)],
+    imports: [
+        RouterModule.forRoot(appRoutes, {
+            errorHandler: RouterErrorHandler,
+        }),
+    ],
     exports: [RouterModule],
 })
 export class AppRoutingModule {}

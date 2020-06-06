@@ -3,4 +3,5 @@ export enum AppPaths {
     ProductsList = 'products-list',
     Product = 'product',
     Cart = 'cart',
+    Edit = 'edit',
 }

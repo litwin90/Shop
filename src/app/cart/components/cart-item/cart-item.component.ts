@@ -27,4 +27,8 @@ export class CartItemComponent {
     onIncrease() {
         this.increase.emit(this.product);
     }
+
+    stopPropagation(event: Event) {
+        event.stopPropagation();
+    }
 }

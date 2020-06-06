@@ -1,9 +1,13 @@
-<app-base-page title="Cart">
+<app-base-page [title]="'Cart'">
     <ng-container *ngIf="isCartFull(); then thenTemplate; else elseTemplate"></ng-container>
     <ng-template #thenTemplate>
         <mat-list class="cart-table">
             <mat-list-item class="table-title">
-                <mat-checkbox [(ngModel)]="isCheckAllSelected" class="checkbox" (change)="onToggleCheckAll($event)"></mat-checkbox>
+                <mat-checkbox
+                    [(ngModel)]="isCheckAllSelected"
+                    class="checkbox"
+                    (change)="onToggleCheckAll($event)"
+                ></mat-checkbox>
                 <div class="name"><span class="nowrap">Product Name</span></div>
                 <div class="quantity"><span class="nowrap">Quantity</span></div>
                 <div class="cost"><span class="nowrap">Cost</span></div>
@@ -30,15 +34,23 @@
                 <mat-divider></mat-divider>
             </mat-list-item>
 
-            <mat-list-item *ngFor="let product of getSortedProducts(); trackBy: trackBy" [appBackGroundOnHover]="HOVER_BACKGROUND_COLOR">
-                <app-cart-item [product]="product" (increase)="onIncrease($event)" (decrease)="onDecrease($event)"></app-cart-item>
+            <mat-list-item
+                *ngFor="let product of getSortedProducts(); trackBy: trackBy"
+                [appBackGroundOnHover]="HOVER_BACKGROUND_COLOR"
+            >
+                <app-cart-item
+                    [product]="product"
+                    (increase)="onIncrease($event)"
+                    (decrease)="onDecrease($event)"
+                    (click)="onNavigateToCartProduct(product.id)"
+                ></app-cart-item>
             </mat-list-item>
 
             <mat-list-item>
                 <div class="table-footer">
                     <div class="checkbox"></div>
                     <div class="name">Total</div>
-                    <div class="quantity">{{cartInfo.totalQuantity }}</div>
+                    <div class="quantity">{{cartInfo.totalQuantity}}</div>
                     <div class="cost">{{cartInfo.totalSum | currency}}</div>
                 </div>
                 <mat-divider></mat-divider>
@@ -46,7 +58,11 @@
 
             <mat-list-item>
                 <div class="table-controls">
-                    <button *ngIf="isSomeItemSelected()" mat-raised-button color="warn" (click)="removeSelectedItems()">Remove selected items from cart</button>
+                    <button
+                        *ngIf="isSomeItemSelected()"
+                        mat-raised-button color="warn"
+                        (click)="removeSelectedItems()"
+                    >Remove selected items from cart</button>
                 </div>
             </mat-list-item>
         </mat-list>

@@ -1,4 +1,8 @@
-<nav mat-tab-nav-bar color="primary" backgroundColor="primary">
+<nav
+    mat-tab-nav-bar
+    color="primary"
+    backgroundColor="primary"
+>
     <div class="wrapper">
         <div class="nav-tabs">
             <a mat-tab-link
@@ -14,4 +18,7 @@
         </div>
     </div>
 </nav>
-<router-outlet></router-outlet>
+<mat-progress-bar *ngIf="isSpinnerDisplayed" mode="indeterminate" color="accent"></mat-progress-bar>
+<div class="content" [class.with-spinner]="isSpinnerDisplayed">
+    <router-outlet></router-outlet>
+</div>

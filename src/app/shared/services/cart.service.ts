@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { Subject } from 'rxjs';
+import { Subject, Observable, of } from 'rxjs';
 
 import { ICartProduct, ICartInfo } from '../../cart';
 import { IProduct } from '../../products';
+import { delay } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
@@ -18,6 +19,12 @@ export class CartService {
 
     constructor() {
         this.updateCartData();
+    }
+
+    getProduct(id: string): Observable<ICartProduct | undefined> {
+        return of(this.cartProducts.find(product => product.id === id)).pipe(
+            delay(2000),
+        );
     }
 
     getProducts(): ICartProduct[] {
@@ -36,7 +43,7 @@ export class CartService {
             productInCart => productInCart.id === product.id,
         );
         if (cartProduct) {
-            this.increaseQuantity(cartProduct);
+            this.increaseQuantity(cartProduct.id);
         } else {
             this.cartProducts.push({
                 id: product.id,
@@ -49,22 +56,42 @@ export class CartService {
         this.updateCartData();
     }
 
-    removeProduct(product: ICartProduct) {
+    removeProduct(id: string) {
         this.cartProducts = this.cartProducts.filter(
-            productInCart => productInCart.id !== product.id,
+            productInCart => productInCart.id !== id,
         );
         this.updateCartData();
     }
 
-    increaseQuantity(product: ICartProduct) {
+    increaseQuantity(id: string) {
+        const product = this.cartProducts.find(p => p.id === id);
         product.cost = product.cost + product.cost / product.quantity;
         product.quantity++;
         this.updateCartData();
     }
 
+    setQuantity(id: string, quantity: number) {
+        const product = this.cartProducts.find(p => p.id === id);
+        const price = product.cost / product.quantity;
+        product.quantity = quantity;
+        product.cost = price * quantity;
+        this.updateCartData();
+    }
+
+    updateProduct({
+        id,
+        quantity,
+        cost,
+    }: Pick<ICartProduct, 'id' | 'quantity' | 'cost'>) {
+        const product = this.cartProducts.find(p => p.id === id);
+        product.cost = cost;
+        product.quantity = quantity;
+        this.updateCartData();
+    }
+
     decreaseQuantity(product: ICartProduct) {
         if (product.quantity === 1) {
-            this.removeProduct(product);
+            this.removeProduct(product.id);
         } else {
             product.cost = product.cost - product.cost / product.quantity;
             product.quantity--;

@@ -1,0 +1,14 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.price,
+.cost,
+.quantity,
+.description,
+.control,
+mat-form-field {
+    margin-top: 10px;
+    font-size: medium;
+}

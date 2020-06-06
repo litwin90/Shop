@@ -1,14 +1,14 @@
 <div class="row">
-    <mat-checkbox [(ngModel)]="product.isSelected" class="checkbox"></mat-checkbox>
+    <mat-checkbox [(ngModel)]="product.isSelected" class="checkbox" appStopPropagation></mat-checkbox>
     <div class="name"><span class="nowrap">{{product.name}}</span> </div>
     <div class="quantity"><span class="nowrap">{{product.quantity}}</span></div>
     <div class="cost"><span class="nowrap">{{product.cost | currency}}</span></div>
     <div class="controls">
-        <button mat-icon-button color="primary" (click)="onIncrease()">
+        <button mat-icon-button color="primary" (click)="onIncrease()"  appStopPropagation>
             <mat-icon>add</mat-icon>
         </button>
 
-        <button mat-icon-button color="warn" (click)="onDecrease()">
+        <button mat-icon-button color="warn" (click)="onDecrease()"  appStopPropagation>
             <mat-icon>remove</mat-icon>
         </button>
     </div>

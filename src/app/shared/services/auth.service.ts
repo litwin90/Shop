@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { of, Observable, Subject } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { delay, tap, finalize } from 'rxjs/operators';
 
 import { SnakeService } from './snake.service';
 import { AppPaths } from '../shared.constants';
+import { SpinnerService } from './spinner.service';
 
 @Injectable({
     providedIn: 'root',
@@ -15,11 +16,19 @@ export class AuthService {
 
     authSubject: Subject<boolean> = new Subject();
 
-    constructor(private snake: SnakeService, private router: Router) {}
+    constructor(
+        private snake: SnakeService,
+        private router: Router,
+        private spinnerService: SpinnerService,
+    ) {}
 
     login() {
         of(true)
-            .pipe(delay(2000))
+            .pipe(
+                tap(() => this.spinnerService.showSpinner()),
+                delay(2000),
+                finalize(() => this.spinnerService.hideSpinner()),
+            )
             .subscribe(isLoggedIn => {
                 this.isLoggedIn = isLoggedIn;
                 this.authSubject.next(isLoggedIn);

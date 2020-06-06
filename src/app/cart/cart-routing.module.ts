@@ -1,17 +1,27 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { CartTableComponent } from './components';
+import { CartTableComponent, CartProductComponent } from './components';
 import { CartComponent } from './cart.component';
+import { AppPaths } from '../shared';
+import { CartPaths } from './cart.constants';
+import { CartItemResolveGuard } from './guards';
 
 const routes: Routes = [
     {
-        path: '',
+        path: AppPaths.Empty,
         component: CartComponent,
         children: [
             {
-                path: '',
+                path: AppPaths.Empty,
                 component: CartTableComponent,
+            },
+            {
+                path: `${AppPaths.Edit}/:${CartPaths.ProductId}`,
+                component: CartProductComponent,
+                resolve: {
+                    productData: CartItemResolveGuard,
+                },
             },
         ],
     },
@@ -22,5 +32,9 @@ const routes: Routes = [
     exports: [RouterModule],
 })
 export class CartRoutingModule {
-    static components = [CartTableComponent, CartComponent];
+    static components = [
+        CartTableComponent,
+        CartComponent,
+        CartProductComponent,
+    ];
 }

@@ -10,6 +10,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
     exports: [
@@ -23,6 +27,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         MatTabsModule,
         MatSnackBarModule,
         MatTooltipModule,
+        MatProgressSpinnerModule,
+        MatProgressBarModule,
+        MatFormFieldModule,
+        MatInputModule,
     ],
 })
 export class MaterialModule {}
