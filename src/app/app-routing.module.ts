@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { PathNotFoundComponent } from './layout';
+import { AuthGuard } from './core/guards/auth.guard';
 
 export enum AppPaths {
     Empty = '',
@@ -15,6 +16,7 @@ export const appRoutes: Routes = [
         path: AppPaths.Cart,
         loadChildren: () =>
             import('./cart/cart.module').then(m => m.CartModule),
+        canActivate: [AuthGuard],
     },
     {
         path: AppPaths.Empty,
