@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { AuthService } from '../../../core/services/auth.service';
 import { Subscription } from 'rxjs';
+
+import { AuthService } from '../../services';
 
 @Component({
     selector: 'app-auth-button',

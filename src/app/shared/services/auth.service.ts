@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { of, Observable, Subject } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
-import { SnakeService } from '../../shared/services/snake.service';
+import { SnakeService } from './snake.service';
+import { AppPaths } from '../shared.constants';
 
 @Injectable({
     providedIn: 'root',
@@ -13,7 +15,7 @@ export class AuthService {
 
     authSubject: Subject<boolean> = new Subject();
 
-    constructor(private snake: SnakeService) {}
+    constructor(private snake: SnakeService, private router: Router) {}
 
     login() {
         of(true)
@@ -29,6 +31,7 @@ export class AuthService {
         this.isLoggedIn = false;
         this.authSubject.next(false);
         this.snake.showSnake({ message: 'You are logged out!' });
+        this.router.navigate([AppPaths.ProductsList]);
     }
 
     getAuthState(): Observable<boolean> {

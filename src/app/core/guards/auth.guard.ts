@@ -8,8 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { AuthService } from '../services';
-import { SnakeService } from '../../shared';
+import { SnakeService, AuthService } from '../../shared';
 
 @Injectable({
     providedIn: 'root',

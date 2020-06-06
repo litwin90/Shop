@@ -1,26 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
-import { ProductService } from '../../services/product.service';
-import { IProduct } from '../../models/product.models';
-import { CartService } from '../../../shared/services/cart.service';
+import { AuthService, CartService } from '../../../shared';
+import { ProductService } from '../../services';
+import { IProduct } from '../../models';
 
 @Component({
     selector: 'app-product-list',
     templateUrl: './product-list.component.html',
     styleUrls: ['./product-list.component.scss'],
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
+    private subscriptions: Subscription[] = [];
+    isLoggedIn = false;
     products: Observable<IProduct[]>;
 
     constructor(
         private productService: ProductService,
         private cartService: CartService,
+        private authService: AuthService,
     ) {}
 
     ngOnInit(): void {
         this.products = this.productService.getProducts();
+        const initialAuthStateSubscription = this.authService
+            .getAuthState()
+            .subscribe(isLoggedIn => {
+                this.isLoggedIn = isLoggedIn;
+            });
+        const authSubscription = this.authService.authSubject.subscribe(
+            isLoggedIn => {
+                this.isLoggedIn = isLoggedIn;
+            },
+        );
+        this.subscriptions.push(authSubscription, initialAuthStateSubscription);
+    }
+
+    ngOnDestroy(): void {
+        this.subscriptions.map(subscription => subscription.unsubscribe());
     }
 
     addToCart(product: IProduct) {

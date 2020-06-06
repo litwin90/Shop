@@ -1,7 +1,8 @@
-<app-base-page title="Products">
+<app-base-page [title]="'Products'">
     <app-product
         *ngFor="let product of products | async "
         [product]="product"
+        [isLoggedIn]="isLoggedIn"
         (addToCart)="addToCart($event)">
     </app-product>
 </app-base-page>

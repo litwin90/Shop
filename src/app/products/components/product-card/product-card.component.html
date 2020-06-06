@@ -1,4 +1,4 @@
-<app-base-page title="Product Details">
+<app-base-page [title]="'Product Details'">
     <div class="wrapper">
         <div class="description" appHighlightOnClick>{{ product.description }}</div>
         <div class="price">Price: {{ product.price | currency }}</div>
@@ -13,6 +13,15 @@
         <ul class="sizes">
             <li *ngFor="let size of product.sizes" class="size">{{size}}</li>
         </ul>
-        <button *ngIf="product.isAvailable" mat-stroked-button (click)="onAddToCart()">Add to Cart</button>
+        <div
+            [matTooltip]="getAddToCartTooltip()"
+        >
+            <button
+                mat-stroked-button
+                *ngIf="product.isAvailable"
+                [disabled]="!isLoggedIn"
+                (click)="onAddToCart()"
+            >Add to Cart</button>
+        </div>
     </div>
 </app-base-page>

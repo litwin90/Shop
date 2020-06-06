@@ -8,7 +8,7 @@ import {
 import { Router } from '@angular/router';
 
 import { IProduct } from '../../models';
-import { AppPaths } from '../../../app-routing.module';
+import { AppPaths } from '../../../shared';
 
 @Component({
     selector: 'app-product',
@@ -18,12 +18,13 @@ import { AppPaths } from '../../../app-routing.module';
 })
 export class ProductComponent {
     @Input() product: IProduct;
+    @Input() isLoggedIn;
 
     @Output() addToCart = new EventEmitter<IProduct>();
 
     constructor(private router: Router) {}
 
-    onBuy() {
+    onAddToCart() {
         this.addToCart.emit(this.product);
     }
 
@@ -33,5 +34,9 @@ export class ProductComponent {
 
     onOpenProductDetails(product: IProduct) {
         this.router.navigate([AppPaths.Product, product.id]);
+    }
+
+    getAddToCartTooltip(): string {
+        return this.isLoggedIn ? 'Add to Cart' : 'Please Login First';
     }
 }

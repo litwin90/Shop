@@ -6,7 +6,16 @@
         <div class="description" appHighlightOnClick>{{ product.description }}</div>
         <div class="price">Price: {{ product.price | currency }}</div>
         <div class="controls">
-            <button *ngIf="product.isAvailable" mat-stroked-button (click)="onBuy()">Add to Cart</button>
+            <div
+                [matTooltip]="getAddToCartTooltip()"
+            >
+                <button
+                    mat-stroked-button
+                    *ngIf="product.isAvailable"
+                    [disabled]="!isLoggedIn"
+                    (click)="onAddToCart()"
+                >Add to Cart</button>
+            </div>
             <button mat-flat-button color="primary" (click)="onOpenProductDetails(product)">See details</button>
         </div>
     </mat-card-content>

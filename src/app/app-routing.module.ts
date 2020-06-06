@@ -3,13 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { PathNotFoundComponent } from './layout';
 import { AuthGuard } from './core/guards/auth.guard';
-
-export enum AppPaths {
-    Empty = '',
-    ProductsList = 'products-list',
-    Product = 'product',
-    Cart = 'cart',
-}
+import { AppPaths } from './shared';
 
 export const appRoutes: Routes = [
     {
