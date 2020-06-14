@@ -1,25 +1,8 @@
 import { Injectable } from '@angular/core';
-import {
-    Resolve,
-    ActivatedRoute,
-    ParamMap,
-    Router,
-    ActivatedRouteSnapshot,
-} from '@angular/router';
+import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
-import {
-    switchMap,
-    catchError,
-    take,
-    finalize,
-    tap,
-    delay,
-    skip,
-    skipUntil,
-    skipWhile,
-    filter,
-} from 'rxjs/operators';
+import { catchError, take, finalize, tap, delay } from 'rxjs/operators';
 
 import { IOrder } from '../models';
 import { OrdersService } from '../services';

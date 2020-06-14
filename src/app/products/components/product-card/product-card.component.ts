@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { switchMap } from 'rxjs/operators';
+import { pluck } from 'rxjs/operators';
 
 import {
     AppPaths,
@@ -10,7 +10,6 @@ import {
     WithSubscriptions,
 } from '../../../shared';
 import { IProduct } from '../../models';
-import { ProductService } from '../../services';
 
 @Component({
     templateUrl: './product-card.component.html',
@@ -23,7 +22,6 @@ export class ProductCardComponent extends WithSubscriptions implements OnInit {
     constructor(
         private router: Router,
         private activeRoute: ActivatedRoute,
-        private productService: ProductService,
         private cartService: CartService,
         private authService: AuthService,
     ) {
@@ -31,19 +29,10 @@ export class ProductCardComponent extends WithSubscriptions implements OnInit {
     }
 
     ngOnInit(): void {
-        const activeRoute$ = this.activeRoute.paramMap
-            .pipe(
-                switchMap((params: ParamMap) =>
-                    this.productService.getProduct(params.get('id')),
-                ),
-            )
-            .subscribe({
-                next: (product: IProduct) => {
-                    this.product = { ...product };
-                },
-                error: (err: any) => {
-                    console.log(err);
-                },
+        const activeRoute$ = this.activeRoute.data
+            .pipe(pluck('product'))
+            .subscribe((product: IProduct) => {
+                this.product = { ...product };
             });
 
         const initialAuthState$ = this.authService

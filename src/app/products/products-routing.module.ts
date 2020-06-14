@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProductListComponent, ProductCardComponent } from './components';
 import { ProductsComponent } from './products.component';
 import { AppPaths } from '../shared';
+import { ResolveProductGuard } from './guards';
 
 const routes: Routes = [
     {
@@ -13,6 +14,9 @@ const routes: Routes = [
     {
         path: `${AppPaths.Product}/:id`,
         component: ProductCardComponent,
+        resolve: {
+            product: ResolveProductGuard,
+        },
     },
 ];
 
