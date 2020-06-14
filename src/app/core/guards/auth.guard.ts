@@ -30,7 +30,7 @@ export class AuthGuard implements CanActivate {
         return this.authService.getAuthState().pipe(
             tap(isLoggedIn => {
                 if (!isLoggedIn) {
-                    this.snake.showSnake({ message: 'Please login First' });
+                    this.snake.show({ message: 'Please login First' });
                     return false;
                 }
                 return true;

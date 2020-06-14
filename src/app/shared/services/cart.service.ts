@@ -1,53 +1,93 @@
 import { Injectable } from '@angular/core';
 
 import { Subject, Observable, of } from 'rxjs';
+import { delay, finalize, tap } from 'rxjs/operators';
 
-import { ICartProduct, ICartInfo } from '../../cart';
+import { ICartProduct, ICartInfo, ICartData } from '../../cart';
 import { IProduct } from '../../products';
-import { delay } from 'rxjs/operators';
+import { SpinnerService } from './spinner.service';
+import { SnakeService } from './snake.service';
+import { REQUESTS_DELAY } from '../shared.constants';
 
 @Injectable({
     providedIn: 'root',
 })
 export class CartService {
-    private cartProducts: ICartProduct[] = [];
-    private totalQuantity: number;
-    private totalSum: number;
+    private cartData: ICartData = {
+        products: [],
+        info: {
+            totalSum: 0,
+            totalQuantity: 0,
+        },
+    };
 
-    public productsSubject = new Subject<ICartProduct[]>();
-    public cartInfoSubject = new Subject<ICartInfo>();
+    cartDataSubject: Subject<ICartData> = new Subject();
 
-    constructor() {
+    constructor(private spinner: SpinnerService, private snake: SnakeService) {
         this.updateCartData();
     }
 
     getProduct(id: string): Observable<ICartProduct | undefined> {
-        return of(this.cartProducts.find(product => product.id === id)).pipe(
-            delay(2000),
+        return of(
+            this.cartData.products.find(product => product.id === id),
+        ).pipe(
+            tap(product => {
+                this.spinner.show();
+                if (!product) {
+                    this.snake.show({
+                        message: `There is no such product in the cart with id ${id}`,
+                    });
+                }
+            }),
+            delay(REQUESTS_DELAY),
+            finalize(() => {
+                this.spinner.hide();
+            }),
         );
     }
 
-    getProducts(): ICartProduct[] {
-        return this.cartProducts;
+    getProducts(): Observable<ICartProduct[]> {
+        return of(this.cartData.products).pipe(
+            tap(() => this.spinner.show()),
+            delay(REQUESTS_DELAY),
+            tap(products => {
+                if (!products) {
+                    this.snake.show({ message: 'Unable to get products' });
+                }
+            }),
+            finalize(() => {
+                this.spinner.hide();
+            }),
+        );
     }
 
-    getCartInfo(): ICartInfo {
-        return {
-            totalQuantity: this.totalQuantity,
-            totalSum: this.totalSum,
-        };
+    getCartInfo(): Observable<ICartInfo> {
+        return of({
+            totalQuantity: this.cartData.info.totalQuantity,
+            totalSum: this.cartData.info.totalSum,
+        }).pipe(
+            tap(() => this.spinner.show()),
+            delay(REQUESTS_DELAY),
+            tap(product => {
+                if (!product) {
+                    this.snake.show({ message: 'Unable to get product' });
+                }
+            }),
+            finalize(() => {
+                this.spinner.hide();
+            }),
+        );
     }
 
     addProduct(product: IProduct) {
-        const cartProduct = this.cartProducts.find(
+        const cartProduct = this.cartData.products.find(
             productInCart => productInCart.id === product.id,
         );
         if (cartProduct) {
             this.increaseQuantity(cartProduct.id);
         } else {
-            this.cartProducts.push({
-                id: product.id,
-                name: product.name,
+            this.cartData.products.push({
+                ...product,
                 cost: product.price,
                 quantity: 1,
                 isSelected: false,
@@ -57,21 +97,21 @@ export class CartService {
     }
 
     removeProduct(id: string) {
-        this.cartProducts = this.cartProducts.filter(
+        this.cartData.products = this.cartData.products.filter(
             productInCart => productInCart.id !== id,
         );
         this.updateCartData();
     }
 
     increaseQuantity(id: string) {
-        const product = this.cartProducts.find(p => p.id === id);
+        const product = this.cartData.products.find(p => p.id === id);
         product.cost = product.cost + product.cost / product.quantity;
         product.quantity++;
         this.updateCartData();
     }
 
     setQuantity(id: string, quantity: number) {
-        const product = this.cartProducts.find(p => p.id === id);
+        const product = this.cartData.products.find(p => p.id === id);
         const price = product.cost / product.quantity;
         product.quantity = quantity;
         product.cost = price * quantity;
@@ -83,7 +123,7 @@ export class CartService {
         quantity,
         cost,
     }: Pick<ICartProduct, 'id' | 'quantity' | 'cost'>) {
-        const product = this.cartProducts.find(p => p.id === id);
+        const product = this.cartData.products.find(p => p.id === id);
         product.cost = cost;
         product.quantity = quantity;
         this.updateCartData();
@@ -102,44 +142,40 @@ export class CartService {
     removeProducts(products: ICartProduct[]) {
         const productsToRemoveIds = products.map(product => product.id);
 
-        this.cartProducts = this.cartProducts.filter(
+        this.cartData.products = this.cartData.products.filter(
             product => !productsToRemoveIds.includes(product.id),
         );
         this.updateCartData();
     }
 
     removeAllProducts() {
-        this.removeProducts(this.cartProducts);
+        this.removeProducts(this.cartData.products);
         this.updateCartData();
     }
 
     checkAllItems() {
-        this.cartProducts.forEach(product => {
+        this.cartData.products.forEach(product => {
             product.isSelected = true;
         });
         this.updateCartData();
     }
 
     unCheckAllItems() {
-        this.cartProducts.forEach(product => {
+        this.cartData.products.forEach(product => {
             product.isSelected = false;
         });
         this.updateCartData();
     }
 
     private updateCartData() {
-        this.productsSubject.next(this.cartProducts);
-        this.totalQuantity = this.cartProducts.reduce(
+        this.cartData.info.totalQuantity = this.cartData.products.reduce(
             (quantity, product) => quantity + product.quantity,
             0,
         );
-        this.totalSum = this.cartProducts.reduce(
+        this.cartData.info.totalSum = this.cartData.products.reduce(
             (sum, product) => sum + product.cost,
             0,
         );
-        this.cartInfoSubject.next({
-            totalSum: this.totalSum,
-            totalQuantity: this.totalQuantity,
-        });
+        this.cartDataSubject.next(this.cartData);
     }
 }

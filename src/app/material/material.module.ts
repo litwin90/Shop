@@ -14,7 +14,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
     exports: [
         MatDividerModule,
@@ -31,6 +32,8 @@ import { MatInputModule } from '@angular/material/input';
         MatProgressBarModule,
         MatFormFieldModule,
         MatInputModule,
+        MatExpansionModule,
+        MatDialogModule,
     ],
 })
 export class MaterialModule {}

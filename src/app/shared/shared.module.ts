@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { MaterialModule } from '../material';
 import { OrderByPipe } from './pipes';
@@ -9,10 +10,21 @@ import {
     ChangeBackgroundDirective,
     StopPropagationDirective,
 } from './directives';
-import { BasePageComponent, AuthButtonComponent } from './components';
+import {
+    BasePageComponent,
+    AuthButtonComponent,
+    ConfirmationComponent,
+    AppNavComponent,
+} from './components';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MaterialModule,
+        RouterModule,
+    ],
     declarations: [
         ChangeBackgroundDirective,
         HighlightOnClickDirective,
@@ -20,8 +32,11 @@ import { BasePageComponent, AuthButtonComponent } from './components';
         BasePageComponent,
         AuthButtonComponent,
         StopPropagationDirective,
+        ConfirmationComponent,
+        AppNavComponent,
     ],
     exports: [
+        RouterModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
@@ -32,7 +47,8 @@ import { BasePageComponent, AuthButtonComponent } from './components';
         BasePageComponent,
         AuthButtonComponent,
         StopPropagationDirective,
+        AppNavComponent,
     ],
-    providers: [OrderByPipe],
+    providers: [OrderByPipe, TitleCasePipe],
 })
 export class SharedModule {}

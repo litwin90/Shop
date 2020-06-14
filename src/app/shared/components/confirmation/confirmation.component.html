@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>{{ options.title | titlecase }}</h1>
+<div mat-dialog-content>
+    <p>{{ options.message | titlecase }}</p>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button color="warn" [mat-dialog-close]="true">{{ options.acceptButtonText | titlecase}}</button>
+    <button mat-raised-button [mat-dialog-close]="false">{{ options.declineButtonText | titlecase }}</button>
+</div>

@@ -1,4 +1,4 @@
-import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { PathNotFoundComponent } from './layout';
@@ -13,6 +13,12 @@ export const appRoutes: Routes = [
         canActivate: [AuthGuard],
     },
     {
+        path: AppPaths.Orders,
+        loadChildren: () =>
+            import('./orders/orders.module').then(m => m.OrdersModule),
+        canActivate: [AuthGuard],
+    },
+    {
         path: AppPaths.Empty,
         redirectTo: AppPaths.ProductsList,
         pathMatch: 'full',
@@ -22,17 +28,6 @@ export const appRoutes: Routes = [
         // doesn't match any paths for routes defined in our configuration
         path: '**',
         component: PathNotFoundComponent,
-    },
-];
-
-export const appTabsConfig: { path: string; label: string }[] = [
-    {
-        path: AppPaths.ProductsList,
-        label: 'Products',
-    },
-    {
-        path: AppPaths.Cart,
-        label: 'Cart',
     },
 ];
 

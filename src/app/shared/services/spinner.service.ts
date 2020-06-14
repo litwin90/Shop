@@ -8,15 +8,21 @@ export class SpinnerService {
     isDisplayed = false;
     spinnerSubject: Subject<boolean> = new Subject();
 
+    private showRequestsCount = 0;
+
     constructor() {}
 
-    showSpinner() {
+    show() {
+        this.showRequestsCount++;
         this.isDisplayed = true;
         this.spinnerSubject.next(true);
     }
 
-    hideSpinner() {
-        this.isDisplayed = false;
-        this.spinnerSubject.next(false);
+    hide() {
+        this.showRequestsCount--;
+        if (!this.showRequestsCount) {
+            this.isDisplayed = false;
+            this.spinnerSubject.next(false);
+        }
     }
 }

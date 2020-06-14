@@ -22,21 +22,19 @@ export class CartItemResolveGuard
     constructor(
         private router: Router,
         private snake: SnakeService,
-        private spinnerService: SpinnerService,
         private cartService: CartService,
         private productService: ProductService,
     ) {}
     resolve(
-        route: ActivatedRouteSnapshot,
+        activeRouteSnapshot: ActivatedRouteSnapshot,
     ): Observable<{ cartProduct: ICartProduct; product: IProduct } | null> {
-        if (!route.paramMap.has(CartPaths.ProductId)) {
-            this.snake.showSnake({ message: `URL is wrong` });
+        if (!activeRouteSnapshot.paramMap.has(CartPaths.ProductId)) {
+            this.snake.show({ message: `URL is wrong` });
             this.router.navigate([AppPaths.Cart]);
             return of(null);
         }
 
-        this.spinnerService.showSpinner();
-        const productId = route.paramMap.get(CartPaths.ProductId);
+        const productId = activeRouteSnapshot.paramMap.get(CartPaths.ProductId);
 
         return zip(
             this.cartService.getProduct(productId),
@@ -46,22 +44,15 @@ export class CartItemResolveGuard
                 if (product && cartProduct) {
                     return { cartProduct, product };
                 } else {
-                    this.snake.showSnake({
-                        message: `There is no such product in the cart with id ${productId}`,
-                    });
                     this.router.navigate([AppPaths.Cart]);
                     return null;
                 }
             }),
             take(1),
             catchError(() => {
-                this.snake.showSnake({
-                    message: 'Ups, something went wrong',
-                });
                 this.router.navigate([AppPaths.Cart]);
                 return of(null);
             }),
-            finalize(() => this.spinnerService.hideSpinner()),
         );
     }
 }

@@ -1,24 +1,4 @@
-<nav
-    mat-tab-nav-bar
-    color="primary"
-    backgroundColor="primary"
->
-    <div class="wrapper">
-        <div class="nav-tabs">
-            <a mat-tab-link
-                *ngFor="let link of appTabsConfig"
-                [routerLink]="link.path"
-                routerLinkActive #rla="routerLinkActive"
-                [active]="rla.isActive">
-                {{link.label}}
-            </a>
-        </div>
-        <div class="additional-controls">
-            <app-auth-button></app-auth-button>
-        </div>
-    </div>
-</nav>
-<mat-progress-bar *ngIf="isSpinnerDisplayed" mode="indeterminate" color="accent"></mat-progress-bar>
-<div class="content" [class.with-spinner]="isSpinnerDisplayed">
+<app-nav></app-nav>
+<div class="content">
     <router-outlet></router-outlet>
 </div>

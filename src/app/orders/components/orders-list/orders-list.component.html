@@ -1,0 +1,60 @@
+<app-base-page [title]="'Orders'">
+    <mat-list class="table">
+        <mat-list-item class="table-title">
+            <mat-checkbox
+                [(ngModel)]="isCheckAllSelected"
+                class="checkbox"
+                (change)="onToggleCheckAll($event)"
+            ></mat-checkbox>
+            <div class="date"><span class="nowrap">Order Date</span></div>
+            <div class="quantity"><span class="nowrap">Quantity</span></div>
+            <div class="cost"><span class="nowrap">Cost</span></div>
+            <div class="controls">
+                <div class="sort-by">
+                    <mat-form-field >
+                        <mat-label>Sort By</mat-label>
+                        <mat-select (selectionChange)="onSelectOrderBy($event)" [(value)]="sortBy">
+                            <mat-option *ngFor="let sortField of sortByFields" [value]="sortField.id">
+                            {{sortField.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="sort-order">
+                    <button *ngIf="!isDescOrder" mat-icon-button color="primary" (click)="onToggleOrder()">
+                        <mat-icon>arrow_upward</mat-icon>
+                    </button>
+                    <button *ngIf="isDescOrder" mat-icon-button color="primary" (click)="onToggleOrder()">
+                        <mat-icon>arrow_downward</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+        </mat-list-item>
+
+        <mat-list-item
+            *ngFor="let order of getSortedOrders(); trackBy: trackBy"
+            class="order"
+            [appBackGroundOnHover]="HOVER_BACKGROUND_COLOR"
+        >
+            <div class="row" (click)="onNavigateToOrderDetails(order)">
+                <mat-checkbox [(ngModel)]="order.isSelected" class="checkbox" appStopPropagation></mat-checkbox>
+                <div class="date"><span class="nowrap">{{order.date | date}}</span></div>
+                <div class="quantity"><span class="nowrap">{{order.quantity}}</span></div>
+                <div class="cost"><span class="nowrap">{{order.cost | currency}}</span></div>
+            </div>
+            <mat-divider></mat-divider>
+        </mat-list-item>
+
+        <mat-list-item>
+            <div class="table-controls">
+                <button
+                    *ngIf="isSomeItemSelected()"
+                    mat-raised-button
+                    color="warn"
+                    (click)="removeSelectedItems()"
+                >{{ getRejectButtonText() }}</button>
+            </div>
+        </mat-list-item>
+    </mat-list>
+</app-base-page>

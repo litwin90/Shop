@@ -1,0 +1,43 @@
+<app-base-page [title]="'Edit Order'" [flexDirection]="FlexDirection.Column">
+    <mat-list>
+        <mat-list-item>Date: {{ order.date | date }}</mat-list-item>
+        <mat-list-item>Products Quantity: {{ order.quantity }}</mat-list-item>
+        <mat-list-item>Total Cost: {{ order.cost | currency }}</mat-list-item>
+    </mat-list>
+    <mat-expansion-panel *ngFor="let product of order.products">
+        <mat-expansion-panel-header>
+            <mat-panel-title>{{ product.name }}</mat-panel-title>
+            <mat-panel-description>
+                Type to view product details
+                <button mat-icon-button color="warn" appStopPropagation (click)="onRemoveFromOrder(product)"><mat-icon>close</mat-icon></button>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-list>
+            <mat-list-item>Price: {{ product.price | currency }}</mat-list-item>
+            <mat-list-item>Description: {{ product.description }}</mat-list-item>
+            <mat-list-item class="quantity">
+                <mat-form-field appearance="fill" >
+                    <mat-label>Quantity</mat-label>
+                    <input
+                        matInput
+                        type="number"
+                        placeholder="Enter Needed Quantity"
+                        [formControl]="quantityControl"
+                        min="1"
+                        (change)="onChangeProductQuantity(product)"
+                    >
+                    <span matSuffix>pc</span>
+                    <mat-error *ngIf="quantityControl.invalid">Min quantity: 1pc</mat-error>
+                </mat-form-field>
+            </mat-list-item>
+
+        </mat-list>
+
+    </mat-expansion-panel>
+    <div class="controls">
+        <button mat-raised-button color="warn" (click)="onRemoveOrder()">Remove Order</button>
+        <button *ngIf="isOrderChanged()" mat-raised-button (click)="onSave()">Save</button>
+        <button *ngIf="isOrderChanged()" mat-raised-button color="warn" (click)="onDecline()">Decline</button>
+    </div>
+
+</app-base-page>

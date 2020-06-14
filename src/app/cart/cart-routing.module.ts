@@ -5,7 +5,7 @@ import { CartTableComponent, CartProductComponent } from './components';
 import { CartComponent } from './cart.component';
 import { AppPaths } from '../shared';
 import { CartPaths } from './cart.constants';
-import { CartItemResolveGuard } from './guards';
+import { CartItemResolveGuard, CartResolveGuard } from './guards';
 
 const routes: Routes = [
     {
@@ -15,6 +15,9 @@ const routes: Routes = [
             {
                 path: AppPaths.Empty,
                 component: CartTableComponent,
+                resolve: {
+                    cartData: CartResolveGuard,
+                },
             },
             {
                 path: `${AppPaths.Edit}/:${CartPaths.ProductId}`,

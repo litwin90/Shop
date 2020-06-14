@@ -15,10 +15,9 @@ import { APP_CONSTANTS, APP_RANDOM_STRING_5 } from '../../../provider-tokens';
     styleUrls: ['./about.component.scss'],
 })
 export class AboutComponent implements OnInit {
-    public cartProducts: ICartProduct[];
+    cartProducts: ICartProduct[];
 
     constructor(
-        private cartService: CartService,
         private localStorage: LocalStorageService,
         private configOptionsService: ConfigOptionsService,
         @Inject(APP_CONSTANTS) private appConstants: IAppConstants,
@@ -26,19 +25,10 @@ export class AboutComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.testCartServiceInjection();
         this.testLocalStorage();
         this.testConfigOptionsService();
         this.testConstantsInjection();
         this.testUseFactoryInjection();
-    }
-
-    private testCartServiceInjection() {
-        if (this.cartService && this.cartService.productsSubject) {
-            console.log('CartService injection works');
-        } else {
-            console.log('CartService injection does not work');
-        }
     }
 
     private testUseFactoryInjection() {

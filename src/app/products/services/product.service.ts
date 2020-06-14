@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { IProduct, Category, ProductColors, ProductSizes } from '../models';
+import { SpinnerService, SnakeService, REQUESTS_DELAY } from '../../shared';
+import { finalize, tap, delay } from 'rxjs/operators';
 
 export const PRODUCTS: IProduct[] = [
     {
@@ -55,13 +57,30 @@ export const PRODUCTS: IProduct[] = [
     providedIn: 'root',
 })
 export class ProductService {
-    constructor() {}
+    constructor(private spinner: SpinnerService, private snake: SnakeService) {}
 
     getProducts(): Observable<IProduct[]> {
-        return of(PRODUCTS);
+        return of(PRODUCTS).pipe(
+            tap(() => this.spinner.show()),
+            delay(REQUESTS_DELAY),
+            finalize(() => {
+                this.spinner.hide();
+            }),
+        );
     }
 
     getProduct(id: string): Observable<IProduct | undefined> {
-        return of(PRODUCTS.find(product => product.id === id));
+        return of(PRODUCTS.find(product => product.id === id)).pipe(
+            tap(() => this.spinner.show()),
+            delay(REQUESTS_DELAY),
+            tap((product: IProduct) => {
+                if (!product) {
+                    this.snake.show({ message: 'Unable to get product' });
+                }
+            }),
+            finalize(() => {
+                this.spinner.hide();
+            }),
+        );
     }
 }

@@ -50,8 +50,8 @@
                 <div class="table-footer">
                     <div class="checkbox"></div>
                     <div class="name">Total</div>
-                    <div class="quantity">{{cartInfo.totalQuantity}}</div>
-                    <div class="cost">{{cartInfo.totalSum | currency}}</div>
+                    <div class="quantity">{{cartData.info.totalQuantity}}</div>
+                    <div class="cost">{{cartData.info.totalSum | currency}}</div>
                 </div>
                 <mat-divider></mat-divider>
             </mat-list-item>
@@ -59,8 +59,14 @@
             <mat-list-item>
                 <div class="table-controls">
                     <button
+                        mat-raised-button
+                        color="primary"
+                        (click)="onCerateOrder()"
+                    >Create Order</button>
+                    <button
                         *ngIf="isSomeItemSelected()"
-                        mat-raised-button color="warn"
+                        mat-raised-button
+                        color="warn"
                         (click)="removeSelectedItems()"
                     >Remove selected items from cart</button>
                 </div>

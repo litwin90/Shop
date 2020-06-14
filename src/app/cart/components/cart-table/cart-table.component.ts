@@ -1,28 +1,31 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { MatSelectChange } from '@angular/material/select';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
-import { Subscription } from 'rxjs';
-
-import { CartService, OrderByPipe, AppPaths } from '../../../shared';
+import {
+    CartService,
+    OrderByPipe,
+    AppPaths,
+    HOVER_BACKGROUND_COLOR,
+    WithSubscriptions,
+} from '../../../shared';
 import {
     ICartProduct,
     ICartSortByField,
-    ICartInfo,
     ICartSortByFieldId,
+    ICartData,
 } from '../../models';
-
-const HOVER_BACKGROUND_COLOR = '#d3d3d31f';
+import { OrdersPaths } from '../../../orders/orders.constants';
+import { pluck } from 'rxjs/operators';
 
 @Component({
     templateUrl: './cart-table.component.html',
     styleUrls: ['./cart-table.component.scss'],
 })
-export class CartTableComponent implements OnInit, OnDestroy {
-    products: ICartProduct[] = [];
-    cartInfo: ICartInfo;
+export class CartTableComponent extends WithSubscriptions implements OnInit {
+    cartData: ICartData;
     sortByFields: ICartSortByField[] = [
         { id: 'cost', name: 'Cost' },
         { id: 'name', name: 'Name' },
@@ -32,8 +35,6 @@ export class CartTableComponent implements OnInit, OnDestroy {
     isCheckAllSelected = false;
     HOVER_BACKGROUND_COLOR = HOVER_BACKGROUND_COLOR;
 
-    private products$: Subscription;
-    private cartInfo$: Subscription;
     private activeSortByFieldId: ICartSortByFieldId = 'name';
 
     constructor(
@@ -41,29 +42,20 @@ export class CartTableComponent implements OnInit, OnDestroy {
         private orderBy: OrderByPipe,
         private router: Router,
         private activeRoute: ActivatedRoute,
-    ) {}
-
-    ngOnInit(): void {
-        // Init:
-        this.products = this.cartService.getProducts();
-        this.cartInfo = this.cartService.getCartInfo();
-
-        // Subscription to updates:
-        this.products$ = this.cartService.productsSubject.subscribe(
-            products => {
-                this.products = products;
-            },
-        );
-        this.cartInfo$ = this.cartService.cartInfoSubject.subscribe(
-            cartInfo => {
-                this.cartInfo = cartInfo;
-            },
-        );
+    ) {
+        super();
     }
 
-    ngOnDestroy(): void {
-        this.products$.unsubscribe();
-        this.cartInfo$.unsubscribe();
+    ngOnInit(): void {
+        const routerData$ = this.activeRoute.data
+            .pipe(pluck('cartData'))
+            .subscribe((cartData: ICartData | null) => {
+                this.cartData = cartData;
+            });
+        const cartData$ = this.cartService.cartDataSubject.subscribe(
+            cartData => (this.cartData = cartData),
+        );
+        this.subscriptions.push(routerData$);
     }
 
     onIncrease(product: ICartProduct) {
@@ -101,7 +93,7 @@ export class CartTableComponent implements OnInit, OnDestroy {
     }
 
     isCartFull(): boolean {
-        return !!this.products.length;
+        return !!this.cartData.products.length;
     }
 
     trackBy(_, product?: ICartProduct) {
@@ -111,11 +103,11 @@ export class CartTableComponent implements OnInit, OnDestroy {
     }
 
     isSomeItemSelected(): boolean {
-        return this.products.some(product => product.isSelected);
+        return this.cartData.products.some(product => product.isSelected);
     }
 
     removeSelectedItems() {
-        const productsToRemove = this.products.filter(
+        const productsToRemove = this.cartData.products.filter(
             product => product.isSelected,
         );
 
@@ -125,7 +117,7 @@ export class CartTableComponent implements OnInit, OnDestroy {
 
     getSortedProducts() {
         return this.orderBy.transform(
-            this.products,
+            this.cartData.products,
             this.activeSortByFieldId,
             this.isDescOrder,
         );
@@ -135,5 +127,9 @@ export class CartTableComponent implements OnInit, OnDestroy {
         this.router.navigate([AppPaths.Edit, cartProductId], {
             relativeTo: this.activeRoute,
         });
+    }
+
+    onCerateOrder() {
+        this.router.navigate([AppPaths.Orders, OrdersPaths.Create]);
     }
 }

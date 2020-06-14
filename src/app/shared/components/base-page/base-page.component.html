@@ -2,8 +2,7 @@
     <mat-card-header class="header">
         <mat-card-title class="title">{{ title }}</mat-card-title>
     </mat-card-header>
-    <mat-card-content class="content">
-        <!-- <mat-spinner [diameter]="50" [disabled]></mat-spinner> -->
+    <mat-card-content class="content" #content>
         <ng-content></ng-content>
     </mat-card-content>
 </mat-card>

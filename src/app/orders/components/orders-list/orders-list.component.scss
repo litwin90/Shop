@@ -1,0 +1,42 @@
+@import '../../orders.styles.scss';
+
+.table {
+    width: 100%;
+}
+
+.table-footer {
+    @include table-row;
+}
+
+.checkbox {
+    @include check-box-cell;
+}
+
+.name {
+    @include name-cell;
+}
+
+.quantity {
+    @include quantity-cell;
+}
+
+.cost {
+    @include cost-cell;
+}
+
+.controls {
+    @include table-row-controls;
+}
+
+.date {
+    @include date-cell;
+}
+
+.order {
+    width: 100%;
+    cursor: pointer;
+}
+
+.row {
+    @include table-row;
+}

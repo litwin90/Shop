@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { of, Observable, Subject } from 'rxjs';
-import { delay, tap, finalize } from 'rxjs/operators';
+import { delay, tap, finalize, map } from 'rxjs/operators';
 
 import { SnakeService } from './snake.service';
-import { AppPaths } from '../shared.constants';
+import { AppPaths, REQUESTS_DELAY } from '../shared.constants';
 import { SpinnerService } from './spinner.service';
 
 @Injectable({
@@ -19,31 +19,38 @@ export class AuthService {
     constructor(
         private snake: SnakeService,
         private router: Router,
-        private spinnerService: SpinnerService,
+        private spinner: SpinnerService,
     ) {}
 
     login() {
         of(true)
             .pipe(
-                tap(() => this.spinnerService.showSpinner()),
-                delay(2000),
-                finalize(() => this.spinnerService.hideSpinner()),
+                tap(() => this.spinner.show()),
+                delay(REQUESTS_DELAY),
+                finalize(() => this.spinner.hide()),
             )
             .subscribe(isLoggedIn => {
                 this.isLoggedIn = isLoggedIn;
                 this.authSubject.next(isLoggedIn);
-                this.snake.showSnake({ message: 'You are logged in!' });
+                this.snake.show({ message: 'You are logged in!' });
             });
     }
 
     logout() {
         this.isLoggedIn = false;
         this.authSubject.next(false);
-        this.snake.showSnake({ message: 'You are logged out!' });
+        this.snake.show({ message: 'You are logged out!' });
         this.router.navigate([AppPaths.ProductsList]);
     }
 
     getAuthState(): Observable<boolean> {
-        return of(this.isLoggedIn);
+        return of(true).pipe(
+            tap(() => this.spinner.show()),
+            delay(REQUESTS_DELAY),
+            map(() => this.isLoggedIn),
+            finalize(() => {
+                this.spinner.hide();
+            }),
+        );
     }
 }

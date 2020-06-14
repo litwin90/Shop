@@ -1,31 +1,25 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from '../../services';
+import { WithSubscriptions } from '../../classes';
 
 @Component({
     selector: 'app-auth-button',
     templateUrl: './auth-button.component.html',
     styleUrls: ['./auth-button.component.scss'],
 })
-export class AuthButtonComponent implements OnInit, OnDestroy {
-    private authSubscription$: Subscription;
-
+export class AuthButtonComponent extends WithSubscriptions implements OnInit {
     isLoggedIn = false;
 
-    constructor(public authService: AuthService) {}
-
-    ngOnInit(): void {
-        this.authSubscription$ = this.authService.authSubject.subscribe(
-            isLoggedIn => {
-                this.isLoggedIn = isLoggedIn;
-            },
-        );
+    constructor(public authService: AuthService) {
+        super();
     }
 
-    ngOnDestroy(): void {
-        this.authSubscription$.unsubscribe();
+    ngOnInit(): void {
+        const auth$ = this.authService.authSubject.subscribe(isLoggedIn => {
+            this.isLoggedIn = isLoggedIn;
+        });
+        this.subscriptions.push(auth$);
     }
 
     onToggleAuth() {

@@ -1,14 +1,9 @@
-import {
-    Component,
-    OnInit,
-    ChangeDetectionStrategy,
-    OnDestroy,
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { pluck } from 'rxjs/operators';
 
-import { CartService, AppPaths } from '../../../shared';
+import { CartService, AppPaths, WithSubscriptions } from '../../../shared';
 import { ICartProduct } from '../../models';
 import { IProduct } from '../../../products';
 import {
@@ -17,16 +12,13 @@ import {
     FormGroup,
     Validators,
 } from '@angular/forms';
-import { Subscription } from 'rxjs';
 
 @Component({
     templateUrl: './cart-product.component.html',
     styleUrls: ['./cart-product.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CartProductComponent implements OnInit, OnDestroy {
-    private subscriptions: Subscription[] = [];
-
+export class CartProductComponent extends WithSubscriptions implements OnInit {
     quantityControl: FormControl;
     options: FormGroup;
 
@@ -39,13 +31,15 @@ export class CartProductComponent implements OnInit, OnDestroy {
 
     constructor(
         private router: Router,
-        private route: ActivatedRoute,
+        private activeRoute: ActivatedRoute,
         private cartService: CartService,
         private formBuilder: FormBuilder,
-    ) {}
+    ) {
+        super();
+    }
 
     ngOnInit(): void {
-        const routeSubscription = this.route.data
+        const routerData$ = this.activeRoute.data
             .pipe(pluck('productData'))
             .subscribe({
                 next: (productData: {
@@ -59,16 +53,12 @@ export class CartProductComponent implements OnInit, OnDestroy {
                     console.log(err);
                 },
             });
-        const quantityChangesSubscription = this.options
+        const quantityField$ = this.options
             .get('quantity')
             .valueChanges.subscribe(quantity => {
                 this.updateProductData(quantity);
             });
-        this.subscriptions.push(routeSubscription, quantityChangesSubscription);
-    }
-
-    ngOnDestroy(): void {
-        this.subscriptions.map(subscription => subscription.unsubscribe());
+        this.subscriptions.push(routerData$, quantityField$);
     }
 
     onSave() {

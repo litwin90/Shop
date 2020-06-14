@@ -4,10 +4,6 @@
     width: 100%;
 }
 
-.table-title {
-    @include table-row;
-}
-
 .table-footer {
     @include table-row;
 }

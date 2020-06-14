@@ -1,10 +1,14 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 import { switchMap } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
 
-import { AppPaths, CartService, AuthService } from '../../../shared';
+import {
+    AppPaths,
+    CartService,
+    AuthService,
+    WithSubscriptions,
+} from '../../../shared';
 import { IProduct } from '../../models';
 import { ProductService } from '../../services';
 
@@ -12,21 +16,22 @@ import { ProductService } from '../../services';
     templateUrl: './product-card.component.html',
     styleUrls: ['./product-card.component.scss'],
 })
-export class ProductCardComponent implements OnInit, OnDestroy {
-    private subscriptions: Subscription[] = [];
+export class ProductCardComponent extends WithSubscriptions implements OnInit {
     isLoggedIn = false;
     product: IProduct;
 
     constructor(
         private router: Router,
-        private route: ActivatedRoute,
+        private activeRoute: ActivatedRoute,
         private productService: ProductService,
         private cartService: CartService,
         private authService: AuthService,
-    ) {}
+    ) {
+        super();
+    }
 
     ngOnInit(): void {
-        const routeSubscription = this.route.paramMap
+        const activeRoute$ = this.activeRoute.paramMap
             .pipe(
                 switchMap((params: ParamMap) =>
                     this.productService.getProduct(params.get('id')),
@@ -41,20 +46,13 @@ export class ProductCardComponent implements OnInit, OnDestroy {
                 },
             });
 
-        const initialAuthStateSubscription = this.authService
+        const initialAuthState$ = this.authService
             .getAuthState()
             .subscribe(isLoggedIn => {
                 this.isLoggedIn = isLoggedIn;
             });
 
-        this.subscriptions.push(
-            routeSubscription,
-            initialAuthStateSubscription,
-        );
-    }
-
-    ngOnDestroy(): void {
-        this.subscriptions.map(subscription => subscription.unsubscribe());
+        this.subscriptions.push(activeRoute$, initialAuthState$);
     }
 
     onAddToCart() {
