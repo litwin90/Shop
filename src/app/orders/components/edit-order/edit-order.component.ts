@@ -133,9 +133,6 @@ export class EditOrderComponent extends WithSubscriptions implements OnInit {
             return this.confirmation.askConfirmation({
                 message:
                     'Are you sure to leave order edit form? Order data is not saved',
-                acceptAction: () => {
-                    this.ordersService.updateOrder(this.order.id, this.order);
-                },
             });
         } else {
             return of(true);

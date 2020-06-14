@@ -1,14 +1,13 @@
-.wrapper {
-    display: flex;
-    flex-direction: column;
+.quantity {
+    margin-top: 20px;
 }
 
-.price,
-.cost,
-.quantity,
-.description,
-.control,
-mat-form-field {
+.controls {
+    display: flex;
+    flex-direction: row;
     margin-top: 10px;
-    font-size: medium;
+
+    button {
+        margin-right: 10px;
+    }
 }
