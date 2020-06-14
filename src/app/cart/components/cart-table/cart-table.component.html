@@ -1,4 +1,4 @@
-<app-base-page [title]="'Cart'">
+<app-base-page header='Cart'>
     <ng-container *ngIf="isCartFull(); then thenTemplate; else elseTemplate"></ng-container>
     <ng-template #thenTemplate>
         <mat-list class="cart-table">

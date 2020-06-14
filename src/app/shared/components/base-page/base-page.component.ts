@@ -17,7 +17,7 @@ import { FlexDirection } from './base-page.model';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BasePageComponent implements AfterViewInit {
-    @Input() title: string;
+    @Input() header: string;
     @Input() flexDirection = FlexDirection.Row;
 
     @ViewChild('content') content: ElementRef<HTMLElement>;
