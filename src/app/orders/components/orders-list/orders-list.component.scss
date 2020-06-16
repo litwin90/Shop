@@ -1,5 +1,9 @@
 @import '../../orders.styles.scss';
 
+:host {
+    margin-top: 20px;
+}
+
 .table {
     width: 100%;
 }

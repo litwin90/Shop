@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { IProduct } from '../../models';
 import { AppPath, HOVER_BACKGROUND_COLOR } from '../../../shared';
 import { AdminPath } from '../../../admin';
+import { ProductService } from '../../services';
 
 @Component({
     selector: 'app-product',
@@ -26,7 +27,10 @@ export class ProductComponent {
 
     HOVER_BACKGROUND_COLOR = HOVER_BACKGROUND_COLOR;
 
-    constructor(private router: Router) {}
+    constructor(
+        private router: Router,
+        private productService: ProductService,
+    ) {}
 
     onAddToCart() {
         this.addToCart.emit(this.product);
@@ -47,6 +51,10 @@ export class ProductComponent {
             AdminPath.Edit,
             this.product.id,
         ]);
+    }
+
+    onRemoveProduct() {
+        this.productService.removeProduct(this.product.id);
     }
 
     getAddToCartTooltip(): string {

@@ -26,5 +26,13 @@
             matTooltip="Edit Product"
             (click)="onEditProduct()"
         ><mat-icon>edit</mat-icon></button>
+        <button
+            *ngIf="isAdmin"
+            appStopPropagation
+            mat-icon-button
+            color="primary"
+            matTooltip="Remove product"
+            (click)="onRemoveProduct()"
+        ><mat-icon>close</mat-icon></button>
     </mat-card-actions>
 </mat-card>

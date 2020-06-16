@@ -8,7 +8,7 @@
 
 <div class="products">
     <app-product
-        *ngFor="let product of products | async "
+        *ngFor="let product of products"
         [product]="product"
         [isLoggedIn]="isLoggedIn"
         [isAdmin]="isAdmin"

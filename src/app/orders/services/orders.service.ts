@@ -31,6 +31,10 @@ export class OrdersService {
         private authService: AuthService,
         private localStorage: LocalStorageService,
     ) {
+        const { userInfo } = this.authService.getAuthData();
+        if (userInfo?.userId) {
+            this.userId = userInfo.userId;
+        }
         const userOrdersFromLocalStorage = this.localStorage.getItem(
             `orders_${this.userId}`,
         ) as IOrder[];
@@ -42,10 +46,6 @@ export class OrdersService {
                 return ordersMap;
             }, new Map());
         }
-        const { userInfo } = this.authService.getAuthData();
-        if (userInfo?.userId) {
-            this.userId = userInfo.userId;
-        }
         this.ordersSubject.subscribe(orders => {
             this.localStorage.setItem(`orders_${this.userId}`, orders);
         });
@@ -55,8 +55,9 @@ export class OrdersService {
         return of(
             [...this.orders.values()].filter(order => order.userId === userId),
         ).pipe(
+            tap(() => this.spinner.show()),
+            delay(REQUESTS_DELAY),
             tap(orders => {
-                this.spinner.show();
                 if (!orders.length) {
                     this.snake.show({
                         message: 'You do not have any orders yet',
@@ -79,6 +80,7 @@ export class OrdersService {
                     });
                 }
             }),
+            delay(REQUESTS_DELAY),
             finalize(() => {
                 this.spinner.hide();
             }),

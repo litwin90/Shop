@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 
 import {
     IProduct,
@@ -14,6 +14,7 @@ import {
     SnakeService,
     REQUESTS_DELAY,
     GeneratorService,
+    ConfirmationService,
 } from '../../shared';
 import { finalize, tap, delay } from 'rxjs/operators';
 
@@ -70,13 +71,19 @@ export const PRODUCTS: IProduct[] = [
 export class ProductService {
     private products: IProduct[] = PRODUCTS;
 
+    productsSubject: Subject<IProduct[]> = new Subject();
+
     constructor(
         private spinner: SpinnerService,
         private snake: SnakeService,
         private generator: GeneratorService,
-    ) {}
+        private confirmation: ConfirmationService,
+    ) {
+        this.pushNewSubjectEvent();
+    }
 
     getProducts(): Observable<IProduct[]> {
+        // return this.products;
         return of(this.products).pipe(
             tap(() => this.spinner.show()),
             delay(REQUESTS_DELAY),
@@ -118,6 +125,7 @@ export class ProductService {
             }),
             finalize(() => {
                 this.spinner.hide();
+                this.pushNewSubjectEvent();
             }),
         );
     }
@@ -138,7 +146,39 @@ export class ProductService {
             }),
             finalize(() => {
                 this.spinner.hide();
+                this.pushNewSubjectEvent();
             }),
         );
+    }
+
+    removeProduct(productId: string) {
+        return this.confirmation
+            .askConfirmation({
+                title: 'Remove product',
+                message: 'Are you sure you want to remove product?',
+            })
+            .pipe(
+                tap(() => this.spinner.show()),
+                tap(isConfirmed => {
+                    if (isConfirmed) {
+                        this.products = this.products.filter(
+                            ({ id }) => id !== productId,
+                        );
+                        this.snake.show({
+                            message: 'Product is removed!',
+                        });
+                    }
+                }),
+                delay(REQUESTS_DELAY),
+                finalize(() => {
+                    this.spinner.hide();
+                    this.pushNewSubjectEvent();
+                }),
+            )
+            .subscribe();
+    }
+
+    pushNewSubjectEvent() {
+        this.productsSubject.next(this.products);
     }
 }
