@@ -10,7 +10,7 @@ import {
 import { Observable, of } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
-import { AppPaths, WithRouteData } from '../../../shared';
+import { AppPath, WithRouteData } from '../../../shared';
 import { IOrder } from '../../models';
 import { OrdersService } from '../../services';
 import { ICartProduct } from '../../../cart';
@@ -56,14 +56,14 @@ export class EditOrderComponent extends WithRouteData implements OnInit {
             .subscribe(order => {
                 if (order) {
                     this.initialOrderSnapshot = JSON.stringify(order);
-                    this.router.navigate([AppPaths.Orders]);
+                    this.router.navigate([AppPath.Orders]);
                 }
             });
     }
 
     onDecline() {
         this.restoreOrder();
-        this.router.navigate([AppPaths.Orders]);
+        this.router.navigate([AppPath.Orders]);
     }
 
     onChangeProductQuantity(product: ICartProduct) {
@@ -83,7 +83,7 @@ export class EditOrderComponent extends WithRouteData implements OnInit {
                         'Are you sure you want to remove last product from order? Order will be declined.',
                     acceptAction: () => {
                         this.ordersService.removeOrder(this.order.id);
-                        this.router.navigate([AppPaths.Orders]);
+                        this.router.navigate([AppPath.Orders]);
                     },
                 })
                 .subscribe();
@@ -99,7 +99,7 @@ export class EditOrderComponent extends WithRouteData implements OnInit {
                 message: 'Are you sure you wand to remove order?',
                 acceptAction: () => {
                     this.ordersService.removeOrder(this.order.id);
-                    this.router.navigate([AppPaths.Orders]);
+                    this.router.navigate([AppPath.Orders]);
                 },
             })
             .subscribe();

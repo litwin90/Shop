@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { pluck } from 'rxjs/operators';
 
-import { WithRouteData, AppPaths, ConfirmationService } from '../../../shared';
+import { WithRouteData, AppPath, ConfirmationService } from '../../../shared';
 import {
     IProduct,
     ProductColors,
@@ -52,7 +52,7 @@ export class EditProductComponent extends WithRouteData implements OnInit {
     onSave() {
         this.productService.updateProduct(this.product.id, this.product);
         this.initialProductSnapshot = JSON.stringify(this.product);
-        this.router.navigate([AppPaths.Admin, AdminPath.Products]);
+        this.router.navigate([AppPath.Admin, AdminPath.Products]);
     }
 
     canDeactivate() {

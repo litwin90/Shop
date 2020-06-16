@@ -1,22 +1,25 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { Observable, of, Subject } from 'rxjs';
+import { tap, finalize, delay } from 'rxjs/operators';
 
 import { IOrder, OrderData } from '../models';
 import {
-    CartService,
     SnakeService,
     SpinnerService,
     REQUESTS_DELAY,
     GeneratorService,
+    AuthService,
+    LocalStorageService,
 } from '../../shared';
-import { tap, finalize, delay } from 'rxjs/operators';
+import { CartService } from '../../cart';
 
 @Injectable({
     providedIn: 'root',
 })
 export class OrdersService {
     private orders: Map<string, IOrder> = new Map();
+    private userId: string;
 
     ordersSubject: Subject<IOrder[]> = new Subject();
 
@@ -25,7 +28,28 @@ export class OrdersService {
         private generator: GeneratorService,
         private snake: SnakeService,
         private spinner: SpinnerService,
-    ) {}
+        private authService: AuthService,
+        private localStorage: LocalStorageService,
+    ) {
+        const userOrdersFromLocalStorage = this.localStorage.getItem(
+            `orders_${this.userId}`,
+        ) as IOrder[];
+        if (userOrdersFromLocalStorage) {
+            this.orders = userOrdersFromLocalStorage.reduce<
+                Map<string, IOrder>
+            >((ordersMap, order) => {
+                ordersMap.set(order.id, order);
+                return ordersMap;
+            }, new Map());
+        }
+        const { userInfo } = this.authService.getAuthData();
+        if (userInfo?.userId) {
+            this.userId = userInfo.userId;
+        }
+        this.ordersSubject.subscribe(orders => {
+            this.localStorage.setItem(`orders_${this.userId}`, orders);
+        });
+    }
 
     getUserOrders(userId: string): Observable<IOrder[]> {
         return of(

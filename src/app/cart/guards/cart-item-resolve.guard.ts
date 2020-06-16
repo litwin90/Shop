@@ -5,8 +5,9 @@ import { Observable, of } from 'rxjs';
 import { take, catchError, map } from 'rxjs/operators';
 
 import { ICartProduct } from '../models';
-import { AppPaths, SnakeService, CartService } from '../../shared';
-import { CartPaths } from '../cart.constants';
+import { AppPath, SnakeService } from '../../shared';
+import { CartPath } from '../cart.constants';
+import { CartService } from '../services';
 
 @Injectable({
     providedIn: 'any',
@@ -21,26 +22,26 @@ export class CartItemResolveGuard implements Resolve<ICartProduct> {
     resolve(
         activeRouteSnapshot: ActivatedRouteSnapshot,
     ): Observable<ICartProduct | null> {
-        if (!activeRouteSnapshot.paramMap.has(CartPaths.ProductId)) {
+        if (!activeRouteSnapshot.paramMap.has(CartPath.ProductId)) {
             this.snake.show({ message: `URL is wrong` });
-            this.router.navigate([AppPaths.Cart]);
+            this.router.navigate([AppPath.Cart]);
             return of(null);
         }
 
-        const productId = activeRouteSnapshot.paramMap.get(CartPaths.ProductId);
+        const productId = activeRouteSnapshot.paramMap.get(CartPath.ProductId);
 
         return this.cartService.getProduct(productId).pipe(
             map((cartProduct: ICartProduct) => {
                 if (cartProduct) {
                     return cartProduct;
                 } else {
-                    this.router.navigate([AppPaths.Cart]);
+                    this.router.navigate([AppPath.Cart]);
                     return null;
                 }
             }),
             take(1),
             catchError(() => {
-                this.router.navigate([AppPaths.Cart]);
+                this.router.navigate([AppPath.Cart]);
                 return of(null);
             }),
         );

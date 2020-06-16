@@ -6,7 +6,7 @@ import { AdminComponent } from './admin.component';
 import { CanLeaveProductAddGuard, CanLeaveProductEditGuard } from './guards';
 import { AddProductComponent, EditProductComponent } from './components';
 import { ProductListComponent, ResolveProductGuard } from '../products';
-import { AppPaths } from '../shared';
+import { AppPath } from '../shared';
 import { OrdersListComponent } from '../orders';
 import { ResolveAdminOrdersGuard } from './guards/resolve-admin-orders.guard';
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { SpinnerService, TabsService, AuthService } from '../../services';
-import { AppPaths } from '../../shared.constants';
+import { AppPath } from '../../shared.constants';
 import { WithSubscriptions } from '../../classes';
 import { TabsConfig } from '../../models';
 
@@ -35,6 +35,6 @@ export class AppNavComponent extends WithSubscriptions implements OnInit {
             this.tabs = tabs;
         });
         this.subscriptions.push(spinner$, tabs$);
-        this.router.navigate([AppPaths.ProductsList]);
+        this.router.navigate([AppPath.ProductsList]);
     }
 }

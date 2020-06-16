@@ -2,17 +2,11 @@ import { Injectable } from '@angular/core';
 import { Resolve, Router } from '@angular/router';
 
 import { Observable, of, zip } from 'rxjs';
-import { delay, catchError, finalize, map } from 'rxjs/operators';
+import { delay, catchError, map } from 'rxjs/operators';
 
-import {
-    CartService,
-    SpinnerService,
-    SnakeService,
-    AppPaths,
-    REQUESTS_DELAY,
-    AuthService,
-} from '../../shared';
-import { IOrder, OrderData } from '../models';
+import { AppPath, AuthService } from '../../shared';
+import { OrderData } from '../models';
+import { CartService } from '../../cart';
 
 @Injectable({
     providedIn: 'root',
@@ -39,11 +33,11 @@ export class OrderCreateResolveGuard implements Resolve<OrderData | null> {
                         userId: authData.userInfo.userId,
                     };
                 }
-                this.router.navigate([AppPaths.Cart]);
+                this.router.navigate([AppPath.Cart]);
                 return null;
             }),
             catchError(() => {
-                this.router.navigate([AppPaths.Cart]);
+                this.router.navigate([AppPath.Cart]);
                 return of(null);
             }),
         );

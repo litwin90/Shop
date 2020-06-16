@@ -1,3 +1,3 @@
-export enum CartPaths {
+export enum CartPath {
     ProductId = 'cartProductId',
 }

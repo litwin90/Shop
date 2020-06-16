@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { pluck } from 'rxjs/operators';
 
 import { OrdersService } from '../../services';
-import { AppPaths, WithRouteData } from '../../../shared';
+import { AppPath, WithRouteData } from '../../../shared';
 import { OrderData } from '../../models';
 
 @Component({
@@ -34,7 +34,7 @@ export class CreateOrderComponent extends WithRouteData implements OnInit {
 
     private createOrder() {
         this.ordersService.createNewOrder(this.newOrderData);
-        this.router.navigate([AppPaths.Orders]);
+        this.router.navigate([AppPath.Orders]);
     }
 
     onSubmit() {
@@ -42,6 +42,6 @@ export class CreateOrderComponent extends WithRouteData implements OnInit {
     }
 
     onDecline() {
-        this.router.navigate([AppPaths.Cart]);
+        this.router.navigate([AppPath.Cart]);
     }
 }

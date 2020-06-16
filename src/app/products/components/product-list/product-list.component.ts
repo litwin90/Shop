@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
+import { startWith } from 'rxjs/operators';
 
-import { AuthService, CartService, AppPaths } from '../../../shared';
+import { AuthService, AppPath, WithRouteData } from '../../../shared';
 import { ProductService } from '../../services';
 import { IProduct } from '../../models';
-import { startWith } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
-import { WithRouteData } from '../../../shared/classes/with-route-data';
 import { AdminPath } from '../../../admin';
+import { CartService } from '../../../cart';
 
 @Component({
     selector: 'app-product-list',
@@ -48,10 +48,6 @@ export class ProductListComponent extends WithRouteData implements OnInit {
     }
 
     onAddNewProduct() {
-        this.router.navigate([
-            AppPaths.Admin,
-            AdminPath.Product,
-            AdminPath.Add,
-        ]);
+        this.router.navigate([AppPath.Admin, AdminPath.Product, AdminPath.Add]);
     }
 }

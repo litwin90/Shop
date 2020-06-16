@@ -6,7 +6,7 @@ import { pluck, catchError } from 'rxjs/operators';
 
 import {
     SnakeService,
-    AppPaths,
+    AppPath,
     HOVER_BACKGROUND_COLOR,
     ISelectableEntity,
     OrderByPipe,
@@ -21,7 +21,7 @@ import {
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatSelectChange } from '@angular/material/select';
 import { OrdersService } from '../../services';
-import { OrdersPaths } from '../../orders.constants';
+import { OrdersPath } from '../../orders.constants';
 
 @Component({
     templateUrl: './orders-list.component.html',
@@ -57,7 +57,7 @@ export class OrdersListComponent extends WithRouteData implements OnInit {
                 pluck('orders'),
                 catchError(() => {
                     this.snake.show({ message: 'Something went wrong' });
-                    this.router.navigate([AppPaths.Orders]);
+                    this.router.navigate([AppPath.Orders]);
                     return of(null);
                 }),
             )
@@ -112,8 +112,8 @@ export class OrdersListComponent extends WithRouteData implements OnInit {
 
     onNavigateToOrderDetails(order: IOrder) {
         this.router.navigate([
-            AppPaths.Orders,
-            OrdersPaths.OrderDetails,
+            AppPath.Orders,
+            OrdersPath.OrderDetails,
             order.id,
         ]);
     }
@@ -128,7 +128,7 @@ export class OrdersListComponent extends WithRouteData implements OnInit {
         itemsToRemove.map(({ id }) => this.orderService.removeOrder(id));
         this.isCheckAllSelected = false;
         if (itemsToRemove.length === this.orders.length) {
-            this.router.navigate([AppPaths.ProductsList]);
+            this.router.navigate([AppPath.ProductsList]);
         }
     }
 

@@ -8,7 +8,7 @@ import {
 import { Router } from '@angular/router';
 
 import { IProduct } from '../../models';
-import { AppPaths, HOVER_BACKGROUND_COLOR } from '../../../shared';
+import { AppPath, HOVER_BACKGROUND_COLOR } from '../../../shared';
 import { AdminPath } from '../../../admin';
 
 @Component({
@@ -37,12 +37,12 @@ export class ProductComponent {
     }
 
     onOpenProductDetails() {
-        this.router.navigate([AppPaths.Product, this.product.id]);
+        this.router.navigate([AppPath.Product, this.product.id]);
     }
 
     onEditProduct() {
         this.router.navigate([
-            AppPaths.Admin,
+            AppPath.Admin,
             AdminPath.Product,
             AdminPath.Edit,
             this.product.id,

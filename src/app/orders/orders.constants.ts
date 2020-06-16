@@ -1,4 +1,4 @@
-export enum OrdersPaths {
+export enum OrdersPath {
     Empty = '',
     Create = 'create',
     OrderDetails = 'details',

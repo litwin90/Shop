@@ -18,15 +18,12 @@ export class ConfigOptionsService {
     }
 
     getOptions(optionsKeys: (keyof IConfigOptions)[]): Partial<IConfigOptions> {
-        return optionsKeys.reduce<Partial<IConfigOptions>>(
-            (options, optionKey) => {
-                const storedOption = this.localStorage.getItem(optionKey);
-                if (storedOption) {
-                    options[optionKey] = storedOption as string;
-                }
-                return options;
-            },
-            {},
-        );
+        return optionsKeys.reduce((options, optionKey) => {
+            const storedOption = this.localStorage.getItem(optionKey);
+            if (storedOption) {
+                options[optionKey] = storedOption as string;
+            }
+            return options;
+        }, {});
     }
 }

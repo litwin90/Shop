@@ -1,23 +1,19 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { pluck } from 'rxjs/operators';
-
-import {
-    CartService,
-    AppPaths,
-    FlexDirection,
-    WithRouteData,
-} from '../../../shared';
-import { ICartProduct } from '../../models';
 import {
     FormControl,
     FormBuilder,
     FormGroup,
     Validators,
 } from '@angular/forms';
+
 import { Observable, of } from 'rxjs';
+import { pluck } from 'rxjs/operators';
+
+import { AppPath, FlexDirection, WithRouteData } from '../../../shared';
+import { ICartProduct } from '../../models';
 import { ConfirmationService } from '../../../shared/services/confirmation.service';
+import { CartService } from '../../services';
 
 @Component({
     templateUrl: './cart-product.component.html',
@@ -62,12 +58,12 @@ export class CartProductComponent extends WithRouteData implements OnInit {
     onSave() {
         this.cartService.updateProduct(this.product);
         this.initialProductSnapshot = JSON.stringify(this.product);
-        this.router.navigate([AppPaths.Cart]);
+        this.router.navigate([AppPath.Cart]);
     }
 
     onRemoveFromCart() {
         this.cartService.removeProduct(this.product.id);
-        this.router.navigate([AppPaths.Cart]);
+        this.router.navigate([AppPath.Cart]);
     }
 
     private configureForm() {

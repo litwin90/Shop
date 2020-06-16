@@ -3,23 +3,23 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ProductListComponent, ProductCardComponent } from './components';
 import { ProductsComponent } from './products.component';
-import { AppPaths } from '../shared';
+import { AppPath } from '../shared';
 import { ResolveProductGuard } from './guards';
 
 const routes: Routes = [
     {
-        path: AppPaths.Empty,
+        path: AppPath.Empty,
         component: ProductsComponent,
         children: [
             {
-                path: AppPaths.ProductsList,
+                path: AppPath.ProductsList,
                 component: ProductListComponent,
                 data: {
                     label: 'Product List',
                 },
             },
             {
-                path: `${AppPaths.Product}/:id`,
+                path: `${AppPath.Product}/:id`,
                 component: ProductCardComponent,
                 resolve: {
                     product: ResolveProductGuard,

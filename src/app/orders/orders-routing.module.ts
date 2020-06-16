@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AppPaths } from '../shared';
+import { AppPath } from '../shared';
 import { OrdersComponent } from './orders.component';
 import {
     OrdersListComponent,
@@ -14,16 +14,16 @@ import {
     OrderDetailsResolveGuard,
     OrdersResolveGuard,
 } from './guards';
-import { OrdersPaths } from './orders.constants';
+import { OrdersPath } from './orders.constants';
 import { OrderCreateResolveGuard } from './guards/order-create-resolve.guard';
 
 const routes: Routes = [
     {
-        path: AppPaths.Empty,
+        path: AppPath.Empty,
         component: OrdersComponent,
         children: [
             {
-                path: OrdersPaths.Empty,
+                path: OrdersPath.Empty,
                 component: OrdersListComponent,
                 resolve: {
                     orders: OrdersResolveGuard,
@@ -33,7 +33,7 @@ const routes: Routes = [
                 },
             },
             {
-                path: OrdersPaths.Create,
+                path: OrdersPath.Create,
                 component: CreateOrderComponent,
                 resolve: {
                     orderData: OrderCreateResolveGuard,
@@ -43,7 +43,7 @@ const routes: Routes = [
                 },
             },
             {
-                path: `${OrdersPaths.OrderDetails}/:${OrdersPaths.OrderId}`,
+                path: `${OrdersPath.OrderDetails}/:${OrdersPath.OrderId}`,
                 component: OrderDetailsComponent,
                 resolve: {
                     order: OrderDetailsResolveGuard,
@@ -53,7 +53,7 @@ const routes: Routes = [
                 },
             },
             {
-                path: `${OrdersPaths.Edit}/:${OrdersPaths.OrderId}`,
+                path: `${OrdersPath.Edit}/:${OrdersPath.OrderId}`,
                 component: EditOrderComponent,
                 resolve: {
                     order: OrderDetailsResolveGuard,

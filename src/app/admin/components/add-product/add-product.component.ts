@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
 
-import { WithRouteData, ConfirmationService, AppPaths } from '../../../shared';
+import { WithRouteData, ConfirmationService, AppPath } from '../../../shared';
 import {
     ProductService,
     Category,
@@ -54,7 +54,7 @@ export class AddProductComponent extends WithRouteData implements OnInit {
     onSave() {
         this.productService.addProduct(this.productData);
         this.initialProductSnapshot = JSON.stringify(this.productData);
-        this.router.navigate([AppPaths.Admin, AdminPath.Products]);
+        this.router.navigate([AppPath.Admin, AdminPath.Products]);
     }
 
     canDeactivate(): Observable<boolean> {

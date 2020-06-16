@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
 import { MatSelectChange } from '@angular/material/select';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
+import { pluck } from 'rxjs/operators';
+
 import {
-    CartService,
     OrderByPipe,
-    AppPaths,
+    AppPath,
     HOVER_BACKGROUND_COLOR,
     WithRouteData,
 } from '../../../shared';
@@ -17,8 +17,8 @@ import {
     ICartSortByFieldId,
     ICartData,
 } from '../../models';
-import { OrdersPaths } from '../../../orders/orders.constants';
-import { pluck } from 'rxjs/operators';
+import { OrdersPath } from '../../../orders/orders.constants';
+import { CartService } from '../../services';
 
 @Component({
     templateUrl: './cart-table.component.html',
@@ -124,12 +124,12 @@ export class CartTableComponent extends WithRouteData implements OnInit {
     }
 
     onNavigateToCartProduct(cartProductId: string) {
-        this.router.navigate([AppPaths.Edit, cartProductId], {
+        this.router.navigate([AppPath.Edit, cartProductId], {
             relativeTo: this.activeRoute,
         });
     }
 
     onCerateOrder() {
-        this.router.navigate([AppPaths.Orders, OrdersPaths.Create]);
+        this.router.navigate([AppPath.Orders, OrdersPath.Create]);
     }
 }

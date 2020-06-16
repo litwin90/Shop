@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 
 import { IOrder, OrdersService } from '../../orders';
-import { AppPaths, AuthService } from '../../shared';
+import { AppPath, AuthService } from '../../shared';
 
 @Injectable({
     providedIn: 'root',
@@ -20,18 +20,18 @@ export class ResolveAdminOrdersGuard implements Resolve<IOrder[] | null> {
     resolve(): Observable<IOrder[] | null> {
         const { userInfo } = this.authService.getAuthData();
         if (!userInfo) {
-            this.router.navigate([AppPaths.Admin]);
+            this.router.navigate([AppPath.Admin]);
             return of(null);
         }
         return this.ordersService.getAllOrders().pipe(
             tap(orders => {
                 if (!orders.length) {
-                    this.router.navigate([AppPaths.Admin]);
+                    this.router.navigate([AppPath.Admin]);
                     return of(null);
                 }
             }),
             catchError(() => {
-                this.router.navigate([AppPaths.Admin]);
+                this.router.navigate([AppPath.Admin]);
                 return of(null);
             }),
         );

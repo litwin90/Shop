@@ -3,13 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { pluck } from 'rxjs/operators';
 
-import {
-    AppPaths,
-    CartService,
-    AuthService,
-    WithRouteData,
-} from '../../../shared';
+import { AppPath, AuthService, WithRouteData } from '../../../shared';
 import { IProduct } from '../../models';
+import { CartService } from '../../../cart';
 
 @Component({
     templateUrl: './product-card.component.html',
@@ -45,7 +41,7 @@ export class ProductCardComponent extends WithRouteData implements OnInit {
 
     onAddToCart() {
         this.cartService.addProduct(this.product);
-        this.router.navigate([AppPaths.ProductsList]);
+        this.router.navigate([AppPath.ProductsList]);
     }
 
     getAvailabilityTitle(): string {

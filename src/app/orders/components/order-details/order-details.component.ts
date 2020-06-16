@@ -3,9 +3,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { pluck } from 'rxjs/operators';
 
-import { OrdersPaths } from '../../orders.constants';
+import { OrdersPath } from '../../orders.constants';
 import { IOrder } from '../../models';
-import { AppPaths, WithRouteData, AuthService } from '../../../shared';
+import { AppPath, WithRouteData, AuthService } from '../../../shared';
 
 @Component({
     templateUrl: './order-details.component.html',
@@ -35,10 +35,6 @@ export class OrderDetailsComponent extends WithRouteData implements OnInit {
     }
 
     onEdit() {
-        this.router.navigate([
-            AppPaths.Orders,
-            OrdersPaths.Edit,
-            this.order.id,
-        ]);
+        this.router.navigate([AppPath.Orders, OrdersPath.Edit, this.order.id]);
     }
 }

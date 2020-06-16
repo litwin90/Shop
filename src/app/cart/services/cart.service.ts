@@ -3,11 +3,9 @@ import { Injectable } from '@angular/core';
 import { Subject, Observable, of } from 'rxjs';
 import { delay, finalize, tap } from 'rxjs/operators';
 
-import { ICartProduct, ICartInfo, ICartData } from '../../cart';
+import { SpinnerService, SnakeService, REQUESTS_DELAY } from '../../shared';
 import { IProduct } from '../../products';
-import { SpinnerService } from './spinner.service';
-import { SnakeService } from './snake.service';
-import { REQUESTS_DELAY } from '../shared.constants';
+import { ICartData, ICartProduct, ICartInfo } from '../models';
 
 @Injectable({
     providedIn: 'root',

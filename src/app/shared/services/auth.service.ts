@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { of, Subject, Subscription, PartialObserver } from 'rxjs';
+import { of, Subject, Subscription } from 'rxjs';
 import { delay, tap, finalize, map } from 'rxjs/operators';
 
 import { SnakeService } from './snake.service';
-import { REQUESTS_DELAY, AppPaths } from '../shared.constants';
+import { REQUESTS_DELAY, AppPath } from '../shared.constants';
 import { SpinnerService } from './spinner.service';
 import { IAuthData } from '../models';
 import { GeneratorService } from './generator.service';
 import { ConfirmationService } from './confirmation.service';
 import { TabsService } from './tabs.service';
+import { ConfigOptionsService } from './config-options.service';
 
 @Injectable({
     providedIn: 'root',
@@ -29,9 +30,15 @@ export class AuthService {
         private router: Router,
         private confirmation: ConfirmationService,
         private tabs: TabsService,
+        private configOptions: ConfigOptionsService,
     ) {}
 
     login(next?: (value: IAuthData) => void): Subscription {
+        let { userId } = this.configOptions.getOptions(['userId']);
+        if (!userId) {
+            userId = this.generator.getRandomString(10);
+            this.configOptions.setOptions({ userId });
+        }
         return this.confirmation
             .askConfirmation({
                 title: 'Authentication',
@@ -46,17 +53,17 @@ export class AuthService {
                         userInfo: {
                             firstName: 'Demo',
                             secondName: 'Admin',
-                            userId: this.generator.getRandomString(10),
+                            userId,
                             isAdmin: asAdmin,
                         },
                     };
                     this.authSubject.next(this.authData);
                     if (asAdmin) {
                         this.tabs.tabsSubject.next(this.tabs.adminTabs);
-                        this.router.navigate([AppPaths.Admin]);
+                        this.router.navigate([AppPath.Admin]);
                     } else {
                         this.tabs.tabsSubject.next(this.tabs.userTabs);
-                        this.router.navigate([AppPaths.ProductsList]);
+                        this.router.navigate([AppPath.ProductsList]);
                     }
                     return this.authData;
                 }),
@@ -85,7 +92,7 @@ export class AuthService {
                 finalize(() => {
                     this.snake.show({ message: 'You are logged out!' });
                     this.spinner.hide();
-                    this.router.navigate([AppPaths.ProductsList]);
+                    this.router.navigate([AppPath.ProductsList]);
                 }),
             )
             .subscribe();

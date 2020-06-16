@@ -6,8 +6,8 @@ import { catchError, take, finalize, tap, delay } from 'rxjs/operators';
 
 import { IOrder } from '../models';
 import { OrdersService } from '../services';
-import { OrdersPaths } from '../orders.constants';
-import { AppPaths, SpinnerService, REQUESTS_DELAY } from '../../shared';
+import { OrdersPath } from '../orders.constants';
+import { AppPath, SpinnerService, REQUESTS_DELAY } from '../../shared';
 
 @Injectable({
     providedIn: 'any',
@@ -20,18 +20,18 @@ export class OrderDetailsResolveGuard implements Resolve<IOrder | null> {
     ) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<IOrder | null> {
-        if (!route.paramMap.has(OrdersPaths.OrderId)) {
+        if (!route.paramMap.has(OrdersPath.OrderId)) {
             return of(null);
         }
 
-        const orderId = route.paramMap.get(OrdersPaths.OrderId);
+        const orderId = route.paramMap.get(OrdersPath.OrderId);
 
         return this.ordersService.getOrder(orderId).pipe(
             tap(() => this.spinner.show()),
             delay(REQUESTS_DELAY),
             take(1),
             catchError(() => {
-                this.router.navigate([AppPaths.Orders]);
+                this.router.navigate([AppPath.Orders]);
                 return of(null);
             }),
             finalize(() => {

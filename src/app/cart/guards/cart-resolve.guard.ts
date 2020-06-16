@@ -5,7 +5,8 @@ import { Observable, zip, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ICartData } from '../models';
-import { CartService, AppPaths, SnakeService, AuthService } from '../../shared';
+import { AppPath, SnakeService, AuthService } from '../../shared';
+import { CartService } from '../services';
 
 @Injectable({
     providedIn: 'any',
@@ -31,17 +32,17 @@ export class CartResolveGuard implements Resolve<ICartData> {
                             this.snake.show({
                                 message: `you are admin. admins might not have cart items`,
                             });
-                            this.router.navigate([AppPaths.Admin]);
+                            this.router.navigate([AppPath.Admin]);
                         } else {
                             this.snake.show({
                                 message: `you don't have any products in cart yet`,
                             });
-                            this.router.navigate([AppPaths.ProductsList]);
+                            this.router.navigate([AppPath.ProductsList]);
                         }
                     }
                     return { products, info };
                 } else {
-                    this.router.navigate([AppPaths.ProductsList]);
+                    this.router.navigate([AppPath.ProductsList]);
                     return null;
                 }
             }),

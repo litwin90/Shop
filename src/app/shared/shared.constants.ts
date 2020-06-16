@@ -1,6 +1,6 @@
 import { TabsConfig } from './models';
 
-export enum AppPaths {
+export enum AppPath {
     Empty = '',
     ProductsList = 'products-list',
     Product = 'product',
@@ -12,25 +12,25 @@ export enum AppPaths {
 
 export const appTabsConfig: TabsConfig = [
     {
-        path: AppPaths.ProductsList,
+        path: AppPath.ProductsList,
         label: 'Products',
         forAdmin: true,
         forUser: true,
     },
     {
-        path: AppPaths.Cart,
+        path: AppPath.Cart,
         label: 'Cart',
         forAdmin: false,
         forUser: true,
     },
     {
-        path: AppPaths.Orders,
+        path: AppPath.Orders,
         label: 'Orders',
         forAdmin: false,
         forUser: true,
     },
     {
-        path: AppPaths.Admin,
+        path: AppPath.Admin,
         label: 'Admin',
         forAdmin: true,
         forUser: false,

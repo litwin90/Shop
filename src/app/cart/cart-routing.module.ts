@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { CartTableComponent, CartProductComponent } from './components';
 import { CartComponent } from './cart.component';
-import { AppPaths } from '../shared';
-import { CartPaths } from './cart.constants';
+import { AppPath } from '../shared';
+import { CartPath } from './cart.constants';
 import {
     CartItemResolveGuard,
     CartResolveGuard,
@@ -13,11 +13,11 @@ import {
 
 const routes: Routes = [
     {
-        path: AppPaths.Empty,
+        path: AppPath.Empty,
         component: CartComponent,
         children: [
             {
-                path: AppPaths.Empty,
+                path: AppPath.Empty,
                 component: CartTableComponent,
                 resolve: {
                     cartData: CartResolveGuard,
@@ -27,7 +27,7 @@ const routes: Routes = [
                 },
             },
             {
-                path: `${AppPaths.Edit}/:${CartPaths.ProductId}`,
+                path: `${AppPath.Edit}/:${CartPath.ProductId}`,
                 component: CartProductComponent,
                 resolve: {
                     product: CartItemResolveGuard,

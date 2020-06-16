@@ -4,3 +4,4 @@ export * from './confirmation-dialog-options';
 export * from './user-info';
 export * from './auth-data';
 export * from './tabs-config';
+export * from './config-options.models';
