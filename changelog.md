@@ -33,3 +33,21 @@
 2. Made `getProducts` method of `ProductsService` to return observable and used `async` build in pipe to extract data in template `product-list.component.html`.
 3. Implemented `OrderByPipe` according to the task requirements and used in `cart.component.html`
 4. App modules was refactored according to the task requirements. `CommonModule`, `FormsModule` now are provided by `SharedModule`. Additionally implemented `MaterialModule`, which reexports all needed `MatModules` to `SharedNodule`
+
+**Task 5. Routing**
+1. Implemented `Products` feature area
+2. Implemented `Cart` feature area
+3. Implemented `Orders` feature area
+4. Implemented `Admin` feature area
+5. Local storage used to stare `user id` and `user orders`  
+*Additional*:   
+1. Added ability to log in as user or as admin
+2. User and admin roles have different access to app tabs
+3. User doesn't see admin tab
+4. Admin doesn't see Cart tab (since there no need for admin to add products in cart) and admin-order tab has all orders from all users (when user orders tabs contains only current user orders)
+5. Admin could edit products not only from admin tab but also from products tab
+6. Added `SnakeService` to show to user some messages
+7. Added `ConfirmationService` to ask confirmation from user
+7. Added `SpinnerService` to show active loading when act with backend  
+*Notes:*  
+To see some orders and access `Orders` tab you should firstly login as `User` (not `Admin`) and add some products in cart and then create order. Then you should re-login as `Admin` to see user orders in `Admin Orders` tab
