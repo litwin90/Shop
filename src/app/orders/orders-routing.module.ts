@@ -10,9 +10,9 @@ import {
     EditOrderComponent,
 } from './components';
 import {
-    OrdersResolveGuard,
     CanLeaveEditOrderGuard,
     OrderDetailsResolveGuard,
+    OrdersResolveGuard,
 } from './guards';
 import { OrdersPaths } from './orders.constants';
 import { OrderCreateResolveGuard } from './guards/order-create-resolve.guard';
@@ -28,6 +28,9 @@ const routes: Routes = [
                 resolve: {
                     orders: OrdersResolveGuard,
                 },
+                data: {
+                    label: 'Order list',
+                },
             },
             {
                 path: OrdersPaths.Create,
@@ -35,12 +38,18 @@ const routes: Routes = [
                 resolve: {
                     orderData: OrderCreateResolveGuard,
                 },
+                data: {
+                    label: 'Create Order',
+                },
             },
             {
                 path: `${OrdersPaths.OrderDetails}/:${OrdersPaths.OrderId}`,
                 component: OrderDetailsComponent,
                 resolve: {
                     order: OrderDetailsResolveGuard,
+                },
+                data: {
+                    label: 'Order details',
                 },
             },
             {
@@ -50,6 +59,9 @@ const routes: Routes = [
                     order: OrderDetailsResolveGuard,
                 },
                 canDeactivate: [CanLeaveEditOrderGuard],
+                data: {
+                    label: 'Edit order',
+                },
             },
         ],
     },

@@ -10,6 +10,7 @@ import {
     SnakeService,
     AppPaths,
     REQUESTS_DELAY,
+    AuthService,
 } from '../../shared';
 import { IOrder, OrderData } from '../models';
 
@@ -17,22 +18,25 @@ import { IOrder, OrderData } from '../models';
     providedIn: 'root',
 })
 export class OrderCreateResolveGuard implements Resolve<OrderData | null> {
-    constructor(private router: Router, private cartService: CartService) {}
+    constructor(
+        private router: Router,
+        private cartService: CartService,
+        private authService: AuthService,
+    ) {}
 
-    resolve(): Observable<Pick<
-        IOrder,
-        'cost' | 'quantity' | 'products'
-    > | null> {
+    resolve(): Observable<OrderData | null> {
         return zip(
             this.cartService.getProducts(),
             this.cartService.getCartInfo(),
+            of(this.authService.getAuthData()),
         ).pipe(
-            map(([products, cartInfo]) => {
-                if (products && cartInfo) {
+            map(([products, cartInfo, authData]) => {
+                if (products && cartInfo && authData && authData.userInfo) {
                     return {
                         products,
                         quantity: cartInfo.totalQuantity,
                         cost: cartInfo.totalSum,
+                        userId: authData.userInfo.userId,
                     };
                 }
                 this.router.navigate([AppPaths.Cart]);

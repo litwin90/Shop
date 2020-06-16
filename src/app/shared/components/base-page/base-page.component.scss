@@ -29,6 +29,9 @@
 .content {
     display: flex;
     flex-wrap: wrap;
-    padding: 15px;
-    justify-content: space-between;
+    padding-top: 30px;
+}
+
+.mat-card .mat-divider-horizontal {
+    top: 55px;
 }

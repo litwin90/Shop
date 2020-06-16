@@ -1,0 +1,19 @@
+<app-base-page [header]="headerLabel | titlecase" [flexDirection]="FlexDirection.Column">
+    <nav
+        mat-tab-nav-bar
+    >
+        <div class="wrapper">
+            <div class="nav-tabs">
+                <a mat-tab-link
+                    *ngFor="let link of adminTabsConfig"
+                    [routerLink]="link.path"
+                    routerLinkActive #rla="routerLinkActive"
+                    [active]="rla.isActive">
+                    {{link.label}}
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <router-outlet (activate)="onActivate($event)"></router-outlet>
+</app-base-page>

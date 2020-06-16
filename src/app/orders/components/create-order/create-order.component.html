@@ -1,22 +1,20 @@
-<app-base-page header='New Order Details' [flexDirection]="FlexDirection.Column">
+<mat-list>
+    <mat-list-item>Products Quantity: {{ newOrderData.quantity }}</mat-list-item>
+    <mat-list-item>Total Cost: {{ newOrderData.cost | currency }}</mat-list-item>
+</mat-list>
+<mat-expansion-panel *ngFor="let product of newOrderData.products">
+    <mat-expansion-panel-header>
+        <mat-panel-title>{{ product.name }}</mat-panel-title>
+    </mat-expansion-panel-header>
     <mat-list>
-        <mat-list-item>Products Quantity: {{ newOrderData.quantity }}</mat-list-item>
-        <mat-list-item>Total Cost: {{ newOrderData.cost | currency }}</mat-list-item>
+        <mat-list-item>Price: {{ product.price | currency }}</mat-list-item>
+        <mat-list-item>Description: {{ product.description }}</mat-list-item>
+        <mat-list-item>Quantity: {{product.quantity}}</mat-list-item>
     </mat-list>
-    <mat-expansion-panel *ngFor="let product of newOrderData.products">
-        <mat-expansion-panel-header>
-            <mat-panel-title>{{ product.name }}</mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-list>
-            <mat-list-item>Price: {{ product.price | currency }}</mat-list-item>
-            <mat-list-item>Description: {{ product.description }}</mat-list-item>
-            <mat-list-item>Quantity: {{product.quantity}}</mat-list-item>
-        </mat-list>
-    </mat-expansion-panel>
-    <mat-list>
-        <mat-list-item>
-            <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
-            <button mat-raised-button color="warn" (click)="onDecline()">Decline</button>
-        </mat-list-item>
-    </mat-list>
-</app-base-page>
+</mat-expansion-panel>
+<mat-list>
+    <mat-list-item>
+        <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
+        <button mat-raised-button color="warn" (click)="onDecline()">Decline</button>
+    </mat-list-item>
+</mat-list>

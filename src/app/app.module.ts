@@ -4,17 +4,12 @@ import { Router } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { LayoutModule } from './layout';
-import {
-    LocalStorageService,
-    ConstantsService,
-    GeneratorFactory,
-    GeneratorService,
-} from './core';
+import { LocalStorageService, ConstantsService } from './core';
 import { APP_CONSTANTS, APP_RANDOM_STRING_5 } from './provider-tokens';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductsModule } from './products';
-import { SharedModule } from './shared';
+import { SharedModule, GeneratorFactory, GeneratorService } from './shared';
 
 @NgModule({
     imports: [

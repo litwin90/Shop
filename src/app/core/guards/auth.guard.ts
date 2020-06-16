@@ -6,7 +6,6 @@ import {
     UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 
 import { SnakeService, AuthService } from '../../shared';
 
@@ -27,14 +26,11 @@ export class AuthGuard implements CanActivate {
         | Promise<boolean | UrlTree>
         | boolean
         | UrlTree {
-        return this.authService.getAuthState().pipe(
-            tap(isLoggedIn => {
-                if (!isLoggedIn) {
-                    this.snake.show({ message: 'Please login First' });
-                    return false;
-                }
-                return true;
-            }),
-        );
+        const { isLoggedIn } = this.authService.getAuthData();
+
+        if (!isLoggedIn) {
+            this.snake.show({ message: 'Please login First' });
+        }
+        return isLoggedIn;
     }
 }

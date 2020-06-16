@@ -1,8 +1,17 @@
-<app-base-page header='Products'>
+<button
+    *ngIf="isAdmin"
+    mat-raised-button
+    class="add-product"
+    color="primary"
+    (click)="onAddNewProduct()"
+>Add New Product</button>
+
+<div class="products">
     <app-product
         *ngFor="let product of products | async "
         [product]="product"
         [isLoggedIn]="isLoggedIn"
-        (addToCart)="addToCart($event)">
-    </app-product>
-</app-base-page>
+        [isAdmin]="isAdmin"
+        (addToCart)="addToCart($event)"
+    ></app-product>
+</div>

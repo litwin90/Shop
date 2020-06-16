@@ -7,11 +7,14 @@ import {
     AfterViewInit,
 } from '@angular/core';
 
+import { HOVER_BACKGROUND_COLOR } from '../shared.constants';
+
 @Directive({
     selector: '[appBackGroundOnHover]',
 })
 export class ChangeBackgroundDirective implements AfterViewInit {
-    @Input('appBackGroundOnHover') backgroundColor: string;
+    @Input('appBackGroundOnHover')
+    backgroundColor: string = HOVER_BACKGROUND_COLOR;
 
     private initialColor: string;
 

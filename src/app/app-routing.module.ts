@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PathNotFoundComponent } from './layout';
 import { AuthGuard } from './core/guards/auth.guard';
 import { AppPaths } from './shared';
+import { AdminGuard } from './admin/guards';
 
 export const appRoutes: Routes = [
     {
@@ -17,6 +18,12 @@ export const appRoutes: Routes = [
         loadChildren: () =>
             import('./orders/orders.module').then(m => m.OrdersModule),
         canActivate: [AuthGuard],
+    },
+    {
+        path: AppPaths.Admin,
+        loadChildren: () =>
+            import('./admin/admin.module').then(m => m.AdminModule),
+        canActivate: [AdminGuard, AuthGuard],
     },
     {
         path: AppPaths.Empty,

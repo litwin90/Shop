@@ -1,22 +1,30 @@
-<mat-card class="wrapper">
+<mat-card class="wrapper"
+    [appBackGroundOnHover]="HOVER_BACKGROUND_COLOR"
+    (click)="onOpenProductDetails()"
+>
     <mat-card-header class="header">
         <mat-card-title class="title">{{ product.name }}</mat-card-title>
     </mat-card-header>
     <mat-card-content class="content">
         <div class="description" appHighlightOnClick>{{ product.description }}</div>
         <div class="price">Price: {{ product.price | currency }}</div>
-        <div class="controls">
-            <div
-                [matTooltip]="getAddToCartTooltip()"
-            >
-                <button
-                    mat-stroked-button
-                    *ngIf="product.isAvailable"
-                    [disabled]="!isLoggedIn"
-                    (click)="onAddToCart()"
-                >Add to Cart</button>
-            </div>
-            <button mat-flat-button color="primary" (click)="onOpenProductDetails(product)">See details</button>
-        </div>
     </mat-card-content>
+    <mat-card-actions>
+        <button
+            *ngIf="isLoggedIn && product.isAvailable && !isAdmin"
+            mat-icon-button
+            appStopPropagation
+            color="primary"
+            [matTooltip]="getAddToCartTooltip()"
+            (click)="onAddToCart()"
+        ><mat-icon>add_shopping_cart</mat-icon></button>
+        <button
+            *ngIf="isAdmin"
+            appStopPropagation
+            mat-icon-button
+            color="primary"
+            matTooltip="Edit Product"
+            (click)="onEditProduct()"
+        ><mat-icon>edit</mat-icon></button>
+    </mat-card-actions>
 </mat-card>

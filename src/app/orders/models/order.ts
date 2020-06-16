@@ -3,6 +3,7 @@ import { ISelectableEntity } from '../../shared';
 
 export interface IOrder {
     id: string;
+    userId: string;
     date: number;
     quantity: number;
     cost: number;

@@ -9,6 +9,7 @@
 .wrapper {
     flex-basis: 300px;
     flex-grow: 2;
+    cursor: pointer;
 }
 
 .header {
@@ -23,20 +24,12 @@
 }
 
 .content {
-    padding: 15px;
-}
-
-.description {
+    margin-top: 20px;
     font-size: medium;
 }
 
-.price {
-    margin: 10px 0;
-    font-size: medium;
-}
-
-.controls {
-    display: flex;
-    width: 100%;
+mat-card-actions {
+    align-items: center;
     justify-content: space-between;
+    display: flex;
 }

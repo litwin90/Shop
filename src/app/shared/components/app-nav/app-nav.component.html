@@ -7,7 +7,7 @@
     <div class="wrapper">
         <div class="nav-tabs">
             <a mat-tab-link
-                *ngFor="let link of appTabsConfig"
+                *ngFor="let link of tabs"
                 [routerLink]="link.path"
                 routerLinkActive #rla="routerLinkActive"
                 [active]="rla.isActive">

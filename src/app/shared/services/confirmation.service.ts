@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { ConfirmationComponent } from '../components';
-import { IConfirmationDialogOptions } from '../models';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
+import { ConfirmationComponent } from '../components/confirmation';
+import { IConfirmationDialogOptions } from '../models';
+
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'any',
 })
 export class ConfirmationService {
     constructor(public dialog: MatDialog) {}

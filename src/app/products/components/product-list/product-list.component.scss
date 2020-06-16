@@ -1,0 +1,14 @@
+:host {
+    width: 100%;
+}
+
+.add-product {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -10px;
+}

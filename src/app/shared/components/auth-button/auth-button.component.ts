@@ -16,9 +16,11 @@ export class AuthButtonComponent extends WithSubscriptions implements OnInit {
     }
 
     ngOnInit(): void {
-        const auth$ = this.authService.authSubject.subscribe(isLoggedIn => {
-            this.isLoggedIn = isLoggedIn;
-        });
+        const auth$ = this.authService.authSubject.subscribe(
+            ({ isLoggedIn }) => {
+                this.isLoggedIn = isLoggedIn;
+            },
+        );
         this.subscriptions.push(auth$);
     }
 

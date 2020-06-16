@@ -2,8 +2,19 @@ import { Injectable } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
 
-import { IProduct, Category, ProductColors, ProductSizes } from '../models';
-import { SpinnerService, SnakeService, REQUESTS_DELAY } from '../../shared';
+import {
+    IProduct,
+    Category,
+    ProductColors,
+    ProductSizes,
+    ProductData,
+} from '../models';
+import {
+    SpinnerService,
+    SnakeService,
+    REQUESTS_DELAY,
+    GeneratorService,
+} from '../../shared';
 import { finalize, tap, delay } from 'rxjs/operators';
 
 export const PRODUCTS: IProduct[] = [
@@ -57,10 +68,16 @@ export const PRODUCTS: IProduct[] = [
     providedIn: 'root',
 })
 export class ProductService {
-    constructor(private spinner: SpinnerService, private snake: SnakeService) {}
+    private products: IProduct[] = PRODUCTS;
+
+    constructor(
+        private spinner: SpinnerService,
+        private snake: SnakeService,
+        private generator: GeneratorService,
+    ) {}
 
     getProducts(): Observable<IProduct[]> {
-        return of(PRODUCTS).pipe(
+        return of(this.products).pipe(
             tap(() => this.spinner.show()),
             delay(REQUESTS_DELAY),
             finalize(() => {
@@ -70,12 +87,53 @@ export class ProductService {
     }
 
     getProduct(id: string): Observable<IProduct | undefined> {
-        return of(PRODUCTS.find(product => product.id === id)).pipe(
+        return of(this.products.find(product => product.id === id)).pipe(
             tap(() => this.spinner.show()),
             delay(REQUESTS_DELAY),
             tap((product: IProduct) => {
                 if (!product) {
                     this.snake.show({ message: 'Unable to get product' });
+                }
+            }),
+            finalize(() => {
+                this.spinner.hide();
+            }),
+        );
+    }
+
+    addProduct(data: ProductData): Observable<IProduct> {
+        const newProduct: IProduct = {
+            ...data,
+            id: this.generator.getRandomString(10),
+            updateDate: Date.now(),
+        };
+        this.products.push(newProduct);
+        return of(newProduct).pipe(
+            tap(() => this.spinner.show()),
+            delay(REQUESTS_DELAY),
+            tap((product: IProduct) => {
+                if (!product) {
+                    this.snake.show({ message: 'Unable to create product' });
+                }
+            }),
+            finalize(() => {
+                this.spinner.hide();
+            }),
+        );
+    }
+
+    updateProduct(productId: string, newProduct: IProduct) {
+        const indefOfOldProduct = this.products.findIndex(
+            ({ id }) => id === productId,
+        );
+        this.products[indefOfOldProduct] = newProduct;
+
+        return of(newProduct).pipe(
+            tap(() => this.spinner.show()),
+            delay(REQUESTS_DELAY),
+            tap((product: IProduct) => {
+                if (!product) {
+                    this.snake.show({ message: 'Unable to create product' });
                 }
             }),
             finalize(() => {

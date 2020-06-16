@@ -10,7 +10,7 @@ import {
     HOVER_BACKGROUND_COLOR,
     ISelectableEntity,
     OrderByPipe,
-    WithSubscriptions,
+    WithRouteData,
 } from '../../../shared';
 import {
     IOrder,
@@ -28,7 +28,7 @@ import { OrdersPaths } from '../../orders.constants';
     styleUrls: ['./orders-list.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrdersListComponent extends WithSubscriptions implements OnInit {
+export class OrdersListComponent extends WithRouteData implements OnInit {
     orders: ISelectableOrder[] = [];
     HOVER_BACKGROUND_COLOR = HOVER_BACKGROUND_COLOR;
     sortByFields: IOrderSortByField[] = [
@@ -48,7 +48,7 @@ export class OrdersListComponent extends WithSubscriptions implements OnInit {
         private orderService: OrdersService,
         private orderBy: OrderByPipe,
     ) {
-        super();
+        super(activeRoute);
     }
 
     ngOnInit(): void {

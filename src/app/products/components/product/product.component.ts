@@ -8,7 +8,8 @@ import {
 import { Router } from '@angular/router';
 
 import { IProduct } from '../../models';
-import { AppPaths } from '../../../shared';
+import { AppPaths, HOVER_BACKGROUND_COLOR } from '../../../shared';
+import { AdminPath } from '../../../admin';
 
 @Component({
     selector: 'app-product',
@@ -18,9 +19,12 @@ import { AppPaths } from '../../../shared';
 })
 export class ProductComponent {
     @Input() product: IProduct;
-    @Input() isLoggedIn;
+    @Input() isLoggedIn: boolean;
+    @Input() isAdmin: boolean;
 
     @Output() addToCart = new EventEmitter<IProduct>();
+
+    HOVER_BACKGROUND_COLOR = HOVER_BACKGROUND_COLOR;
 
     constructor(private router: Router) {}
 
@@ -32,8 +36,17 @@ export class ProductComponent {
         return this.product.isAvailable ? 'Available' : 'Not Available';
     }
 
-    onOpenProductDetails(product: IProduct) {
-        this.router.navigate([AppPaths.Product, product.id]);
+    onOpenProductDetails() {
+        this.router.navigate([AppPaths.Product, this.product.id]);
+    }
+
+    onEditProduct() {
+        this.router.navigate([
+            AppPaths.Admin,
+            AdminPath.Product,
+            AdminPath.Edit,
+            this.product.id,
+        ]);
     }
 
     getAddToCartTooltip(): string {

@@ -94,6 +94,7 @@ export class CartService {
             });
         }
         this.updateCartData();
+        this.snake.show({ message: `${product.name} is added to cart` });
     }
 
     removeProduct(id: string) {

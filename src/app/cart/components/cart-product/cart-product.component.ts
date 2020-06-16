@@ -6,8 +6,8 @@ import { pluck } from 'rxjs/operators';
 import {
     CartService,
     AppPaths,
-    WithSubscriptions,
     FlexDirection,
+    WithRouteData,
 } from '../../../shared';
 import { ICartProduct } from '../../models';
 import {
@@ -24,7 +24,7 @@ import { ConfirmationService } from '../../../shared/services/confirmation.servi
     styleUrls: ['./cart-product.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CartProductComponent extends WithSubscriptions implements OnInit {
+export class CartProductComponent extends WithRouteData implements OnInit {
     quantityControl: FormControl;
     options: FormGroup;
 
@@ -40,7 +40,7 @@ export class CartProductComponent extends WithSubscriptions implements OnInit {
         private formBuilder: FormBuilder,
         private confirmation: ConfirmationService,
     ) {
-        super();
+        super(activeRoute);
     }
 
     ngOnInit(): void {

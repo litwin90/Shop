@@ -1,4 +1,4 @@
-import { IProduct } from '../../products/models/product.models';
+import { IProduct } from '../../products/models/product';
 
 export interface ICartProduct extends IProduct {
     quantity: number;

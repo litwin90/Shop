@@ -9,7 +9,7 @@ import { ProductService } from '../services';
 import { SpinnerService, REQUESTS_DELAY } from '../../shared';
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'any',
 })
 export class ResolveProductGuard implements Resolve<IProduct> {
     constructor(

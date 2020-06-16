@@ -9,7 +9,7 @@ import {
     OrderByPipe,
     AppPaths,
     HOVER_BACKGROUND_COLOR,
-    WithSubscriptions,
+    WithRouteData,
 } from '../../../shared';
 import {
     ICartProduct,
@@ -24,7 +24,7 @@ import { pluck } from 'rxjs/operators';
     templateUrl: './cart-table.component.html',
     styleUrls: ['./cart-table.component.scss'],
 })
-export class CartTableComponent extends WithSubscriptions implements OnInit {
+export class CartTableComponent extends WithRouteData implements OnInit {
     cartData: ICartData;
     sortByFields: ICartSortByField[] = [
         { id: 'cost', name: 'Cost' },
@@ -43,7 +43,7 @@ export class CartTableComponent extends WithSubscriptions implements OnInit {
         private router: Router,
         private activeRoute: ActivatedRoute,
     ) {
-        super();
+        super(activeRoute);
     }
 
     ngOnInit(): void {

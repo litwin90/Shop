@@ -1,38 +1,36 @@
-<app-base-page header='Product' [flexDirection]="FlexDirection.Column">
-    <mat-list>
-        <mat-list-item>Description: {{ product.description }}</mat-list-item>
-        <mat-list-item>Price: {{ product.price | currency}}</mat-list-item>
-        <mat-list-item>Total Cost: {{ product.cost | currency }}</mat-list-item>
-        <mat-list-item class="quantity">
-            <mat-form-field appearance="fill" >
-                <mat-label>Quantity</mat-label>
-                <input
-                    matInput
-                    type="number"
-                    placeholder="Enter Needed Quantity"
-                    [formControl]="quantityControl"
-                    min="1"
-                >
-                <span matSuffix>pc</span>
-                <mat-error *ngIf="quantityControl.invalid">Min quantity: 1pc</mat-error>
-            </mat-form-field>
-        </mat-list-item>
+<mat-list>
+    <mat-list-item>Description: {{ product.description }}</mat-list-item>
+    <mat-list-item>Price: {{ product.price | currency}}</mat-list-item>
+    <mat-list-item>Total Cost: {{ product.cost | currency }}</mat-list-item>
+    <mat-list-item class="quantity">
+        <mat-form-field appearance="fill" >
+            <mat-label>Quantity</mat-label>
+            <input
+                matInput
+                type="number"
+                placeholder="Enter Needed Quantity"
+                [formControl]="quantityControl"
+                min="1"
+            >
+            <span matSuffix>pc</span>
+            <mat-error *ngIf="quantityControl.invalid">Min quantity: 1pc</mat-error>
+        </mat-form-field>
+    </mat-list-item>
 
-        <mat-list-item class="controls">
-            <button
-                class="control"
-                mat-raised-button
-                color="warn"
-                (click)="onRemoveFromCart()"
-            >Remove from cart</button>
+    <mat-list-item class="controls">
+        <button
+            class="control"
+            mat-raised-button
+            color="warn"
+            (click)="onRemoveFromCart()"
+        >Remove from cart</button>
 
-            <button
-                *ngIf="isProductChanged()"
-                class="control"
-                mat-raised-button
-                color="primary"
-                (click)="onSave()"
-            >Save</button>
-        </mat-list-item>
-    </mat-list>
-</app-base-page>
+        <button
+            *ngIf="isProductChanged()"
+            class="control"
+            mat-raised-button
+            color="primary"
+            (click)="onSave()"
+        >Save</button>
+    </mat-list-item>
+</mat-list>

@@ -1,27 +1,20 @@
-<app-base-page header='Product Details'>
-    <div class="wrapper">
-        <div class="description" appHighlightOnClick>{{ product.description }}</div>
-        <div class="price">Price: {{ product.price | currency }}</div>
-        <div class="category">Category: {{ product.category | uppercase }}</div>
-        <div class="update-date">Updated: {{ product.updateDate | date:'fullDate' }}</div>
-        <div class="availability" [class.not-available]="!product.isAvailable">{{ getAvailabilityTitle() }}</div>
-        <span class="colors-header">Colors:</span>
-        <ul class="colors">
-            <li *ngFor="let color of product.colors" class="color">{{color}}</li>
-        </ul>
-        <span class="sizes-header">Sizes:</span>
-        <ul class="sizes">
-            <li *ngFor="let size of product.sizes" class="size">{{size}}</li>
-        </ul>
-        <div
-            [matTooltip]="getAddToCartTooltip()"
-        >
-            <button
-                mat-stroked-button
-                *ngIf="product.isAvailable"
-                [disabled]="!isLoggedIn"
-                (click)="onAddToCart()"
-            >Add to Cart</button>
-        </div>
+<div class="wrapper">
+    <mat-list>
+        <mat-list-item>{{ product.description }}</mat-list-item>
+        <mat-list-item>Price: {{ product.price | currency }}</mat-list-item>
+        <mat-list-item>Category: {{ product.category | uppercase }}</mat-list-item>
+        <mat-list-item>Updated: {{ product.updateDate | date:'fullDate' }}</mat-list-item>
+        <mat-list-item [class.not-available]="!product.isAvailable">{{ getAvailabilityTitle() }}</mat-list-item>
+    </mat-list>
+    <div
+        [matTooltip]="getAddToCartTooltip()"
+    >
+        <button
+            mat-raised-button
+            color="primary"
+            *ngIf="product.isAvailable && !isAdmin"
+            [disabled]="!isLoggedIn"
+            (click)="onAddToCart()"
+        >Add to Cart</button>
     </div>
-</app-base-page>
+</div>

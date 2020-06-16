@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { SpinnerService, AuthService } from '../../services';
-import { AppPaths, appTabsConfig } from '../../shared.constants';
+import { SpinnerService, TabsService, AuthService } from '../../services';
+import { AppPaths } from '../../shared.constants';
 import { WithSubscriptions } from '../../classes';
+import { TabsConfig } from '../../models';
 
 @Component({
     selector: 'app-nav',
@@ -11,24 +12,29 @@ import { WithSubscriptions } from '../../classes';
     styleUrls: ['./app-nav.component.scss'],
 })
 export class AppNavComponent extends WithSubscriptions implements OnInit {
-    appTabsConfig = appTabsConfig;
+    tabs: TabsConfig;
     isSpinnerDisplayed: boolean;
 
     constructor(
         private spinner: SpinnerService,
         private router: Router,
+        private tabsService: TabsService,
         private authService: AuthService,
     ) {
         super();
     }
 
     ngOnInit(): void {
-        this.isSpinnerDisplayed = this.spinner.isDisplayed;
         this.authService.login();
+        this.tabs = this.tabsService.userTabs;
+        this.isSpinnerDisplayed = this.spinner.isDisplayed;
         const spinner$ = this.spinner.spinnerSubject.subscribe(isDisplayed => {
             this.isSpinnerDisplayed = isDisplayed;
         });
-        this.subscriptions.push(spinner$);
+        const tabs$ = this.tabsService.tabsSubject.subscribe(tabs => {
+            this.tabs = tabs;
+        });
+        this.subscriptions.push(spinner$, tabs$);
         this.router.navigate([AppPaths.ProductsList]);
     }
 }

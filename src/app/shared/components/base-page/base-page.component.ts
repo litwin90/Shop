@@ -22,6 +22,8 @@ export class BasePageComponent implements AfterViewInit {
 
     @ViewChild('content') content: ElementRef<HTMLElement>;
 
+    FlexDirection = FlexDirection;
+
     constructor(private renderer: Renderer2) {}
 
     ngAfterViewInit(): void {

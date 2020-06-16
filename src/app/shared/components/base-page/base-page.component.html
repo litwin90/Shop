@@ -1,7 +1,8 @@
 <mat-card class="wrapper">
     <mat-card-header class="header">
-        <mat-card-title class="title">{{ header }}</mat-card-title>
+        <mat-card-title class="title">{{ header | titlecase }}</mat-card-title>
     </mat-card-header>
+    <mat-divider></mat-divider>
     <mat-card-content class="content" #content>
         <ng-content></ng-content>
     </mat-card-content>

@@ -7,7 +7,7 @@ import {
     AppPaths,
     CartService,
     AuthService,
-    WithSubscriptions,
+    WithRouteData,
 } from '../../../shared';
 import { IProduct } from '../../models';
 
@@ -15,8 +15,9 @@ import { IProduct } from '../../models';
     templateUrl: './product-card.component.html',
     styleUrls: ['./product-card.component.scss'],
 })
-export class ProductCardComponent extends WithSubscriptions implements OnInit {
+export class ProductCardComponent extends WithRouteData implements OnInit {
     isLoggedIn = false;
+    isAdmin = false;
     product: IProduct;
 
     constructor(
@@ -25,7 +26,7 @@ export class ProductCardComponent extends WithSubscriptions implements OnInit {
         private cartService: CartService,
         private authService: AuthService,
     ) {
-        super();
+        super(activeRoute);
     }
 
     ngOnInit(): void {
@@ -34,14 +35,12 @@ export class ProductCardComponent extends WithSubscriptions implements OnInit {
             .subscribe((product: IProduct) => {
                 this.product = { ...product };
             });
-
-        const initialAuthState$ = this.authService
-            .getAuthState()
-            .subscribe(isLoggedIn => {
-                this.isLoggedIn = isLoggedIn;
-            });
-
-        this.subscriptions.push(activeRoute$, initialAuthState$);
+        const { isLoggedIn, userInfo } = this.authService.getAuthData();
+        this.isLoggedIn = isLoggedIn;
+        if (userInfo?.isAdmin) {
+            this.isAdmin = true;
+        }
+        this.subscriptions.push(activeRoute$);
     }
 
     onAddToCart() {

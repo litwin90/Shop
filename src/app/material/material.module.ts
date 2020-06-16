@@ -16,6 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatToolbarModule } from '@angular/material/toolbar';
 @NgModule({
     exports: [
         MatDividerModule,
@@ -34,6 +35,7 @@ import { MatDialogModule } from '@angular/material/dialog';
         MatInputModule,
         MatExpansionModule,
         MatDialogModule,
+        MatToolbarModule,
     ],
 })
 export class MaterialModule {}

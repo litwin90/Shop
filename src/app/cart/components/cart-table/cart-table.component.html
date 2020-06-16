@@ -1,79 +1,77 @@
-<app-base-page header='Cart'>
-    <ng-container *ngIf="isCartFull(); then thenTemplate; else elseTemplate"></ng-container>
-    <ng-template #thenTemplate>
-        <mat-list class="cart-table">
-            <mat-list-item class="table-title">
-                <mat-checkbox
-                    [(ngModel)]="isCheckAllSelected"
-                    class="checkbox"
-                    (change)="onToggleCheckAll($event)"
-                ></mat-checkbox>
-                <div class="name"><span class="nowrap">Product Name</span></div>
-                <div class="quantity"><span class="nowrap">Quantity</span></div>
-                <div class="cost"><span class="nowrap">Cost</span></div>
-                <div class="controls">
-                    <div class="sort-by">
-                        <mat-form-field >
-                            <mat-label>Sort By</mat-label>
-                            <mat-select (selectionChange)="onSelectOrderBy($event)" [(value)]="sortBy">
-                                <mat-option *ngFor="let sortField of sortByFields" [value]="sortField.id">
-                                {{sortField.name}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="sort-order">
-                        <button *ngIf="!isDescOrder" mat-icon-button color="primary" (click)="onToggleOrder()">
-                            <mat-icon>arrow_upward</mat-icon>
-                        </button>
-                        <button *ngIf="isDescOrder" mat-icon-button color="primary" (click)="onToggleOrder()">
-                            <mat-icon>arrow_downward</mat-icon>
-                        </button>
-                    </div>
+<ng-container *ngIf="isCartFull(); then thenTemplate; else elseTemplate"></ng-container>
+<ng-template #thenTemplate>
+    <mat-list class="cart-table">
+        <mat-list-item class="table-title">
+            <mat-checkbox
+                [(ngModel)]="isCheckAllSelected"
+                class="checkbox"
+                (change)="onToggleCheckAll($event)"
+            ></mat-checkbox>
+            <div class="name"><span class="nowrap">Product Name</span></div>
+            <div class="quantity"><span class="nowrap">Quantity</span></div>
+            <div class="cost"><span class="nowrap">Cost</span></div>
+            <div class="controls">
+                <div class="sort-by">
+                    <mat-form-field >
+                        <mat-label>Sort By</mat-label>
+                        <mat-select (selectionChange)="onSelectOrderBy($event)" [(value)]="sortBy">
+                            <mat-option *ngFor="let sortField of sortByFields" [value]="sortField.id">
+                            {{sortField.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </div>
-                <mat-divider></mat-divider>
-            </mat-list-item>
-
-            <mat-list-item
-                *ngFor="let product of getSortedProducts(); trackBy: trackBy"
-                [appBackGroundOnHover]="HOVER_BACKGROUND_COLOR"
-            >
-                <app-cart-item
-                    [product]="product"
-                    (increase)="onIncrease($event)"
-                    (decrease)="onDecrease($event)"
-                    (click)="onNavigateToCartProduct(product.id)"
-                ></app-cart-item>
-            </mat-list-item>
-
-            <mat-list-item>
-                <div class="table-footer">
-                    <div class="checkbox"></div>
-                    <div class="name">Total</div>
-                    <div class="quantity">{{cartData.info.totalQuantity}}</div>
-                    <div class="cost">{{cartData.info.totalSum | currency}}</div>
+                <div class="sort-order">
+                    <button *ngIf="!isDescOrder" mat-icon-button color="primary" (click)="onToggleOrder()">
+                        <mat-icon>arrow_upward</mat-icon>
+                    </button>
+                    <button *ngIf="isDescOrder" mat-icon-button color="primary" (click)="onToggleOrder()">
+                        <mat-icon>arrow_downward</mat-icon>
+                    </button>
                 </div>
-                <mat-divider></mat-divider>
-            </mat-list-item>
+            </div>
+            <mat-divider></mat-divider>
+        </mat-list-item>
 
-            <mat-list-item>
-                <div class="table-controls">
-                    <button
-                        mat-raised-button
-                        color="primary"
-                        (click)="onCerateOrder()"
-                    >Create Order</button>
-                    <button
-                        *ngIf="isSomeItemSelected()"
-                        mat-raised-button
-                        color="warn"
-                        (click)="removeSelectedItems()"
-                    >Remove selected items from cart</button>
-                </div>
-            </mat-list-item>
-        </mat-list>
-    </ng-template>
-    <ng-template #elseTemplate>
-        <span>There is no items</span>
-    </ng-template>
-</app-base-page>
+        <mat-list-item
+            *ngFor="let product of getSortedProducts(); trackBy: trackBy"
+            [appBackGroundOnHover]="HOVER_BACKGROUND_COLOR"
+        >
+            <app-cart-item
+                [product]="product"
+                (increase)="onIncrease($event)"
+                (decrease)="onDecrease($event)"
+                (click)="onNavigateToCartProduct(product.id)"
+            ></app-cart-item>
+        </mat-list-item>
+
+        <mat-list-item>
+            <div class="table-footer">
+                <div class="checkbox"></div>
+                <div class="name">Total</div>
+                <div class="quantity">{{cartData.info.totalQuantity}}</div>
+                <div class="cost">{{cartData.info.totalSum | currency}}</div>
+            </div>
+            <mat-divider></mat-divider>
+        </mat-list-item>
+
+        <mat-list-item>
+            <div class="table-controls">
+                <button
+                    mat-raised-button
+                    color="primary"
+                    (click)="onCerateOrder()"
+                >Create Order</button>
+                <button
+                    *ngIf="isSomeItemSelected()"
+                    mat-raised-button
+                    color="warn"
+                    (click)="removeSelectedItems()"
+                >Remove selected items from cart</button>
+            </div>
+        </mat-list-item>
+    </mat-list>
+</ng-template>
+<ng-template #elseTemplate>
+    <span>There is no items</span>
+</ng-template>

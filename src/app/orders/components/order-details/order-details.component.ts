@@ -5,26 +5,29 @@ import { pluck } from 'rxjs/operators';
 
 import { OrdersPaths } from '../../orders.constants';
 import { IOrder } from '../../models';
-import {
-    CartService,
-    FlexDirection,
-    AppPaths,
-    WithSubscriptions,
-} from '../../../shared';
+import { AppPaths, WithRouteData, AuthService } from '../../../shared';
 
 @Component({
     templateUrl: './order-details.component.html',
     styleUrls: ['./order-details.component.scss'],
 })
-export class OrderDetailsComponent extends WithSubscriptions implements OnInit {
+export class OrderDetailsComponent extends WithRouteData implements OnInit {
     order: IOrder;
-    FlexDirection = FlexDirection;
+    isAdmin = false;
 
-    constructor(private router: Router, private activeRoute: ActivatedRoute) {
-        super();
+    constructor(
+        private router: Router,
+        private activeRoute: ActivatedRoute,
+        private authService: AuthService,
+    ) {
+        super(activeRoute);
     }
 
     ngOnInit(): void {
+        const { userInfo } = this.authService.getAuthData();
+        if (userInfo?.isAdmin) {
+            this.isAdmin = true;
+        }
         const activeRoute$ = this.activeRoute.data
             .pipe(pluck('order'))
             .subscribe((order: IOrder) => (this.order = order));

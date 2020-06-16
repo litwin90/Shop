@@ -22,6 +22,9 @@ const routes: Routes = [
                 resolve: {
                     cartData: CartResolveGuard,
                 },
+                data: {
+                    label: 'Cart',
+                },
             },
             {
                 path: `${AppPaths.Edit}/:${CartPaths.ProductId}`,
@@ -30,6 +33,9 @@ const routes: Routes = [
                     product: CartItemResolveGuard,
                 },
                 canDeactivate: [CanLeaveOrderEditGuard],
+                data: {
+                    label: 'Edit cart product',
+                },
             },
         ],
     },

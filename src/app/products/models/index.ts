@@ -1,1 +1,2 @@
-export * from './product.models';
+export * from './product';
+export * from './product-data';

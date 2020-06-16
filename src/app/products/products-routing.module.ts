@@ -8,15 +8,27 @@ import { ResolveProductGuard } from './guards';
 
 const routes: Routes = [
     {
-        path: AppPaths.ProductsList,
-        component: ProductListComponent,
-    },
-    {
-        path: `${AppPaths.Product}/:id`,
-        component: ProductCardComponent,
-        resolve: {
-            product: ResolveProductGuard,
-        },
+        path: AppPaths.Empty,
+        component: ProductsComponent,
+        children: [
+            {
+                path: AppPaths.ProductsList,
+                component: ProductListComponent,
+                data: {
+                    label: 'Product List',
+                },
+            },
+            {
+                path: `${AppPaths.Product}/:id`,
+                component: ProductCardComponent,
+                resolve: {
+                    product: ResolveProductGuard,
+                },
+                data: {
+                    label: 'Product Details',
+                },
+            },
+        ],
     },
 ];
 

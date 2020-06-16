@@ -8,9 +8,9 @@ import {
     SnakeService,
     SpinnerService,
     REQUESTS_DELAY,
+    GeneratorService,
 } from '../../shared';
-import { GeneratorService } from '../../core';
-import { tap, finalize, catchError, delay } from 'rxjs/operators';
+import { tap, finalize, delay } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
@@ -27,13 +27,31 @@ export class OrdersService {
         private spinner: SpinnerService,
     ) {}
 
-    getUserOrders(): Observable<IOrder[]> {
-        return of([...this.orders.values()]).pipe(
+    getUserOrders(userId: string): Observable<IOrder[]> {
+        return of(
+            [...this.orders.values()].filter(order => order.userId === userId),
+        ).pipe(
             tap(orders => {
                 this.spinner.show();
                 if (!orders.length) {
                     this.snake.show({
                         message: 'You do not have any orders yet',
+                    });
+                }
+            }),
+            finalize(() => {
+                this.spinner.hide();
+            }),
+        );
+    }
+
+    getAllOrders(): Observable<IOrder[]> {
+        return of([...this.orders.values()]).pipe(
+            tap(orders => {
+                this.spinner.show();
+                if (!orders.length) {
+                    this.snake.show({
+                        message: 'There are not any orders yet',
                     });
                 }
             }),
@@ -68,9 +86,11 @@ export class OrdersService {
         cost,
         quantity,
         products,
+        userId,
     }: OrderData): Observable<IOrder> {
         const order: IOrder = {
             id: this.generator.getRandomString(10),
+            userId,
             cost,
             quantity,
             products: [...products],

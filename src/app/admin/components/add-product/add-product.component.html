@@ -1,0 +1,48 @@
+<mat-form-field>
+    <mat-label>Product Name</mat-label>
+    <input matInput [(ngModel)]="productData.name" type="text" minlength="3" maxlength="10">
+</mat-form-field>
+<mat-form-field>
+    <mat-label>Description</mat-label>
+    <textarea matInput [(ngModel)]="productData.description"></textarea>
+</mat-form-field>
+<mat-form-field>
+    <mat-label>Price</mat-label>
+    <input matInput [(ngModel)]="productData.price" type="number" min="1">
+</mat-form-field>
+<mat-form-field>
+    <mat-label>Category</mat-label>
+    <mat-select [(ngModel)]="productData.category">
+        <mat-option [value]="Category.Primary">{{ Category.Primary }}</mat-option>
+        <mat-option [value]="Category.Secondary">{{ Category.Secondary }}</mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-form-field>
+    <mat-label>Is Available</mat-label>
+    <mat-select [(ngModel)]="productData.isAvailable">
+        <mat-option [value]="true">True</mat-option>
+        <mat-option [value]="false">False</mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-form-field>
+    <mat-label>Colors</mat-label>
+    <mat-select [(ngModel)]="productData.colors" multiple>
+        <mat-option [value]="ProductColors.Blue">{{ ProductColors.Blue }}</mat-option>
+        <mat-option [value]="ProductColors.Red">{{ ProductColors.Red }}</mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-form-field>
+    <mat-label>Sizes</mat-label>
+    <mat-select [(ngModel)]="productData.sizes" multiple>
+        <mat-option [value]="ProductSizes.L">{{ ProductSizes.L }}</mat-option>
+        <mat-option [value]="ProductSizes.M">{{ ProductSizes.M }}</mat-option>
+        <mat-option [value]="ProductSizes.S">{{ ProductSizes.S }}</mat-option>
+    </mat-select>
+</mat-form-field>
+<button
+    *ngIf="isProductChanged()"
+    mat-raised-button
+    type="submit"
+    color="primary"
+    (click)="onSave()"
+>Save</button>
