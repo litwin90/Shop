@@ -87,7 +87,7 @@ export class CartProductComponent extends WithRouteData implements OnInit {
 
     canDeactivate(): Observable<boolean> {
         if (this.isProductChanged() && this.product) {
-            return this.confirmation.askConfirmation({
+            return this.confirmation.ask({
                 message: 'Are you sure to leave edit form? Data is not saved',
             });
         } else {

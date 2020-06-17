@@ -2,16 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { finalize, tap, delay, map, switchMap } from 'rxjs/operators';
+import { finalize, tap, switchMap } from 'rxjs/operators';
 
 import { IProduct, ProductData } from '../models';
-import {
-    SpinnerService,
-    SnakeService,
-    REQUESTS_DELAY,
-    GeneratorService,
-    ConfirmationService,
-} from '../../shared';
+import { DialogService, ConfirmationService } from '../../shared';
 import { environment } from '../../../environments/environment';
 import { ProductsStateService } from './products-state.service';
 
@@ -20,9 +14,7 @@ import { ProductsStateService } from './products-state.service';
 })
 export class ProductsService {
     constructor(
-        private spinner: SpinnerService,
-        private snake: SnakeService,
-        private generator: GeneratorService,
+        private dialog: DialogService,
         private confirmation: ConfirmationService,
         private httpClient: HttpClient,
         private productsState: ProductsStateService,
@@ -32,13 +24,10 @@ export class ProductsService {
         return this.httpClient
             .get(`${environment.apiUrl}/${environment.apiProductsPrefix}`)
             .pipe(
-                tap(() => this.spinner.show()),
-                delay(REQUESTS_DELAY),
-                map((response: IProduct[]) => {
+                tap((response: IProduct[]) => {
                     this.productsState.setProducts(response);
                     return response;
                 }),
-                finalize(() => this.spinner.hide()),
             );
     }
 
@@ -46,15 +35,10 @@ export class ProductsService {
         return this.httpClient
             .get(`${environment.apiUrl}/${environment.apiProductsPrefix}/${id}`)
             .pipe(
-                tap(() => this.spinner.show()),
-                delay(REQUESTS_DELAY),
                 tap((product: IProduct) => {
                     if (!product) {
-                        this.snake.show({ message: 'Unable to get product' });
+                        this.dialog.show({ message: 'Unable to get product' });
                     }
-                }),
-                finalize(() => {
-                    this.spinner.hide();
                 }),
             );
     }
@@ -69,17 +53,14 @@ export class ProductsService {
                 newProduct,
             )
             .pipe(
-                tap(() => this.spinner.show()),
-                delay(REQUESTS_DELAY),
                 tap((product: IProduct) => {
                     if (!product) {
-                        this.snake.show({
+                        this.dialog.show({
                             message: 'Unable to create product',
                         });
                     }
                 }),
                 finalize(() => {
-                    this.spinner.hide();
                     this.productsState.addProduct(newProduct);
                 }),
             );
@@ -92,17 +73,14 @@ export class ProductsService {
                 newProduct,
             )
             .pipe(
-                tap(() => this.spinner.show()),
-                delay(REQUESTS_DELAY),
                 tap((product: IProduct) => {
                     if (!product) {
-                        this.snake.show({
+                        this.dialog.show({
                             message: 'Unable to create product',
                         });
                     }
                 }),
                 finalize(() => {
-                    this.spinner.hide();
                     this.productsState.updateProduct(productId, newProduct);
                 }),
             );
@@ -110,12 +88,11 @@ export class ProductsService {
 
     removeProduct(productId: string) {
         return this.confirmation
-            .askConfirmation({
+            .ask({
                 title: 'Remove product',
                 message: 'Are you sure you want to remove product?',
             })
             .pipe(
-                tap(() => this.spinner.show()),
                 switchMap(isConfirmed => {
                     if (isConfirmed) {
                         return this.httpClient.delete(
@@ -123,9 +100,7 @@ export class ProductsService {
                         );
                     }
                 }),
-                delay(REQUESTS_DELAY),
                 finalize(() => {
-                    this.spinner.hide();
                     this.productsState.removeProduct(productId);
                 }),
             );

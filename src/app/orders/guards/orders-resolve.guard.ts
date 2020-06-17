@@ -24,7 +24,7 @@ export class OrdersResolveGuard implements Resolve<IOrder[] | null> {
             this.router.navigate([AppPath.ProductsList]);
             return of(null);
         }
-        return this.ordersService.getUserOrders(userInfo.userId).pipe(
+        return this.ordersService.getUserOrders(userInfo.id).pipe(
             tap(orders => {
                 if (!orders.length) {
                     this.router.navigate([AppPath.ProductsList]);

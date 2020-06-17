@@ -6,6 +6,9 @@ export const environment = {
     production: false,
     apiUrl: 'http://localhost:3000',
     apiProductsPrefix: 'products',
+    apiUsersPrefix: 'users',
+    apiOrdersPrefix: 'orders',
+    localStorageUserKey: 'shop_user',
 };
 
 /*

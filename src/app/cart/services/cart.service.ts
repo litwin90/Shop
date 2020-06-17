@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
 import { Subject, Observable, of } from 'rxjs';
-import { delay, finalize, tap } from 'rxjs/operators';
+import { finalize, tap } from 'rxjs/operators';
 
-import { SpinnerService, SnakeService, REQUESTS_DELAY } from '../../shared';
+import { DialogService, REQUESTS_DELAY } from '../../shared';
 import { IProduct } from '../../products';
 import { ICartData, ICartProduct, ICartInfo } from '../models';
 
@@ -21,7 +21,7 @@ export class CartService {
 
     cartDataSubject: Subject<ICartData> = new Subject();
 
-    constructor(private spinner: SpinnerService, private snake: SnakeService) {
+    constructor(private dialog: DialogService) {
         this.updateCartData();
     }
 
@@ -30,31 +30,21 @@ export class CartService {
             this.cartData.products.find(product => product.id === id),
         ).pipe(
             tap(product => {
-                this.spinner.show();
                 if (!product) {
-                    this.snake.show({
+                    this.dialog.show({
                         message: `There is no such product in the cart with id ${id}`,
                     });
                 }
-            }),
-            delay(REQUESTS_DELAY),
-            finalize(() => {
-                this.spinner.hide();
             }),
         );
     }
 
     getProducts(): Observable<ICartProduct[]> {
         return of(this.cartData.products).pipe(
-            tap(() => this.spinner.show()),
-            delay(REQUESTS_DELAY),
             tap(products => {
                 if (!products) {
-                    this.snake.show({ message: 'Unable to get products' });
+                    this.dialog.show({ message: 'Unable to get products' });
                 }
-            }),
-            finalize(() => {
-                this.spinner.hide();
             }),
         );
     }
@@ -64,15 +54,10 @@ export class CartService {
             totalQuantity: this.cartData.info.totalQuantity,
             totalSum: this.cartData.info.totalSum,
         }).pipe(
-            tap(() => this.spinner.show()),
-            delay(REQUESTS_DELAY),
             tap(product => {
                 if (!product) {
-                    this.snake.show({ message: 'Unable to get product' });
+                    this.dialog.show({ message: 'Unable to get product' });
                 }
-            }),
-            finalize(() => {
-                this.spinner.hide();
             }),
         );
     }
@@ -92,7 +77,7 @@ export class CartService {
             });
         }
         this.updateCartData();
-        this.snake.show({ message: `${product.name} is added to cart` });
+        this.dialog.show({ message: `${product.name} is added to cart` });
     }
 
     removeProduct(id: string) {

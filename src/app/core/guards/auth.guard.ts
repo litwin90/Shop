@@ -7,7 +7,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { SnakeService, AuthService } from '../../shared';
+import { DialogService, AuthService } from '../../shared';
 
 @Injectable({
     providedIn: 'root',
@@ -15,7 +15,7 @@ import { SnakeService, AuthService } from '../../shared';
 export class AuthGuard implements CanActivate {
     constructor(
         private authService: AuthService,
-        private snake: SnakeService,
+        private dialog: DialogService,
     ) {}
 
     canActivate(
@@ -29,7 +29,7 @@ export class AuthGuard implements CanActivate {
         const { isLoggedIn } = this.authService.getAuthData();
 
         if (!isLoggedIn) {
-            this.snake.show({ message: 'Please login First' });
+            this.dialog.show({ message: 'Please login First' });
         }
         return isLoggedIn;
     }

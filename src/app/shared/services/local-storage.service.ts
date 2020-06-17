@@ -7,20 +7,12 @@ export class LocalStorageService {
     constructor(@Inject(APP_LOCAL_STORAGE) private localStorage: Storage) {}
 
     setItem(key: string, value: string | { [key: string]: any }) {
-        if (typeof value === 'string') {
-            this.localStorage.setItem(key, value);
-        } else {
-            this.localStorage.setItem(key, JSON.stringify(value));
-        }
+        this.localStorage.setItem(key, JSON.stringify(value));
     }
 
-    getItem(key: string): string | { [key: string]: any } {
+    getItem<T>(key: string): T {
         const storedValue = this.localStorage.getItem(key);
-        try {
-            return JSON.parse(storedValue);
-        } catch {
-            return storedValue;
-        }
+        return JSON.parse(storedValue);
     }
 
     removeItem(key: string) {

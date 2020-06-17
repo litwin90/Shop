@@ -6,3 +6,4 @@ export * from './services';
 export * from './shared.constants';
 export * from './models';
 export * from './classes';
+export * from './interceptors';

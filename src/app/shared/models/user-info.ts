@@ -1,6 +1,9 @@
-export interface IUserInfo {
+export interface IBaseUserInfo {
     firstName: string;
     secondName: string;
-    userId: string;
+    id: string;
+}
+
+export interface IUserInfo extends IBaseUserInfo {
     isAdmin: boolean;
 }

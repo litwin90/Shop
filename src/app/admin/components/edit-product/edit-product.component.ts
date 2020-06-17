@@ -59,7 +59,7 @@ export class EditProductComponent extends WithRouteData implements OnInit {
 
     canDeactivate() {
         return this.isProductChanged()
-            ? this.confirmation.askConfirmation({
+            ? this.confirmation.ask({
                   message:
                       'Are you sure you want to leave this page? All data will be lost',
               })

@@ -5,7 +5,7 @@ import { TitleCasePipe } from '@angular/common';
 @Injectable({
     providedIn: 'root',
 })
-export class SnakeService {
+export class DialogService {
     constructor(
         private snackBar: MatSnackBar,
         private titleCase: TitleCasePipe,
@@ -21,7 +21,7 @@ export class SnakeService {
         duration?: number;
     }) {
         this.snackBar.open(this.titleCase.transform(message), action, {
-            duration: duration || 2000,
+            duration: duration || 3000,
         });
     }
 

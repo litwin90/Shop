@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { pluck, catchError } from 'rxjs/operators';
 
 import {
-    SnakeService,
+    DialogService,
     AppPath,
     HOVER_BACKGROUND_COLOR,
     ISelectableEntity,
@@ -44,7 +44,7 @@ export class OrdersListComponent extends WithRouteData implements OnInit {
     constructor(
         private activeRoute: ActivatedRoute,
         private router: Router,
-        private snake: SnakeService,
+        private dialog: DialogService,
         private orderService: OrdersService,
         private orderBy: OrderByPipe,
     ) {
@@ -56,7 +56,7 @@ export class OrdersListComponent extends WithRouteData implements OnInit {
             .pipe(
                 pluck('orders'),
                 catchError(() => {
-                    this.snake.show({ message: 'Something went wrong' });
+                    this.dialog.show({ message: 'Something went wrong' });
                     this.router.navigate([AppPath.Orders]);
                     return of(null);
                 }),
@@ -125,7 +125,9 @@ export class OrdersListComponent extends WithRouteData implements OnInit {
     removeSelectedItems() {
         const itemsToRemove = this.orders.filter(product => product.isSelected);
 
-        itemsToRemove.map(({ id }) => this.orderService.removeOrder(id));
+        itemsToRemove.map(({ id }) =>
+            this.orderService.removeOrder(id).subscribe(),
+        );
         this.isCheckAllSelected = false;
         if (itemsToRemove.length === this.orders.length) {
             this.router.navigate([AppPath.ProductsList]);

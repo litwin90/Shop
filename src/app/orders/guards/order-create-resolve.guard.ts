@@ -30,7 +30,7 @@ export class OrderCreateResolveGuard implements Resolve<OrderData | null> {
                         products,
                         quantity: cartInfo.totalQuantity,
                         cost: cartInfo.totalSum,
-                        userId: authData.userInfo.userId,
+                        userId: authData.userInfo.id,
                     };
                 }
                 this.router.navigate([AppPath.Cart]);

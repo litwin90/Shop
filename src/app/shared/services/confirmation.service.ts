@@ -13,7 +13,7 @@ import { IConfirmationDialogOptions } from '../models';
 export class ConfirmationService {
     constructor(public dialog: MatDialog) {}
 
-    askConfirmation({
+    ask({
         title = 'Confirmation',
         message,
         acceptButtonText = 'Yes',

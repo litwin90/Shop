@@ -25,7 +25,7 @@ export class AppNavComponent extends WithSubscriptions implements OnInit {
     }
 
     ngOnInit(): void {
-        this.authService.login();
+        this.authService.login().subscribe();
         this.tabs = this.tabsService.userTabs;
         this.isSpinnerDisplayed = this.spinner.isDisplayed;
         const spinner$ = this.spinner.spinnerSubject.subscribe(isDisplayed => {

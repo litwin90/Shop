@@ -1,4 +1,4 @@
-export * from './snake.service';
+export * from './dialog.service';
 export * from './auth.service';
 export * from './spinner.service';
 export * from './generator.service';

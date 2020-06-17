@@ -111,10 +111,64 @@
       "updateDate": 1592383198581
     }
   ],
-  "users": {
-    "firstName": "Dzianis",
-    "secondName": "Davydau",
-    "userId": "someid",
-    "isAdmin": true
-  }
+  "users": [
+    {
+      "firstName": "Demo",
+      "secondName": "User",
+      "id": 4
+    }
+  ],
+  "orders": [
+    {
+      "userId": 4,
+      "cost": 300,
+      "quantity": 3,
+      "products": [
+        {
+          "name": "New Product",
+          "description": "Some description",
+          "price": 100,
+          "category": "Primary",
+          "isAvailable": true,
+          "colors": [],
+          "sizes": [],
+          "id": "uPonNQoQM8",
+          "updateDate": 1592381500812,
+          "cost": 100,
+          "quantity": 1,
+          "isSelected": false
+        },
+        {
+          "name": "New Product",
+          "description": "Some description",
+          "price": 100,
+          "category": "Primary",
+          "isAvailable": true,
+          "colors": [],
+          "sizes": [],
+          "id": "YT5QASEuyQ",
+          "updateDate": 1592381503165,
+          "cost": 100,
+          "quantity": 1,
+          "isSelected": false
+        },
+        {
+          "name": "New Product",
+          "description": "Some description",
+          "price": 100,
+          "category": "Primary",
+          "isAvailable": true,
+          "colors": [],
+          "sizes": [],
+          "id": "CHwoVA41Fv",
+          "updateDate": 1592381508261,
+          "cost": 100,
+          "quantity": 1,
+          "isSelected": false
+        }
+      ],
+      "date": 1592426803583,
+      "id": 1
+    }
+  ]
 }

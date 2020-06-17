@@ -5,7 +5,7 @@ import { Observable, zip, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ICartData } from '../models';
-import { AppPath, SnakeService, AuthService } from '../../shared';
+import { AppPath, DialogService, AuthService } from '../../shared';
 import { CartService } from '../services';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class CartResolveGuard implements Resolve<ICartData> {
     constructor(
         private cartService: CartService,
         private router: Router,
-        private snake: SnakeService,
+        private dialog: DialogService,
         private authService: AuthService,
     ) {}
 
@@ -29,12 +29,12 @@ export class CartResolveGuard implements Resolve<ICartData> {
                 if (products && info) {
                     if (!products.length) {
                         if (userInfo?.isAdmin) {
-                            this.snake.show({
+                            this.dialog.show({
                                 message: `you are admin. admins might not have cart items`,
                             });
                             this.router.navigate([AppPath.Admin]);
                         } else {
-                            this.snake.show({
+                            this.dialog.show({
                                 message: `you don't have any products in cart yet`,
                             });
                             this.router.navigate([AppPath.ProductsList]);

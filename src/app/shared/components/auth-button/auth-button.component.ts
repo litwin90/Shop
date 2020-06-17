@@ -26,9 +26,9 @@ export class AuthButtonComponent extends WithSubscriptions implements OnInit {
 
     onToggleAuth() {
         if (this.isLoggedIn) {
-            this.authService.logout();
+            this.authService.logout().subscribe();
         } else {
-            this.authService.login();
+            this.authService.login().subscribe();
         }
     }
 }

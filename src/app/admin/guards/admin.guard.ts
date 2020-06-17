@@ -7,7 +7,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { AuthService, SnakeService } from '../../shared';
+import { AuthService, DialogService } from '../../shared';
 
 @Injectable({
     providedIn: 'any',
@@ -15,7 +15,7 @@ import { AuthService, SnakeService } from '../../shared';
 export class AdminGuard implements CanActivate {
     constructor(
         private authService: AuthService,
-        private snake: SnakeService,
+        private dialog: DialogService,
     ) {}
 
     canActivate(
@@ -29,7 +29,7 @@ export class AdminGuard implements CanActivate {
         const { userInfo } = this.authService.getAuthData();
 
         if (!userInfo?.isAdmin) {
-            this.snake.show({
+            this.dialog.show({
                 message: 'Sorry, you do not have admin rights',
             });
         }

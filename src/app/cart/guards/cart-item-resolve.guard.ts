@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { take, catchError, map } from 'rxjs/operators';
 
 import { ICartProduct } from '../models';
-import { AppPath, SnakeService } from '../../shared';
+import { AppPath, DialogService } from '../../shared';
 import { CartPath } from '../cart.constants';
 import { CartService } from '../services';
 
@@ -15,7 +15,7 @@ import { CartService } from '../services';
 export class CartItemResolveGuard implements Resolve<ICartProduct> {
     constructor(
         private router: Router,
-        private snake: SnakeService,
+        private dialog: DialogService,
         private cartService: CartService,
     ) {}
 
@@ -23,7 +23,7 @@ export class CartItemResolveGuard implements Resolve<ICartProduct> {
         activeRouteSnapshot: ActivatedRouteSnapshot,
     ): Observable<ICartProduct | null> {
         if (!activeRouteSnapshot.paramMap.has(CartPath.ProductId)) {
-            this.snake.show({ message: `URL is wrong` });
+            this.dialog.show({ message: `URL is wrong` });
             this.router.navigate([AppPath.Cart]);
             return of(null);
         }

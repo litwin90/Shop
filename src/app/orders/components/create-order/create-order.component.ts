@@ -33,7 +33,7 @@ export class CreateOrderComponent extends WithRouteData implements OnInit {
     }
 
     private createOrder() {
-        this.ordersService.createNewOrder(this.newOrderData);
+        this.ordersService.createNewOrder(this.newOrderData).subscribe();
         this.router.navigate([AppPath.Orders]);
     }
 

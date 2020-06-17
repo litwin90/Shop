@@ -78,11 +78,13 @@ export class EditOrderComponent extends WithRouteData implements OnInit {
 
         if (!updatedProducts.length) {
             this.confirmation
-                .askConfirmation({
+                .ask({
                     message:
                         'Are you sure you want to remove last product from order? Order will be declined.',
                     acceptAction: () => {
-                        this.ordersService.removeOrder(this.order.id);
+                        this.ordersService
+                            .removeOrder(this.order.id)
+                            .subscribe();
                         this.router.navigate([AppPath.Orders]);
                     },
                 })
@@ -95,10 +97,10 @@ export class EditOrderComponent extends WithRouteData implements OnInit {
 
     onRemoveOrder() {
         this.confirmation
-            .askConfirmation({
+            .ask({
                 message: 'Are you sure you wand to remove order?',
                 acceptAction: () => {
-                    this.ordersService.removeOrder(this.order.id);
+                    this.ordersService.removeOrder(this.order.id).subscribe();
                     this.router.navigate([AppPath.Orders]);
                 },
             })
@@ -129,7 +131,7 @@ export class EditOrderComponent extends WithRouteData implements OnInit {
 
     canDeactivate(): Observable<boolean> {
         if (this.isOrderChanged() && this.order) {
-            return this.confirmation.askConfirmation({
+            return this.confirmation.ask({
                 message:
                     'Are you sure to leave order edit form? Order data is not saved',
             });

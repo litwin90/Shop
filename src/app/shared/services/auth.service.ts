@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { of, Subject, Subscription } from 'rxjs';
+import { of, Subject, zip } from 'rxjs';
 import { delay, tap, finalize, map } from 'rxjs/operators';
 
-import { SnakeService } from './snake.service';
+import { DialogService } from './dialog.service';
 import { REQUESTS_DELAY, AppPath } from '../shared.constants';
 import { SpinnerService } from './spinner.service';
-import { IAuthData } from '../models';
-import { GeneratorService } from './generator.service';
+import { IAuthData, IUserInfo, IBaseUserInfo } from '../models';
 import { ConfirmationService } from './confirmation.service';
 import { TabsService } from './tabs.service';
-import { ConfigOptionsService } from './config-options.service';
+import { UsersService } from './users.service';
+import { LocalStorageService } from './local-storage.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root',
@@ -24,78 +25,104 @@ export class AuthService {
     authSubject: Subject<IAuthData> = new Subject();
 
     constructor(
-        private snake: SnakeService,
+        private dialog: DialogService,
         private spinner: SpinnerService,
-        private generator: GeneratorService,
         private router: Router,
         private confirmation: ConfirmationService,
         private tabs: TabsService,
-        private configOptions: ConfigOptionsService,
+        private usersService: UsersService,
+        private localStorage: LocalStorageService,
     ) {}
 
-    login(next?: (value: IAuthData) => void): Subscription {
-        let { userId } = this.configOptions.getOptions(['userId']);
-        if (!userId) {
-            userId = this.generator.getRandomString(10);
-            this.configOptions.setOptions({ userId });
-        }
-        return this.confirmation
-            .askConfirmation({
-                title: 'Authentication',
-                message: 'Do you want to login as admin?',
-            })
-            .pipe(
-                tap(() => this.spinner.show()),
-                delay(REQUESTS_DELAY),
-                map(asAdmin => {
-                    this.authData = {
-                        isLoggedIn: true,
-                        userInfo: {
-                            firstName: 'Demo',
-                            secondName: 'Admin',
-                            userId,
-                            isAdmin: asAdmin,
-                        },
-                    };
-                    this.authSubject.next(this.authData);
-                    if (asAdmin) {
-                        this.tabs.tabsSubject.next(this.tabs.adminTabs);
-                        this.router.navigate([AppPath.Admin]);
-                    } else {
-                        this.tabs.tabsSubject.next(this.tabs.userTabs);
-                        this.router.navigate([AppPath.ProductsList]);
-                    }
-                    return this.authData;
-                }),
-                finalize(() => {
-                    this.snake.show({ message: 'You are logged in!' });
-                    this.spinner.hide();
-                }),
-            )
-            .subscribe(next);
+    private updateAuthData(authData: IAuthData) {
+        this.authData = authData;
+        this.authSubject.next(authData);
     }
 
-    logout(): Subscription {
-        return of(true)
-            .pipe(
-                tap(() => this.spinner.show()),
-                delay(REQUESTS_DELAY),
-                map(() => {
-                    this.authData = {
-                        isLoggedIn: false,
-                        userInfo: null,
-                    };
-                    this.authSubject.next(this.authData);
-                    this.tabs.tabsSubject.next(this.tabs.userTabs);
-                    return this.authData;
-                }),
-                finalize(() => {
-                    this.snake.show({ message: 'You are logged out!' });
-                    this.spinner.hide();
-                    this.router.navigate([AppPath.ProductsList]);
-                }),
-            )
-            .subscribe();
+    private createAuthData({
+        isLoggedIn,
+        firstName,
+        secondName,
+        isAdmin,
+        userId,
+    }): IAuthData {
+        return {
+            isLoggedIn,
+            userInfo: {
+                id: userId,
+                firstName,
+                secondName,
+                isAdmin,
+            },
+        };
+    }
+
+    login() {
+        const user = this.localStorage.getItem<IBaseUserInfo>(
+            environment.localStorageUserKey,
+        );
+        return zip(
+            this.confirmation.ask({
+                title: 'Authentication',
+                message: 'Do you want to login as admin?',
+            }),
+            user?.id
+                ? of(user)
+                : this.usersService
+                      .addUser({
+                          firstName: 'Demo',
+                          secondName: 'User',
+                      })
+                      .pipe(
+                          tap(newUser =>
+                              this.localStorage.setItem(
+                                  environment.localStorageUserKey,
+                                  newUser,
+                              ),
+                          ),
+                      ),
+        ).pipe(
+            tap(() => this.spinner.show()),
+            delay(REQUESTS_DELAY),
+            tap(([isAdmin, { id, firstName, secondName }]) => {
+                const authData = this.createAuthData({
+                    isAdmin,
+                    isLoggedIn: true,
+                    userId: id,
+                    firstName,
+                    secondName,
+                });
+                this.updateAuthData(authData);
+                this.tabs.update(isAdmin);
+                this.router.navigate([
+                    isAdmin ? AppPath.Admin : AppPath.ProductsList,
+                ]);
+            }),
+            finalize(() => {
+                this.dialog.show({ message: 'You are logged in!' });
+                this.spinner.hide();
+            }),
+        );
+    }
+
+    logout() {
+        return of(true).pipe(
+            tap(() => this.spinner.show()),
+            delay(REQUESTS_DELAY),
+            map(() => {
+                this.authData = {
+                    isLoggedIn: false,
+                    userInfo: null,
+                };
+                this.updateAuthData(this.authData);
+                this.tabs.update(false);
+            }),
+            finalize(() => {
+                this.dialog.show({ message: 'You are logged out!' });
+                this.spinner.hide();
+                this.router.navigate([AppPath.ProductsList]);
+            }),
+        );
     }
 
     getAuthData(): IAuthData {

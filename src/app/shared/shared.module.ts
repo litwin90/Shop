@@ -17,6 +17,7 @@ import {
     ConfirmationComponent,
     AppNavComponent,
 } from './components';
+import { httpInterceptorsProviders } from './interceptors';
 
 @NgModule({
     imports: [
@@ -52,6 +53,6 @@ import {
         AppNavComponent,
         HttpClientModule,
     ],
-    providers: [OrderByPipe, TitleCasePipe],
+    providers: [httpInterceptorsProviders, OrderByPipe, TitleCasePipe],
 })
 export class SharedModule {}
