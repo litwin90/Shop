@@ -1,89 +1,59 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
-import { finalize, tap, switchMap } from 'rxjs/operators';
+import { Subject, Observable } from 'rxjs';
+import { tap, switchMap } from 'rxjs/operators';
 
 import { IProduct, ProductData } from '../models';
-import { DialogService, ConfirmationService } from '../../shared';
-import { environment } from '../../../environments/environment';
-import { ProductsStateService } from './products-state.service';
+import { ConfirmationService } from '../../shared';
+import { ProductsHttpService } from './products-http.service';
 
 @Injectable({
-    providedIn: 'any',
+    providedIn: 'root',
 })
 export class ProductsService {
+    private products: IProduct[] = [];
+
+    productsSubject: Subject<IProduct[]> = new Subject();
+
     constructor(
-        private dialog: DialogService,
+        private productsHttp: ProductsHttpService,
         private confirmation: ConfirmationService,
-        private httpClient: HttpClient,
-        private productsState: ProductsStateService,
-    ) {}
+    ) {
+        this.productsHttp.getProducts().subscribe(products => {
+            this.products = products;
+            this.updateProducts();
+        });
+    }
 
     getProducts(): Observable<IProduct[]> {
-        return this.httpClient
-            .get(`${environment.apiUrl}/${environment.apiProductsPrefix}`)
-            .pipe(
-                tap((response: IProduct[]) => {
-                    this.productsState.setProducts(response);
-                    return response;
-                }),
-            );
+        return this.productsHttp.getProducts();
     }
 
-    getProduct(id: string): Observable<IProduct | undefined> {
-        return this.httpClient
-            .get(`${environment.apiUrl}/${environment.apiProductsPrefix}/${id}`)
-            .pipe(
-                tap((product: IProduct) => {
-                    if (!product) {
-                        this.dialog.show({ message: 'Unable to get product' });
-                    }
-                }),
-            );
+    getProduct(id: string) {
+        return this.productsHttp.getProduct(id);
     }
 
-    addProduct(data: ProductData): Observable<IProduct> {
-        const newProduct = this.productsState.createProductFromProductData(
-            data,
-        );
-        return this.httpClient
-            .post(
-                `${environment.apiUrl}/${environment.apiProductsPrefix}`,
-                newProduct,
-            )
+    addProduct(productData: ProductData) {
+        return this.productsHttp
+            .addProduct(this.applyDateToNewProduct(productData))
             .pipe(
-                tap((product: IProduct) => {
-                    if (!product) {
-                        this.dialog.show({
-                            message: 'Unable to create product',
-                        });
-                    }
-                }),
-                finalize(() => {
-                    this.productsState.addProduct(newProduct);
+                tap(product => {
+                    this.products.push(product);
+                    this.updateProducts();
                 }),
             );
     }
 
     updateProduct(productId: string, newProduct: IProduct) {
-        return this.httpClient
-            .put(
-                `${environment.apiUrl}/${environment.apiProductsPrefix}/${productId}`,
-                newProduct,
-            )
-            .pipe(
-                tap((product: IProduct) => {
-                    if (!product) {
-                        this.dialog.show({
-                            message: 'Unable to create product',
-                        });
-                    }
-                }),
-                finalize(() => {
-                    this.productsState.updateProduct(productId, newProduct);
-                }),
-            );
+        return this.productsHttp.updateProduct(productId, newProduct).pipe(
+            tap(product => {
+                this.products = this.products.filter(
+                    ({ id }) => product.id !== id,
+                );
+                this.products.push(product);
+                this.updateProducts();
+            }),
+        );
     }
 
     removeProduct(productId: string) {
@@ -95,14 +65,27 @@ export class ProductsService {
             .pipe(
                 switchMap(isConfirmed => {
                     if (isConfirmed) {
-                        return this.httpClient.delete(
-                            `${environment.apiUrl}/${environment.apiProductsPrefix}/${productId}`,
+                        return this.productsHttp.removeProduct(productId).pipe(
+                            tap(() => {
+                                this.products = this.products.filter(
+                                    ({ id }) => id !== productId,
+                                );
+                                this.updateProducts();
+                            }),
                         );
                     }
                 }),
-                finalize(() => {
-                    this.productsState.removeProduct(productId);
-                }),
             );
+    }
+
+    private updateProducts() {
+        this.productsSubject.next(this.products);
+    }
+
+    private applyDateToNewProduct(productData: ProductData) {
+        return {
+            ...productData,
+            updateDate: Date.now(),
+        };
     }
 }

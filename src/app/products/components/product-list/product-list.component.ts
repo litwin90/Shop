@@ -5,7 +5,7 @@ import { merge } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
 import { AuthService, AppPath, WithRouteData } from '../../../shared';
-import { ProductsService, ProductsStateService } from '../../services';
+import { ProductsService } from '../../services';
 import { IProduct } from '../../models';
 import { AdminPath } from '../../../admin';
 import { CartService } from '../../../cart';
@@ -22,7 +22,7 @@ export class ProductListComponent extends WithRouteData implements OnInit {
 
     constructor(
         private productService: ProductsService,
-        private productsState: ProductsStateService,
+        private productsState: ProductsService,
         private cartService: CartService,
         private authService: AuthService,
         private activeRoute: ActivatedRoute,

@@ -1,2 +1,2 @@
 export * from './products.service';
-export * from './products-state.service';
+export * from './products.service';
