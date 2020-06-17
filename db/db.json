@@ -1,0 +1,120 @@
+{
+  "products": [
+    {
+      "name": "New Product",
+      "description": "Some description",
+      "price": 100,
+      "category": "Primary",
+      "isAvailable": true,
+      "colors": [],
+      "sizes": [],
+      "id": "uPonNQoQM8",
+      "updateDate": 1592381500812
+    },
+    {
+      "name": "New Product",
+      "description": "Some description",
+      "price": 100,
+      "category": "Primary",
+      "isAvailable": true,
+      "colors": [],
+      "sizes": [],
+      "id": "YT5QASEuyQ",
+      "updateDate": 1592381503165
+    },
+    {
+      "name": "New Product",
+      "description": "Some description",
+      "price": 100,
+      "category": "Primary",
+      "isAvailable": true,
+      "colors": [],
+      "sizes": [],
+      "id": "fKHTqj4TdQ",
+      "updateDate": 1592381505477
+    },
+    {
+      "name": "New Product",
+      "description": "Some description",
+      "price": 100,
+      "category": "Primary",
+      "isAvailable": true,
+      "colors": [],
+      "sizes": [],
+      "id": "CHwoVA41Fv",
+      "updateDate": 1592381508261
+    },
+    {
+      "name": "New Product",
+      "description": "Some description",
+      "price": 100,
+      "category": "Primary",
+      "isAvailable": true,
+      "colors": [],
+      "sizes": [],
+      "id": "7hcp31EMus",
+      "updateDate": 1592381511340
+    },
+    {
+      "name": "New Product",
+      "description": "Some description",
+      "price": 100,
+      "category": "Primary",
+      "isAvailable": true,
+      "colors": [],
+      "sizes": [],
+      "id": "mbR7fje0Qu",
+      "updateDate": 1592381514980
+    },
+    {
+      "name": "New Product",
+      "description": "Some description",
+      "price": 100,
+      "category": "Primary",
+      "isAvailable": true,
+      "colors": [],
+      "sizes": [],
+      "id": "OIjjbIAMII",
+      "updateDate": 1592381516628
+    },
+    {
+      "name": "New Product",
+      "description": "Some description",
+      "price": 100,
+      "category": "Primary",
+      "isAvailable": true,
+      "colors": [],
+      "sizes": [],
+      "id": "j1JMoziiCK",
+      "updateDate": 1592381518868
+    },
+    {
+      "name": "New Product",
+      "description": "Some description",
+      "price": 100,
+      "category": "Primary",
+      "isAvailable": true,
+      "colors": [],
+      "sizes": [],
+      "id": "ohq8s43v1Q",
+      "updateDate": 1592382419573
+    },
+    {
+      "name": "New Product",
+      "description": "Some description",
+      "price": 100,
+      "category": "Primary",
+      "isAvailable": true,
+      "colors": [],
+      "sizes": [],
+      "id": "GqUOkYsouC",
+      "updateDate": 1592383198581
+    }
+  ],
+  "users": {
+    "firstName": "Dzianis",
+    "secondName": "Davydau",
+    "userId": "someid",
+    "isAdmin": true
+  }
+}
