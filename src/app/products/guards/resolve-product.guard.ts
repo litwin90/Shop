@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { finalize, tap, delay } from 'rxjs/operators';
 
 import { IProduct } from '../models';
-import { ProductService } from '../services';
+import { ProductsService } from '../services';
 import { SpinnerService, REQUESTS_DELAY } from '../../shared';
 
 @Injectable({
@@ -14,7 +14,7 @@ import { SpinnerService, REQUESTS_DELAY } from '../../shared';
 export class ResolveProductGuard implements Resolve<IProduct> {
     constructor(
         private router: Router,
-        private productService: ProductService,
+        private productService: ProductsService,
         private spinner: SpinnerService,
     ) {}
 

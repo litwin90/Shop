@@ -9,7 +9,7 @@ import {
     ProductColors,
     ProductSizes,
     Category,
-    ProductService,
+    ProductsService,
 } from '../../../products';
 import { AdminPath } from '../..';
 import { of } from 'rxjs';
@@ -28,7 +28,7 @@ export class EditProductComponent extends WithRouteData implements OnInit {
 
     constructor(
         private activeRoute: ActivatedRoute,
-        private productService: ProductService,
+        private productService: ProductsService,
         private router: Router,
         private confirmation: ConfirmationService,
     ) {
@@ -50,7 +50,9 @@ export class EditProductComponent extends WithRouteData implements OnInit {
     }
 
     onSave() {
-        this.productService.updateProduct(this.product.id, this.product);
+        this.productService
+            .updateProduct(this.product.id, this.product)
+            .subscribe();
         this.initialProductSnapshot = JSON.stringify(this.product);
         this.router.navigate([AppPath.Admin, AdminPath.Products]);
     }

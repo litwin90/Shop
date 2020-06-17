@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 
 import { WithRouteData, ConfirmationService, AppPath } from '../../../shared';
 import {
-    ProductService,
+    ProductsService,
     Category,
     ProductColors,
     ProductSizes,
@@ -27,7 +27,7 @@ export class AddProductComponent extends WithRouteData implements OnInit {
 
     constructor(
         private activeRoute: ActivatedRoute,
-        private productService: ProductService,
+        private productService: ProductsService,
         private confirmation: ConfirmationService,
         private router: Router,
     ) {
@@ -52,7 +52,7 @@ export class AddProductComponent extends WithRouteData implements OnInit {
     }
 
     onSave() {
-        this.productService.addProduct(this.productData);
+        this.productService.addProduct(this.productData).subscribe();
         this.initialProductSnapshot = JSON.stringify(this.productData);
         this.router.navigate([AppPath.Admin, AdminPath.Products]);
     }

@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { IProduct } from '../../models';
 import { AppPath, HOVER_BACKGROUND_COLOR } from '../../../shared';
 import { AdminPath } from '../../../admin';
-import { ProductService } from '../../services';
+import { ProductsService } from '../../services';
 
 @Component({
     selector: 'app-product',
@@ -29,7 +29,7 @@ export class ProductComponent {
 
     constructor(
         private router: Router,
-        private productService: ProductService,
+        private productService: ProductsService,
     ) {}
 
     onAddToCart() {
@@ -54,7 +54,7 @@ export class ProductComponent {
     }
 
     onRemoveProduct() {
-        this.productService.removeProduct(this.product.id);
+        this.productService.removeProduct(this.product.id).subscribe();
     }
 
     getAddToCartTooltip(): string {

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Observable, concat, merge } from 'rxjs';
+import { merge } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
 import { AuthService, AppPath, WithRouteData } from '../../../shared';
-import { ProductService } from '../../services';
+import { ProductsService, ProductsStateService } from '../../services';
 import { IProduct } from '../../models';
 import { AdminPath } from '../../../admin';
 import { CartService } from '../../../cart';
@@ -21,7 +21,8 @@ export class ProductListComponent extends WithRouteData implements OnInit {
     products: IProduct[];
 
     constructor(
-        private productService: ProductService,
+        private productService: ProductsService,
+        private productsState: ProductsStateService,
         private cartService: CartService,
         private authService: AuthService,
         private activeRoute: ActivatedRoute,
@@ -32,7 +33,7 @@ export class ProductListComponent extends WithRouteData implements OnInit {
 
     ngOnInit(): void {
         const products$ = merge(
-            this.productService.productsSubject,
+            this.productsState.productsSubject,
             this.productService.getProducts(),
         ).subscribe(products => {
             this.products = products;

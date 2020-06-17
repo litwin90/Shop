@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MaterialModule } from '../material';
 import { OrderByPipe } from './pipes';
@@ -24,6 +25,7 @@ import {
         ReactiveFormsModule,
         MaterialModule,
         RouterModule,
+        HttpClientModule,
     ],
     declarations: [
         ChangeBackgroundDirective,
@@ -48,6 +50,7 @@ import {
         AuthButtonComponent,
         StopPropagationDirective,
         AppNavComponent,
+        HttpClientModule,
     ],
     providers: [OrderByPipe, TitleCasePipe],
 })
