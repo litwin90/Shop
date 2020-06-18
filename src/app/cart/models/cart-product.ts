@@ -1,7 +1,9 @@
 import { IProduct } from '../../products/models/product';
+import { ISelectableEntity } from '../../shared';
 
-export interface ICartProduct extends IProduct {
+export interface IBaseCartProduct extends IProduct {
     quantity: number;
     cost: number;
-    isSelected: boolean;
 }
+
+export interface ICartProduct extends IBaseCartProduct, ISelectableEntity {}

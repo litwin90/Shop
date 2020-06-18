@@ -40,8 +40,9 @@ export class ProductCardComponent extends WithRouteData implements OnInit {
     }
 
     onAddToCart() {
-        this.cartService.addProduct(this.product);
-        this.router.navigate([AppPath.ProductsList]);
+        this.cartService.addProductToCart(this.product).subscribe(() => {
+            this.router.navigate([AppPath.ProductsList]);
+        });
     }
 
     getAvailabilityTitle(): string {

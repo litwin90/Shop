@@ -1,7 +1,7 @@
 import { ICartProduct } from '../../cart';
 import { ISelectableEntity } from '../../shared';
 
-export interface IOrder {
+export interface IBaseOrder {
     id: string;
     userId: string;
     date: number;
@@ -10,4 +10,4 @@ export interface IOrder {
     products: ICartProduct[];
 }
 
-export interface ISelectableOrder extends ISelectableEntity, IOrder {}
+export interface IOrder extends ISelectableEntity, IBaseOrder {}

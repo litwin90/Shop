@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { Subject, Observable, of } from 'rxjs';
-import { finalize, tap } from 'rxjs/operators';
+import { Subject, Observable, of, zip } from 'rxjs';
+import { tap, switchMap, catchError } from 'rxjs/operators';
 
-import { DialogService, REQUESTS_DELAY } from '../../shared';
 import { IProduct } from '../../products';
 import { ICartData, ICartProduct, ICartInfo } from '../models';
+import { CartHttpService } from './cart-http.service';
+import { AppPath } from '../../shared';
 
 @Injectable({
     providedIn: 'root',
@@ -21,132 +23,132 @@ export class CartService {
 
     cartDataSubject: Subject<ICartData> = new Subject();
 
-    constructor(private dialog: DialogService) {
-        this.updateCartData();
+    constructor(private cartHttp: CartHttpService, private router: Router) {
+        this.cartHttp.getProducts().subscribe(products => {
+            this.cartData.products = products;
+            this.updateCartData();
+        });
     }
 
     getProduct(id: string): Observable<ICartProduct | undefined> {
-        return of(
-            this.cartData.products.find(product => product.id === id),
-        ).pipe(
-            tap(product => {
-                if (!product) {
-                    this.dialog.show({
-                        message: `There is no such product in the cart with id ${id}`,
-                    });
-                }
-            }),
-        );
+        return this.cartHttp.getProduct(id);
     }
 
     getProducts(): Observable<ICartProduct[]> {
-        return of(this.cartData.products).pipe(
-            tap(products => {
-                if (!products) {
-                    this.dialog.show({ message: 'Unable to get products' });
-                }
-            }),
-        );
+        return this.cartHttp.getProducts();
     }
 
     getCartInfo(): Observable<ICartInfo> {
         return of({
             totalQuantity: this.cartData.info.totalQuantity,
             totalSum: this.cartData.info.totalSum,
-        }).pipe(
-            tap(product => {
-                if (!product) {
-                    this.dialog.show({ message: 'Unable to get product' });
+        });
+    }
+
+    addProductToCart(product: IProduct): Observable<ICartProduct> {
+        const cartProduct = this.cartData.products.find(
+            ({ id }) => id === product.id,
+        );
+
+        if (cartProduct) {
+            return this.increaseQuantity(cartProduct.id);
+        } else {
+            return this.addCartProduct(this.createCartProduct(product));
+        }
+    }
+
+    private createCartProduct(product: IProduct): ICartProduct {
+        return {
+            ...product,
+            quantity: 1,
+            cost: product.price,
+            isSelected: false,
+        };
+    }
+
+    addCartProduct(product: Omit<ICartProduct, 'id'>) {
+        return this.cartHttp.addProduct(product).pipe(
+            tap(newProduct => {
+                this.cartData.products.push(newProduct);
+                this.updateCartData();
+            }),
+        );
+    }
+
+    increaseQuantity(id: string): Observable<ICartProduct> {
+        const product = this.cartData.products.find(p => p.id === id);
+        product.cost = product.cost + product.cost / product.quantity;
+        product.quantity++;
+        return this.updateProduct(product);
+    }
+
+    updateProduct(product: ICartProduct) {
+        return this.cartHttp.updateProduct(product).pipe(
+            tap(updatedProduct => {
+                this.cartData.products = this.cartData.products.filter(
+                    ({ id: productId }) => productId !== updatedProduct.id,
+                );
+                this.cartData.products.push(updatedProduct);
+                this.updateCartData();
+            }),
+        );
+    }
+
+    decreaseQuantity(product: ICartProduct) {
+        if (product.quantity === 1) {
+            return this.removeProduct(product.id);
+        } else {
+            product.cost = product.cost - product.cost / product.quantity;
+            product.quantity--;
+            return this.updateProduct(product);
+        }
+    }
+
+    removeProduct(id: string) {
+        return this.cartHttp.deleteProduct(id).pipe(
+            tap(() => {
+                this.cartData.products = this.cartData.products.filter(
+                    productInCart => productInCart.id !== id,
+                );
+                this.updateCartData();
+            }),
+        );
+    }
+
+    removeProducts(products: ICartProduct[]) {
+        return zip(
+            products.map(({ id }) => this.removeProduct(id).subscribe()),
+        ).pipe(
+            tap(() => {
+                const productsToRemoveIds = products.map(product => product.id);
+
+                this.cartData.products = this.cartData.products.filter(
+                    product => !productsToRemoveIds.includes(product.id),
+                );
+                this.updateCartData();
+                if (!this.cartData.products.length) {
+                    this.router.navigate([AppPath.ProductsList]);
                 }
             }),
         );
     }
 
-    addProduct(product: IProduct) {
-        const cartProduct = this.cartData.products.find(
-            productInCart => productInCart.id === product.id,
-        );
-        if (cartProduct) {
-            this.increaseQuantity(cartProduct.id);
-        } else {
-            this.cartData.products.push({
-                ...product,
-                cost: product.price,
-                quantity: 1,
-                isSelected: false,
-            });
-        }
-        this.updateCartData();
-        this.dialog.show({ message: `${product.name} is added to cart` });
-    }
-
-    removeProduct(id: string) {
-        this.cartData.products = this.cartData.products.filter(
-            productInCart => productInCart.id !== id,
-        );
-        this.updateCartData();
-    }
-
-    increaseQuantity(id: string) {
-        const product = this.cartData.products.find(p => p.id === id);
-        product.cost = product.cost + product.cost / product.quantity;
-        product.quantity++;
-        this.updateCartData();
-    }
-
-    setQuantity(id: string, quantity: number) {
-        const product = this.cartData.products.find(p => p.id === id);
-        const price = product.cost / product.quantity;
-        product.quantity = quantity;
-        product.cost = price * quantity;
-        this.updateCartData();
-    }
-
-    updateProduct({
-        id,
-        quantity,
-        cost,
-    }: Pick<ICartProduct, 'id' | 'quantity' | 'cost'>) {
-        const product = this.cartData.products.find(p => p.id === id);
-        product.cost = cost;
-        product.quantity = quantity;
-        this.updateCartData();
-    }
-
-    decreaseQuantity(product: ICartProduct) {
-        if (product.quantity === 1) {
-            this.removeProduct(product.id);
-        } else {
-            product.cost = product.cost - product.cost / product.quantity;
-            product.quantity--;
-        }
-        this.updateCartData();
-    }
-
-    removeProducts(products: ICartProduct[]) {
-        const productsToRemoveIds = products.map(product => product.id);
-
-        this.cartData.products = this.cartData.products.filter(
-            product => !productsToRemoveIds.includes(product.id),
-        );
-        this.updateCartData();
-    }
-
     removeAllProducts() {
-        this.removeProducts(this.cartData.products);
-        this.updateCartData();
+        return this.removeProducts(this.cartData.products);
     }
 
     checkAllItems() {
-        this.cartData.products.forEach(product => {
+        this.cartData.products = this.cartData.products.map(product => {
             product.isSelected = true;
+            return product;
         });
         this.updateCartData();
     }
 
     unCheckAllItems() {
-        this.cartData.products.forEach(product => {
+        this.cartData.products = this.cartData.products.map(product => {
             product.isSelected = false;
+            return product;
         });
         this.updateCartData();
     }

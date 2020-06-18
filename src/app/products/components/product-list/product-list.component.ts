@@ -49,7 +49,7 @@ export class ProductListComponent extends WithRouteData implements OnInit {
 
     addToCart(product: IProduct) {
         if (product.isAvailable) {
-            this.cartService.addProduct(product);
+            this.cartService.addProductToCart(product).subscribe();
         }
     }
 

@@ -68,11 +68,12 @@ export class OrdersService {
                 quantity,
                 products: [...products],
                 date: Date.now(),
+                isSelected: false,
             })
             .pipe(
                 tap(newOrder => {
                     this.addOrder(newOrder);
-                    this.cartService.removeAllProducts();
+                    this.cartService.removeAllProducts().subscribe();
                 }),
             );
     }

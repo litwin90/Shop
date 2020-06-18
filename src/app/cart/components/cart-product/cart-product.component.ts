@@ -56,14 +56,16 @@ export class CartProductComponent extends WithRouteData implements OnInit {
     }
 
     onSave() {
-        this.cartService.updateProduct(this.product);
-        this.initialProductSnapshot = JSON.stringify(this.product);
-        this.router.navigate([AppPath.Cart]);
+        this.cartService.updateProduct(this.product).subscribe(() => {
+            this.initialProductSnapshot = JSON.stringify(this.product);
+            this.router.navigate([AppPath.Cart]);
+        });
     }
 
     onRemoveFromCart() {
-        this.cartService.removeProduct(this.product.id);
-        this.router.navigate([AppPath.Cart]);
+        this.cartService
+            .removeProduct(this.product.id)
+            .subscribe(() => this.router.navigate([AppPath.Cart]));
     }
 
     private configureForm() {

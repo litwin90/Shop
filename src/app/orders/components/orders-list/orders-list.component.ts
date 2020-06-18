@@ -1,5 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatSelectChange } from '@angular/material/select';
 
 import { of } from 'rxjs';
 import { pluck, catchError } from 'rxjs/operators';
@@ -12,14 +14,7 @@ import {
     OrderByPipe,
     WithRouteData,
 } from '../../../shared';
-import {
-    IOrder,
-    IOrderSortByField,
-    IOrderSortByFieldId,
-    ISelectableOrder,
-} from '../../models';
-import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatSelectChange } from '@angular/material/select';
+import { IOrder, IOrderSortByField, IOrderSortByFieldId } from '../../models';
 import { OrdersService } from '../../services';
 import { OrdersPath } from '../../orders.constants';
 
@@ -29,7 +24,7 @@ import { OrdersPath } from '../../orders.constants';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrdersListComponent extends WithRouteData implements OnInit {
-    orders: ISelectableOrder[] = [];
+    orders: IOrder[] = [];
     HOVER_BACKGROUND_COLOR = HOVER_BACKGROUND_COLOR;
     sortByFields: IOrderSortByField[] = [
         { id: 'date', name: 'Date' },
@@ -148,7 +143,7 @@ export class OrdersListComponent extends WithRouteData implements OnInit {
         );
     }
 
-    getSelectedOrders(): ISelectableOrder[] {
+    getSelectedOrders(): IOrder[] {
         return this.orders.filter(({ isSelected }) => isSelected);
     }
 

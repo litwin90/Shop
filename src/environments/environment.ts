@@ -8,6 +8,7 @@ export const environment = {
     apiProductsPrefix: 'products',
     apiUsersPrefix: 'users',
     apiOrdersPrefix: 'orders',
+    apiCartPrefix: 'cart',
     localStorageUserKey: 'shop_user',
 };
 

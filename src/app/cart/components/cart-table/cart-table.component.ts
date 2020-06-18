@@ -59,11 +59,11 @@ export class CartTableComponent extends WithRouteData implements OnInit {
     }
 
     onIncrease(product: ICartProduct) {
-        this.cartService.increaseQuantity(product.id);
+        this.cartService.increaseQuantity(product.id).subscribe();
     }
 
     onDecrease(product: ICartProduct) {
-        this.cartService.decreaseQuantity(product);
+        this.cartService.decreaseQuantity(product).subscribe();
     }
 
     onSelectOrderBy(sortByField: MatSelectChange) {
@@ -111,8 +111,9 @@ export class CartTableComponent extends WithRouteData implements OnInit {
             product => product.isSelected,
         );
 
-        this.cartService.removeProducts(productsToRemove);
-        this.isCheckAllSelected = false;
+        this.cartService
+            .removeProducts(productsToRemove)
+            .subscribe(() => (this.isCheckAllSelected = false));
     }
 
     getSortedProducts() {

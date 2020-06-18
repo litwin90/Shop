@@ -1,18 +1,7 @@
 {
   "products": [
     {
-      "name": "New ",
-      "description": "Some description",
-      "price": 100,
-      "category": "Primary",
-      "isAvailable": true,
-      "colors": [],
-      "sizes": [],
-      "id": "7hcp31EMus",
-      "updateDate": 1592381511340
-    },
-    {
-      "name": "New Product",
+      "name": "New",
       "description": "Some description",
       "price": 100,
       "category": "Primary",
@@ -98,92 +87,81 @@
   ],
   "orders": [
     {
-      "userId": 4,
-      "cost": 300,
-      "quantity": 3,
+      "quantity": 14,
+      "cost": 1400,
       "products": [
         {
+          "quantity": 14,
+          "cost": 800,
           "name": "New Product",
           "description": "Some description",
           "price": 100,
           "category": "Primary",
-          "isAvailable": true,
           "colors": [],
-          "sizes": [],
-          "id": "uPonNQoQM8",
-          "updateDate": 1592381500812,
-          "cost": 100,
-          "quantity": 1,
-          "isSelected": false
-        },
-        {
-          "name": "New Product",
-          "description": "Some description",
-          "price": 100,
-          "category": "Primary",
           "isAvailable": true,
-          "colors": [],
+          "updateDate": 1592381514980,
           "sizes": [],
-          "id": "YT5QASEuyQ",
-          "updateDate": 1592381503165,
-          "cost": 100,
-          "quantity": 1,
-          "isSelected": false
-        },
-        {
-          "name": "New Product",
-          "description": "Some description",
-          "price": 100,
-          "category": "Primary",
-          "isAvailable": true,
-          "colors": [],
-          "sizes": [],
-          "id": "CHwoVA41Fv",
-          "updateDate": 1592381508261,
-          "cost": 100,
-          "quantity": 1,
+          "id": 2,
           "isSelected": false
         }
       ],
-      "date": 1592426803583,
+      "date": 1592462943563,
+      "userId": 4,
+      "id": 1
+    }
+  ],
+  "cart": [
+    {
+      "quantity": 10,
+      "cost": 1000,
+      "name": "New ",
+      "description": "Some description",
+      "price": 100,
+      "category": "Primary",
+      "colors": [],
+      "isAvailable": true,
+      "updateDate": 1592381511340,
+      "sizes": [],
       "id": 1
     },
     {
-      "userId": 4,
-      "cost": 200,
-      "quantity": 2,
-      "products": [
-        {
-          "name": "New Product",
-          "description": "Some description",
-          "price": 100,
-          "category": "Primary",
-          "isAvailable": true,
-          "colors": [],
-          "sizes": [],
-          "id": "uPonNQoQM8",
-          "updateDate": 1592381500812,
-          "cost": 100,
-          "quantity": 1,
-          "isSelected": false
-        },
-        {
-          "name": "New Product",
-          "description": "Some description",
-          "price": 100,
-          "category": "Primary",
-          "isAvailable": true,
-          "colors": [],
-          "sizes": [],
-          "id": "YT5QASEuyQ",
-          "updateDate": 1592381503165,
-          "cost": 100,
-          "quantity": 1,
-          "isSelected": false
-        }
-      ],
-      "date": 1592428350406,
+      "quantity": 5,
+      "cost": 500,
+      "name": "New Product",
+      "description": "Some description",
+      "price": 100,
+      "category": "Primary",
+      "colors": [],
+      "isAvailable": true,
+      "updateDate": 1592381514980,
+      "sizes": [],
       "id": 2
+    },
+    {
+      "quantity": 4,
+      "cost": 400,
+      "name": "New Product",
+      "description": "Some description",
+      "price": 100,
+      "category": "Primary",
+      "colors": [],
+      "isAvailable": true,
+      "updateDate": 1592381516628,
+      "sizes": [],
+      "id": 3
+    },
+    {
+      "quantity": 4,
+      "cost": 400,
+      "name": "New Product",
+      "description": "Some description",
+      "price": 100,
+      "category": "Primary",
+      "colors": [],
+      "isAvailable": true,
+      "updateDate": 1592382419573,
+      "sizes": [],
+      "id": 4
     }
   ]
 }
