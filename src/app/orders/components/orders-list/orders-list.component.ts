@@ -57,7 +57,7 @@ export class OrdersListComponent extends WithRouteData implements OnInit {
                 }),
             )
             .subscribe((orders: IOrder[] | null) => {
-                this.orders = orders.map(order => ({
+                this.orders = (orders || []).map(order => ({
                     ...order,
                     isSelected: false,
                 }));
