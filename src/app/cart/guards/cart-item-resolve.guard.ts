@@ -30,7 +30,7 @@ export class CartItemResolveGuard implements Resolve<ICartProduct> {
 
         const productId = activeRouteSnapshot.paramMap.get(CartPath.ProductId);
 
-        return this.cartService.getProduct(productId).pipe(
+        return of(this.cartService.getProduct(productId)).pipe(
             map((cartProduct: ICartProduct) => {
                 if (cartProduct) {
                     return cartProduct;

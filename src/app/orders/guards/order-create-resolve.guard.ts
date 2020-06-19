@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Resolve, Router } from '@angular/router';
 
 import { Observable, of, zip } from 'rxjs';
-import { delay, catchError, map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 import { AppPath, AuthService } from '../../shared';
 import { OrderData } from '../models';
@@ -20,8 +20,8 @@ export class OrderCreateResolveGuard implements Resolve<OrderData | null> {
 
     resolve(): Observable<OrderData | null> {
         return zip(
-            this.cartService.getProducts(),
-            this.cartService.getCartInfo(),
+            of(this.cartService.getProducts()),
+            of(this.cartService.getCartInfo()),
             of(this.authService.getAuthData()),
         ).pipe(
             map(([products, cartInfo, authData]) => {

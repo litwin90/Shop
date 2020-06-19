@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { merge } from 'rxjs';
+import { merge, of } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
 import { AuthService, AppPath, WithRouteData } from '../../../shared';
@@ -34,7 +34,7 @@ export class ProductListComponent extends WithRouteData implements OnInit {
     ngOnInit(): void {
         const products$ = merge(
             this.productsState.productsSubject,
-            this.productService.getProducts(),
+            of(this.productService.getProducts()),
         ).subscribe(products => {
             this.products = products;
         });

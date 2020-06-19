@@ -27,8 +27,8 @@ export class CartResolveGuard implements Resolve<ICartData> {
 
     resolve(): Observable<ICartData> {
         return zip(
-            this.cartService.getProducts(),
-            this.cartService.getCartInfo(),
+            of(this.cartService.getProducts()),
+            of(this.cartService.getCartInfo()),
             of(this.authService.getAuthData()),
             this.settings.get(),
         ).pipe(

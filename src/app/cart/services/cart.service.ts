@@ -48,19 +48,19 @@ export class CartService {
         );
     }
 
-    getProduct(id: string): Observable<ICartProduct | undefined> {
-        return this.cartHttp.getProduct(id);
+    getProduct(id: string): ICartProduct {
+        return this.cartData.products.find(product => product.id === id);
     }
 
-    getProducts(): Observable<ICartProduct[]> {
-        return this.cartHttp.getProducts();
+    getProducts(): ICartProduct[] {
+        return this.cartData.products;
     }
 
-    getCartInfo(): Observable<ICartInfo> {
-        return of({
+    getCartInfo(): ICartInfo {
+        return {
             totalQuantity: this.cartData.info.totalQuantity,
             totalSum: this.cartData.info.totalSum,
-        });
+        };
     }
 
     addProductToCart(product: IProduct): Observable<ICartProduct> {

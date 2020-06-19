@@ -25,12 +25,12 @@ export class ProductsService {
         });
     }
 
-    getProducts(): Observable<IProduct[]> {
-        return this.productsHttp.getProducts();
+    getProducts(): IProduct[] {
+        return this.products;
     }
 
-    getProduct(id: string) {
-        return this.productsHttp.getProduct(id);
+    getProduct(id: string): IProduct {
+        return this.products.find(product => product.id === id);
     }
 
     addProduct(productData: ProductData) {
