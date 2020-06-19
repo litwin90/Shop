@@ -55,3 +55,13 @@
 
 ***Notes:***  
 To see some orders and access `Orders` tab you should firstly login as `User` (not `Admin`) and add some products in cart and then create order. Then you should re-login as `Admin` to see user orders in `Admin Orders` tab
+
+
+**Task 6. Http server**
+1. Created back-end using json-server
+2. Created `Cart/Orders/Products/Users` http services for interactions with back-end
+3. All methods was implemented using Observable approach
+4. Implemented `ProductsTiming` interceptor which logs products requests timings
+5. Additionally created `LoadingSpinner` interceptor to show spinner always on http requests.  
+Now it is not necessarily to trigger it in services 
+6. Created `AddSettings` service
