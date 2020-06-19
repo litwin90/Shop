@@ -5,3 +5,5 @@ export * from './user-info';
 export * from './auth-data';
 export * from './tabs-config';
 export * from './config-options.models';
+export * from './app-setting';
+export * from './sort-order';

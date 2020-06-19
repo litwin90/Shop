@@ -7,6 +7,7 @@ import { IOrder, OrderData } from '../models';
 import { AuthService, LocalStorageService } from '../../shared';
 import { CartService } from '../../cart';
 import { OrdersHttpService } from './orders-http.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root',
@@ -28,13 +29,16 @@ export class OrdersService {
             this.userId = userInfo.id;
         }
         const userOrdersFromLocalStorage = this.localStorage.getItem<IOrder[]>(
-            `orders_${this.userId}`,
+            `${environment.LSOrdersKey}_${this.userId}`,
         );
         if (userOrdersFromLocalStorage) {
             this.orders = userOrdersFromLocalStorage;
         }
         this.ordersSubject.subscribe(orders => {
-            this.localStorage.setItem(`orders_${this.userId}`, orders);
+            this.localStorage.setItem(
+                `${environment.LSOrdersKey}_${this.userId}`,
+                orders,
+            );
         });
     }
 

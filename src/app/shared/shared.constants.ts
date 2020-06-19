@@ -1,4 +1,4 @@
-import { TabsConfig } from './models';
+import { TabsConfig, IAppSetting, SortOrder } from './models';
 
 export enum AppPath {
     Empty = '',
@@ -40,3 +40,13 @@ export const appTabsConfig: TabsConfig = [
 export const HOVER_BACKGROUND_COLOR = '#d3d3d31f';
 
 export const REQUESTS_DELAY = 300;
+
+export const APP_SETTINGS: Omit<IAppSetting, 'id' | 'userId'> = {
+    cart: {
+        sortBy: 'cost',
+        sortOrder: SortOrder.Desc,
+    },
+    orders: {
+        sortBy: 'cost',
+    },
+};

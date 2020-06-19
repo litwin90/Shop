@@ -7,7 +7,7 @@ import { delay, tap, finalize, map } from 'rxjs/operators';
 import { DialogService } from './dialog.service';
 import { REQUESTS_DELAY, AppPath } from '../shared.constants';
 import { SpinnerService } from './spinner.service';
-import { IAuthData, IUserInfo, IBaseUserInfo } from '../models';
+import { IAuthData, IBaseUserInfo } from '../models';
 import { ConfirmationService } from './confirmation.service';
 import { TabsService } from './tabs.service';
 import { UsersService } from './users.service';
@@ -59,7 +59,7 @@ export class AuthService {
 
     login() {
         const user = this.localStorage.getItem<IBaseUserInfo>(
-            environment.localStorageUserKey,
+            environment.LSUserKey,
         );
         return zip(
             this.confirmation.ask({
@@ -76,7 +76,7 @@ export class AuthService {
                       .pipe(
                           tap(newUser =>
                               this.localStorage.setItem(
-                                  environment.localStorageUserKey,
+                                  environment.LSUserKey,
                                   newUser,
                               ),
                           ),

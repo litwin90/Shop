@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ICartProduct, IBaseCartProduct } from '../models';
+
 import { Observable } from 'rxjs';
+import { map, share } from 'rxjs/operators';
+
+import { ICartProduct, IBaseCartProduct } from '../models';
 import { environment } from '../../../environments/environment';
-import { map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'any',
@@ -37,7 +39,7 @@ export class CartHttpService {
                 `${environment.apiUrl}/${environment.apiCartPrefix}`,
                 this.transformProductToBaseProduct(product),
             )
-            .pipe(map(this.transformBaseProductToProduct));
+            .pipe(share(), map(this.transformBaseProductToProduct));
     }
 
     updateProduct(product: ICartProduct): Observable<ICartProduct> {
@@ -46,7 +48,7 @@ export class CartHttpService {
                 `${environment.apiUrl}/${environment.apiCartPrefix}/${product.id}`,
                 this.transformProductToBaseProduct(product),
             )
-            .pipe(map(this.transformBaseProductToProduct));
+            .pipe(share(), map(this.transformBaseProductToProduct));
     }
 
     deleteProduct(id: string) {
@@ -66,6 +68,7 @@ export class CartHttpService {
         isAvailable,
         updateDate,
         sizes,
+        productId,
     }: Omit<ICartProduct, 'id'>): Omit<IBaseCartProduct, 'id'> {
         return {
             quantity,
@@ -78,6 +81,7 @@ export class CartHttpService {
             isAvailable,
             updateDate,
             sizes,
+            productId,
         };
     }
 

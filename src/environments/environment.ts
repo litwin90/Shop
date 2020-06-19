@@ -9,7 +9,10 @@ export const environment = {
     apiUsersPrefix: 'users',
     apiOrdersPrefix: 'orders',
     apiCartPrefix: 'cart',
-    localStorageUserKey: 'shop_user',
+    apiSettingsPrefix: 'settings',
+    LSUserKey: 'shop_user',
+    LSSettingsKey: 'shop_settings',
+    LSOrdersKey: 'shop_orders',
 };
 
 /*

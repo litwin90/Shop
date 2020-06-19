@@ -27,8 +27,8 @@ export class ProductsTimingInterceptor implements HttpInterceptor {
                 ) {
                     const requestTiming = Date.now() - startDate;
                     console.log(`Products request timing: ${requestTiming}`);
-                    return event;
                 }
+                return event;
             }),
         );
     }

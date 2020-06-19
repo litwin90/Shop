@@ -17,9 +17,12 @@ export class OrdersHttpService {
                 `${environment.apiUrl}/${environment.apiOrdersPrefix}?userId=${userId}`,
             )
             .pipe(
-                map(orders =>
-                    orders.map(order => this.transformBaseOrderToOrder(order)),
-                ),
+                map(orders => {
+                    const userOrders = orders.map(order =>
+                        this.transformBaseOrderToOrder(order),
+                    );
+                    return userOrders;
+                }),
             );
     }
 

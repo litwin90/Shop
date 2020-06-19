@@ -1,13 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Subject, Observable, of, zip } from 'rxjs';
-import { tap, switchMap, catchError } from 'rxjs/operators';
+import { Subject, Observable, of, zip, merge } from 'rxjs';
+import {
+    tap,
+    switchMap,
+    catchError,
+    share,
+    publish,
+    refCount,
+    map,
+} from 'rxjs/operators';
 
 import { IProduct } from '../../products';
 import { ICartData, ICartProduct, ICartInfo } from '../models';
 import { CartHttpService } from './cart-http.service';
-import { AppPath } from '../../shared';
+import { AppPath, AppSettingsService } from '../../shared';
 
 @Injectable({
     providedIn: 'root',
@@ -23,11 +31,21 @@ export class CartService {
 
     cartDataSubject: Subject<ICartData> = new Subject();
 
-    constructor(private cartHttp: CartHttpService, private router: Router) {
+    constructor(
+        private cartHttp: CartHttpService,
+        private router: Router,
+        private settings: AppSettingsService,
+    ) {
         this.cartHttp.getProducts().subscribe(products => {
             this.cartData.products = products;
             this.updateCartData();
         });
+        merge(this.settings.get(), settings.settingsSubject).subscribe(
+            ({ cart }) => {
+                this.cartData.settings = cart;
+                this.updateCartData();
+            },
+        );
     }
 
     getProduct(id: string): Observable<ICartProduct | undefined> {
@@ -47,7 +65,7 @@ export class CartService {
 
     addProductToCart(product: IProduct): Observable<ICartProduct> {
         const cartProduct = this.cartData.products.find(
-            ({ id }) => id === product.id,
+            ({ productId }) => productId === product.id,
         );
 
         if (cartProduct) {
@@ -63,6 +81,7 @@ export class CartService {
             quantity: 1,
             cost: product.price,
             isSelected: false,
+            productId: product.id,
         };
     }
 
@@ -106,6 +125,7 @@ export class CartService {
 
     removeProduct(id: string) {
         return this.cartHttp.deleteProduct(id).pipe(
+            share(),
             tap(() => {
                 this.cartData.products = this.cartData.products.filter(
                     productInCart => productInCart.id !== id,

@@ -6,3 +6,4 @@ export * from './confirmation.service';
 export * from './tabs.service';
 export * from './local-storage.service';
 export * from './config-options.service';
+export * from './app-settings.service';

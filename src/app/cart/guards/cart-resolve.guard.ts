@@ -5,7 +5,12 @@ import { Observable, zip, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ICartData } from '../models';
-import { AppPath, DialogService, AuthService } from '../../shared';
+import {
+    AppPath,
+    DialogService,
+    AuthService,
+    AppSettingsService,
+} from '../../shared';
 import { CartService } from '../services';
 
 @Injectable({
@@ -17,16 +22,18 @@ export class CartResolveGuard implements Resolve<ICartData> {
         private router: Router,
         private dialog: DialogService,
         private authService: AuthService,
+        private settings: AppSettingsService,
     ) {}
 
-    resolve(): Observable<ICartData | null> {
+    resolve(): Observable<ICartData> {
         return zip(
             this.cartService.getProducts(),
             this.cartService.getCartInfo(),
             of(this.authService.getAuthData()),
+            this.settings.get(),
         ).pipe(
-            map(([products, info, { userInfo }]) => {
-                if (products && info) {
+            map(([products, info, { userInfo }, { cart: cartSettings }]) => {
+                if (products && info && cartSettings) {
                     if (!products.length) {
                         if (userInfo?.isAdmin) {
                             this.dialog.show({
@@ -40,7 +47,7 @@ export class CartResolveGuard implements Resolve<ICartData> {
                             this.router.navigate([AppPath.ProductsList]);
                         }
                     }
-                    return { products, info };
+                    return { products, info, settings: cartSettings };
                 } else {
                     this.router.navigate([AppPath.ProductsList]);
                     return null;

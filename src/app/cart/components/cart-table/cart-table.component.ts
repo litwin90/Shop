@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Data } from '@angular/router';
 import { MatSelectChange } from '@angular/material/select';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
@@ -10,6 +10,8 @@ import {
     AppPath,
     HOVER_BACKGROUND_COLOR,
     WithRouteData,
+    AppSettingsService,
+    SortOrder,
 } from '../../../shared';
 import {
     ICartProduct,
@@ -19,6 +21,7 @@ import {
 } from '../../models';
 import { OrdersPath } from '../../../orders/orders.constants';
 import { CartService } from '../../services';
+import { merge } from 'rxjs';
 
 @Component({
     templateUrl: './cart-table.component.html',
@@ -31,7 +34,7 @@ export class CartTableComponent extends WithRouteData implements OnInit {
         { id: 'name', name: 'Name' },
         { id: 'quantity', name: 'Quantity' },
     ];
-    isDescOrder = true;
+    isDescOrder: boolean;
     isCheckAllSelected = false;
     HOVER_BACKGROUND_COLOR = HOVER_BACKGROUND_COLOR;
 
@@ -42,20 +45,25 @@ export class CartTableComponent extends WithRouteData implements OnInit {
         private orderBy: OrderByPipe,
         private router: Router,
         private activeRoute: ActivatedRoute,
+        private settings: AppSettingsService,
     ) {
         super(activeRoute);
     }
 
     ngOnInit(): void {
-        const routerData$ = this.activeRoute.data
-            .pipe(pluck('cartData'))
-            .subscribe((cartData: ICartData | null) => {
-                this.cartData = cartData;
-            });
-        const cartData$ = this.cartService.cartDataSubject.subscribe(
-            cartData => (this.cartData = cartData),
-        );
-        this.subscriptions.push(routerData$);
+        const cartData$ = merge(
+            this.cartService.cartDataSubject,
+            this.activeRoute.data.pipe(pluck<Data, ICartData>('cartData')),
+        ).subscribe(cartData => this.updateCartData(cartData));
+        this.subscriptions.push(cartData$);
+    }
+
+    private updateCartData(cartData: ICartData) {
+        this.cartData = cartData;
+        if (cartData.settings) {
+            this.activeSortByFieldId = cartData.settings.sortBy;
+            this.isDescOrder = cartData.settings.sortOrder === SortOrder.Desc;
+        }
     }
 
     onIncrease(product: ICartProduct) {
@@ -67,13 +75,17 @@ export class CartTableComponent extends WithRouteData implements OnInit {
     }
 
     onSelectOrderBy(sortByField: MatSelectChange) {
-        this.activeSortByFieldId = this.sortByFields.find(
+        const newSortBy = this.sortByFields.find(
             field => field.id === sortByField.value,
         )?.id;
+        this.settings.updateCartSortBy(newSortBy).subscribe(() => {
+            this.activeSortByFieldId = newSortBy;
+        });
     }
 
     onToggleOrder() {
-        this.isDescOrder = !this.isDescOrder;
+        const newOrder = this.isDescOrder ? SortOrder.Asc : SortOrder.Desc;
+        this.settings.updateCartSortOrder(newOrder).subscribe();
     }
 
     onToggleCheckAll(event: MatCheckboxChange) {
@@ -93,7 +105,7 @@ export class CartTableComponent extends WithRouteData implements OnInit {
     }
 
     isCartFull(): boolean {
-        return !!this.cartData.products.length;
+        return !!this.cartData?.products.length;
     }
 
     trackBy(_, product?: ICartProduct) {
