@@ -70,7 +70,7 @@ export class OrdersService {
                 userId,
                 cost,
                 quantity,
-                products: [...products],
+                products: [...products.map(product => ({ ...product }))],
                 date: Date.now(),
                 isSelected: false,
             })
