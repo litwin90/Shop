@@ -183,5 +183,8 @@ export class CartService {
             0,
         );
         this.cartDataSubject.next(this.cartData);
+        if (!this.cartData.info.totalQuantity) {
+            this.router.navigate([AppPath.ProductsList]);
+        }
     }
 }
