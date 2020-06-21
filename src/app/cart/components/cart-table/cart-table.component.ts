@@ -66,12 +66,20 @@ export class CartTableComponent extends WithRouteData implements OnInit {
         }
     }
 
+    private navigateToProductListIfCartIsEmpty() {
+        if (!this.cartData.products.length) {
+            this.router.navigate([AppPath.ProductsList]);
+        }
+    }
+
     onIncrease(product: ICartProduct) {
         this.cartService.increaseQuantity(product.id).subscribe();
     }
 
     onDecrease(product: ICartProduct) {
-        this.cartService.decreaseQuantity(product).subscribe();
+        this.cartService.decreaseQuantity(product).subscribe(() => {
+            this.navigateToProductListIfCartIsEmpty();
+        });
     }
 
     onSelectOrderBy(sortByField: MatSelectChange) {
@@ -118,14 +126,15 @@ export class CartTableComponent extends WithRouteData implements OnInit {
         return this.cartData.products.some(product => product.isSelected);
     }
 
-    removeSelectedItems() {
+    onRemoveSelectedItems() {
         const productsToRemove = this.cartData.products.filter(
             product => product.isSelected,
         );
 
-        this.cartService
-            .removeProducts(productsToRemove)
-            .subscribe(() => (this.isCheckAllSelected = false));
+        this.cartService.removeProducts(productsToRemove).subscribe(() => {
+            this.isCheckAllSelected = false;
+            this.navigateToProductListIfCartIsEmpty();
+        });
     }
 
     getSortedProducts() {

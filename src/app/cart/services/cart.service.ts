@@ -125,7 +125,6 @@ export class CartService {
 
     removeProduct(id: string) {
         return this.cartHttp.deleteProduct(id).pipe(
-            share(),
             tap(() => {
                 this.cartData.products = this.cartData.products.filter(
                     productInCart => productInCart.id !== id,
@@ -136,9 +135,7 @@ export class CartService {
     }
 
     removeProducts(products: ICartProduct[]) {
-        return zip(
-            products.map(({ id }) => this.removeProduct(id).subscribe()),
-        ).pipe(
+        return zip(...products.map(({ id }) => this.removeProduct(id))).pipe(
             tap(() => {
                 const productsToRemoveIds = products.map(product => product.id);
 
@@ -183,8 +180,5 @@ export class CartService {
             0,
         );
         this.cartDataSubject.next(this.cartData);
-        if (!this.cartData.info.totalQuantity) {
-            this.router.navigate([AppPath.ProductsList]);
-        }
     }
 }

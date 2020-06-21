@@ -4,10 +4,11 @@ import { Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { IOrder, OrderData } from '../models';
-import { AuthService, LocalStorageService } from '../../shared';
+import { AuthService, LocalStorageService, AppPath } from '../../shared';
 import { CartService } from '../../cart';
 import { OrdersHttpService } from './orders-http.service';
 import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root',
@@ -23,6 +24,7 @@ export class OrdersService {
         private authService: AuthService,
         private localStorage: LocalStorageService,
         private ordersHttp: OrdersHttpService,
+        private router: Router,
     ) {
         const { userInfo } = this.authService.getAuthData();
         if (userInfo?.id) {
@@ -77,7 +79,11 @@ export class OrdersService {
             .pipe(
                 tap(newOrder => {
                     this.addOrder(newOrder);
-                    this.cartService.removeAllProducts().subscribe();
+                    this.cartService
+                        .removeProducts(products)
+                        .subscribe(() =>
+                            this.router.navigate([AppPath.Orders]),
+                        );
                 }),
             );
     }
