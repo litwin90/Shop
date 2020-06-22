@@ -1,5 +1,3 @@
-import { AppPath } from '../shared';
-
 export enum AdminPath {
     Empty = '',
     Products = 'products',

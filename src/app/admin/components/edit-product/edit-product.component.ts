@@ -9,10 +9,11 @@ import {
     ProductColors,
     ProductSizes,
     Category,
-    ProductsService,
 } from '../../../products';
 import { AdminPath } from '../..';
 import { of } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { IAppState, ProductActions } from '../../../core/@ngrx';
 
 @Component({
     templateUrl: './edit-product.component.html',
@@ -28,9 +29,9 @@ export class EditProductComponent extends WithRouteData implements OnInit {
 
     constructor(
         private activeRoute: ActivatedRoute,
-        private productService: ProductsService,
         private router: Router,
         private confirmation: ConfirmationService,
+        private store: Store<IAppState>,
     ) {
         super(activeRoute);
     }
@@ -50,9 +51,12 @@ export class EditProductComponent extends WithRouteData implements OnInit {
     }
 
     onSave() {
-        this.productService
-            .updateProduct(this.product.id, this.product)
-            .subscribe();
+        this.store.dispatch(
+            ProductActions.updateProduct({
+                id: this.product.id,
+                product: this.product,
+            }),
+        );
         this.initialProductSnapshot = JSON.stringify(this.product);
         this.router.navigate([AppPath.Admin, AdminPath.Products]);
     }

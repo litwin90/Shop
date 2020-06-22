@@ -4,14 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
 import { WithRouteData, ConfirmationService, AppPath } from '../../../shared';
-import {
-    ProductsService,
-    Category,
-    ProductColors,
-    ProductSizes,
-} from '../../../products';
+import { Category, ProductColors, ProductSizes } from '../../../products';
 import { ProductData } from '../../../products';
 import { AdminPath } from '../../admin.constants';
+import { IAppState, ProductActions } from '../../../core/@ngrx';
+import { Store } from '@ngrx/store';
 
 @Component({
     templateUrl: './add-product.component.html',
@@ -27,9 +24,9 @@ export class AddProductComponent extends WithRouteData implements OnInit {
 
     constructor(
         private activeRoute: ActivatedRoute,
-        private productService: ProductsService,
         private confirmation: ConfirmationService,
         private router: Router,
+        private store: Store<IAppState>,
     ) {
         super(activeRoute);
     }
@@ -52,7 +49,14 @@ export class AddProductComponent extends WithRouteData implements OnInit {
     }
 
     onSave() {
-        this.productService.addProduct(this.productData).subscribe();
+        this.store.dispatch(
+            ProductActions.addProduct({
+                product: {
+                    ...this.productData,
+                    updateDate: Date.now(),
+                },
+            }),
+        );
         this.initialProductSnapshot = JSON.stringify(this.productData);
         this.router.navigate([AppPath.Admin, AdminPath.Products]);
     }

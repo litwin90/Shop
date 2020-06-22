@@ -1,22 +1,24 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 
+import { Observable } from 'rxjs';
+
 import { IProduct } from '../models';
-import { ProductsService } from '../services';
+import { ProductsHttpService } from '../services';
 
 @Injectable({
     providedIn: 'any',
 })
 export class ResolveProductGuard implements Resolve<IProduct> {
-    constructor(private productService: ProductsService) {}
+    constructor(private productHttp: ProductsHttpService) {}
 
-    resolve(route: ActivatedRouteSnapshot): IProduct {
+    resolve(route: ActivatedRouteSnapshot): Observable<IProduct> {
         const productId = route.paramMap.get('id');
 
         if (!productId) {
             return null;
         }
 
-        return this.productService.getProduct(productId);
+        return this.productHttp.getProduct(productId);
     }
 }

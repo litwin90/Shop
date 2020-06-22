@@ -15,6 +15,7 @@ import {
     GeneratorService,
     LocalStorageService,
 } from './shared';
+import { RootStoreModule } from './core/@ngrx';
 
 @NgModule({
     imports: [
@@ -22,6 +23,7 @@ import {
         BrowserAnimationsModule,
         LayoutModule,
         SharedModule,
+        RootStoreModule,
         ProductsModule,
         /**
          * Should be last

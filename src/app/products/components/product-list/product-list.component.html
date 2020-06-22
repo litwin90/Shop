@@ -8,10 +8,13 @@
 
 <div class="products">
     <app-product
-        *ngFor="let product of products"
+        *ngFor="let product of (productsState$ | async).products"
         [product]="product"
         [isLoggedIn]="isLoggedIn"
         [isAdmin]="isAdmin"
-        (addToCart)="addToCart($event)"
+        (addToCart)="onAddToCart(product)"
+        (removeProduct)="onRemoveProduct(product)"
+        (openDetails)="onOpenDetails(product)"
+        (editProduct)="onEditProduct(product)"
     ></app-product>
 </div>
