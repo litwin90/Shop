@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Subject, Observable } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { tap, switchMap } from 'rxjs/operators';
 
 import { IProduct, ProductData } from '../models';
@@ -13,7 +13,7 @@ import { ProductsHttpService } from './products-http.service';
 export class ProductsService {
     private products: IProduct[] = [];
 
-    productsSubject: Subject<IProduct[]> = new Subject();
+    productsSubject: BehaviorSubject<IProduct[]> = new BehaviorSubject([]);
 
     constructor(
         private productsHttp: ProductsHttpService,
@@ -23,10 +23,6 @@ export class ProductsService {
             this.products = products;
             this.updateProducts();
         });
-    }
-
-    getProducts(): IProduct[] {
-        return this.products;
     }
 
     getProduct(id: string): IProduct {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { of, Subject, zip } from 'rxjs';
+import { of, zip, BehaviorSubject } from 'rxjs';
 import { delay, tap, finalize, map } from 'rxjs/operators';
 
 import { DialogService } from './dialog.service';
@@ -22,7 +22,9 @@ export class AuthService {
         isLoggedIn: false,
     };
 
-    authSubject: Subject<IAuthData> = new Subject();
+    authSubject: BehaviorSubject<IAuthData> = new BehaviorSubject({
+        isLoggedIn: false,
+    });
 
     constructor(
         private dialog: DialogService,

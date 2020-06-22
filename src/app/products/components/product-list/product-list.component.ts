@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { merge, of } from 'rxjs';
-import { startWith } from 'rxjs/operators';
-
 import { AuthService, AppPath, WithRouteData } from '../../../shared';
 import { ProductsService } from '../../services';
 import { IProduct } from '../../models';
@@ -21,8 +18,7 @@ export class ProductListComponent extends WithRouteData implements OnInit {
     products: IProduct[];
 
     constructor(
-        private productService: ProductsService,
-        private productsState: ProductsService,
+        private productsService: ProductsService,
         private cartService: CartService,
         private authService: AuthService,
         private activeRoute: ActivatedRoute,
@@ -32,18 +28,17 @@ export class ProductListComponent extends WithRouteData implements OnInit {
     }
 
     ngOnInit(): void {
-        const products$ = merge(
-            this.productsState.productsSubject,
-            of(this.productService.getProducts()),
-        ).subscribe(products => {
-            this.products = products;
-        });
-        const authData$ = this.authService.authSubject
-            .pipe(startWith(this.authService.getAuthData()))
-            .subscribe(({ isLoggedIn, userInfo }) => {
+        const products$ = this.productsService.productsSubject.subscribe(
+            products => {
+                this.products = products;
+            },
+        );
+        const authData$ = this.authService.authSubject.subscribe(
+            ({ isLoggedIn, userInfo }) => {
                 this.isLoggedIn = isLoggedIn;
                 this.isAdmin = userInfo?.isAdmin;
-            });
+            },
+        );
         this.subscriptions.push(authData$, products$);
     }
 

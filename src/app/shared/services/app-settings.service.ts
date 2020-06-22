@@ -24,10 +24,7 @@ export class AppSettingsService {
         private http: HttpClient,
         private authService: AuthService,
     ) {
-        merge(
-            of(authService.getAuthData()),
-            this.authService.authSubject,
-        ).subscribe(({ userInfo }) => {
+        this.authService.authSubject.subscribe(({ userInfo }) => {
             if (userInfo) {
                 this.userId = userInfo.id;
             }

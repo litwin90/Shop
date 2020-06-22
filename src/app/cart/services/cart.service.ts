@@ -1,16 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Subject, Observable, of, zip, merge } from 'rxjs';
-import {
-    tap,
-    switchMap,
-    catchError,
-    share,
-    publish,
-    refCount,
-    map,
-} from 'rxjs/operators';
+import { Observable, zip, merge, BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { IProduct } from '../../products';
 import { ICartData, ICartProduct, ICartInfo } from '../models';
@@ -29,13 +21,14 @@ export class CartService {
         },
     };
 
-    cartDataSubject: Subject<ICartData> = new Subject();
+    cartDataSubject: BehaviorSubject<ICartData>;
 
     constructor(
         private cartHttp: CartHttpService,
         private router: Router,
         private settings: AppSettingsService,
     ) {
+        this.cartDataSubject = new BehaviorSubject(this.cartData);
         this.cartHttp.getProducts().subscribe(products => {
             this.cartData.products = products;
             this.updateCartData();
