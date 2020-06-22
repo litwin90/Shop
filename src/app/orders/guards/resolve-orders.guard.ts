@@ -11,7 +11,7 @@ import { AppPath, AuthService } from '../../shared';
 @Injectable({
     providedIn: 'any',
 })
-export class OrdersResolveGuard implements Resolve<IOrder[] | null> {
+export class ResolveOrdersGuard implements Resolve<IOrder[] | null> {
     constructor(
         private router: Router,
         private ordersService: OrdersService,

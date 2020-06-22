@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatSelectChange } from '@angular/material/select';
@@ -17,11 +17,10 @@ import { OrdersService } from '../../services';
 import { OrdersPath } from '../../orders.constants';
 
 @Component({
-    templateUrl: './orders-list.component.html',
-    styleUrls: ['./orders-list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './orders-table.component.html',
+    styleUrls: ['./orders-table.component.scss'],
 })
-export class OrdersListComponent extends WithSubscriptions implements OnInit {
+export class OrdersTableComponent extends WithSubscriptions implements OnInit {
     orders: IOrder[] = [];
     HOVER_BACKGROUND_COLOR = HOVER_BACKGROUND_COLOR;
     sortByFields: IOrderSortByField[] = [

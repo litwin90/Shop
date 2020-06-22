@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ProductListComponent, ProductCardComponent } from './components';
+import { ProductListComponent, ProductDetailsComponent } from './components';
 import { ProductsComponent } from './products.component';
 import { AppPath } from '../shared';
 import { ResolveProductGuard } from './guards';
@@ -20,7 +20,7 @@ const routes: Routes = [
             },
             {
                 path: `${AppPath.Product}/:id`,
-                component: ProductCardComponent,
+                component: ProductDetailsComponent,
                 resolve: {
                     product: ResolveProductGuard,
                 },
@@ -40,6 +40,6 @@ export class ProductsRoutingModule {
     static components = [
         ProductsComponent,
         ProductListComponent,
-        ProductCardComponent,
+        ProductDetailsComponent,
     ];
 }

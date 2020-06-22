@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 
-import { ProductComponent } from './components';
+import { ProductCardComponent } from './components';
 import { ProductsRoutingModule } from './products-routing.module';
 import { SharedModule } from '../shared';
 
 @NgModule({
     imports: [SharedModule, ProductsRoutingModule],
-    declarations: [ProductsRoutingModule.components, ProductComponent],
+    declarations: [ProductsRoutingModule.components, ProductCardComponent],
 })
 export class ProductsModule {}

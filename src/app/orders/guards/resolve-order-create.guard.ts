@@ -11,7 +11,7 @@ import { CartService } from '../../cart';
 @Injectable({
     providedIn: 'root',
 })
-export class OrderCreateResolveGuard implements Resolve<OrderData | null> {
+export class ResolveOrderCreateGuard implements Resolve<OrderData | null> {
     constructor(
         private router: Router,
         private cartService: CartService,

@@ -3,8 +3,9 @@ import { Data } from '@angular/router';
 
 import { Store, select } from '@ngrx/store';
 
-import { IAppState } from '../app.state';
 import { Observable } from 'rxjs';
+
+import { IAppState } from '../app.state';
 import { selectRouterData } from '../router-state';
 
 @Component({

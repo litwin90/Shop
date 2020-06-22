@@ -16,7 +16,7 @@ import { CartService } from '../services';
 @Injectable({
     providedIn: 'any',
 })
-export class CartResolveGuard implements Resolve<ICartData> {
+export class ResolveCartGuard implements Resolve<ICartData> {
     constructor(
         private cartService: CartService,
         private router: Router,

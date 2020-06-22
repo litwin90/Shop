@@ -1,0 +1,13 @@
+:host {
+    width: 100%;
+    display: flex;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.not-available {
+    color: red;
+}

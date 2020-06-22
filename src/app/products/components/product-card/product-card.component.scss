@@ -1,13 +1,35 @@
 :host {
-    width: 100%;
     display: flex;
+    justify-content: flex-start;
+    flex-basis: 300px;
+    flex-grow: 2;
+    margin: 10px;
 }
 
 .wrapper {
-    display: flex;
-    flex-direction: column;
+    flex-basis: 300px;
+    flex-grow: 2;
+    cursor: pointer;
 }
 
-.not-available {
-    color: red;
+.header {
+    .title {
+        font-size: xx-large;
+    }
+
+    .sub-title {
+        margin-top: 10px;
+        font-size: large;
+    }
+}
+
+.content {
+    margin-top: 20px;
+    font-size: medium;
+}
+
+mat-card-actions {
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
 }

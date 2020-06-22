@@ -7,7 +7,7 @@
 >Add New Product</button>
 
 <div class="products">
-    <app-product
+    <app-product-card
         *ngFor="let product of productsState$ | async"
         [product]="product"
         [isLoggedIn]="isLoggedIn"
@@ -16,5 +16,5 @@
         (removeProduct)="onRemoveProduct(product)"
         (openDetails)="onOpenDetails(product)"
         (editProduct)="onEditProduct(product)"
-    ></app-product>
+    ></app-product-card>
 </div>

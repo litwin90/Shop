@@ -1,52 +1,46 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+    Component,
+    Input,
+    Output,
+    EventEmitter,
+    ChangeDetectionStrategy,
+} from '@angular/core';
 
-import { pluck } from 'rxjs/operators';
-
-import { AppPath, AuthService, WithSubscriptions } from '../../../shared';
 import { IProduct } from '../../models';
-import { CartService } from '../../../cart';
+import { HOVER_BACKGROUND_COLOR } from '../../../shared';
 
 @Component({
+    selector: 'app-product-card',
     templateUrl: './product-card.component.html',
     styleUrls: ['./product-card.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductCardComponent extends WithSubscriptions implements OnInit {
-    isLoggedIn = false;
-    isAdmin = false;
-    product: IProduct;
+export class ProductCardComponent {
+    @Input() product: IProduct;
+    @Input() isLoggedIn: boolean;
+    @Input() isAdmin: boolean;
 
-    constructor(
-        private router: Router,
-        private activeRoute: ActivatedRoute,
-        private cartService: CartService,
-        private authService: AuthService,
-    ) {
-        super();
-    }
+    @Output() addToCart = new EventEmitter();
+    @Output() removeProduct = new EventEmitter();
+    @Output() openDetails = new EventEmitter();
+    @Output() editProduct = new EventEmitter();
 
-    ngOnInit(): void {
-        const activeRoute$ = this.activeRoute.data
-            .pipe(pluck('product'))
-            .subscribe((product: IProduct) => {
-                this.product = { ...product };
-            });
-        const { isLoggedIn, userInfo } = this.authService.getAuthData();
-        this.isLoggedIn = isLoggedIn;
-        if (userInfo?.isAdmin) {
-            this.isAdmin = true;
-        }
-        this.subscriptions.push(activeRoute$);
-    }
+    HOVER_BACKGROUND_COLOR = HOVER_BACKGROUND_COLOR;
 
     onAddToCart() {
-        this.cartService.addProductToCart(this.product).subscribe(() => {
-            this.router.navigate([AppPath.ProductsList]);
-        });
+        this.addToCart.emit();
     }
 
-    getAvailabilityTitle(): string {
-        return this.product.isAvailable ? 'Available' : 'Not Available';
+    onOpenProductDetails() {
+        this.openDetails.emit();
+    }
+
+    onEditProduct() {
+        this.editProduct.emit();
+    }
+
+    onRemoveProduct() {
+        this.removeProduct.emit(this.product.id);
     }
 
     getAddToCartTooltip(): string {

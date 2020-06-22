@@ -4,18 +4,18 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppPath } from '../shared';
 import { OrdersComponent } from './orders.component';
 import {
-    OrdersListComponent,
+    OrdersTableComponent,
     CreateOrderComponent,
     OrderDetailsComponent,
     EditOrderComponent,
 } from './components';
 import {
     CanLeaveEditOrderGuard,
-    OrderDetailsResolveGuard,
-    OrdersResolveGuard,
+    ResolveOrderDetailsGuard,
+    ResolveOrdersGuard,
 } from './guards';
 import { OrdersPath } from './orders.constants';
-import { OrderCreateResolveGuard } from './guards/order-create-resolve.guard';
+import { ResolveOrderCreateGuard } from './guards/resolve-order-create.guard';
 
 const routes: Routes = [
     {
@@ -24,9 +24,9 @@ const routes: Routes = [
         children: [
             {
                 path: OrdersPath.Empty,
-                component: OrdersListComponent,
+                component: OrdersTableComponent,
                 resolve: {
-                    orders: OrdersResolveGuard,
+                    orders: ResolveOrdersGuard,
                 },
                 data: {
                     label: 'Order list',
@@ -36,7 +36,7 @@ const routes: Routes = [
                 path: OrdersPath.Create,
                 component: CreateOrderComponent,
                 resolve: {
-                    orderData: OrderCreateResolveGuard,
+                    orderData: ResolveOrderCreateGuard,
                 },
                 data: {
                     label: 'Create Order',
@@ -46,7 +46,7 @@ const routes: Routes = [
                 path: `${OrdersPath.OrderDetails}/:${OrdersPath.OrderId}`,
                 component: OrderDetailsComponent,
                 resolve: {
-                    order: OrderDetailsResolveGuard,
+                    order: ResolveOrderDetailsGuard,
                 },
                 data: {
                     label: 'Order details',
@@ -56,7 +56,7 @@ const routes: Routes = [
                 path: `${OrdersPath.Edit}/:${OrdersPath.OrderId}`,
                 component: EditOrderComponent,
                 resolve: {
-                    order: OrderDetailsResolveGuard,
+                    order: ResolveOrderDetailsGuard,
                 },
                 canDeactivate: [CanLeaveEditOrderGuard],
                 data: {
@@ -74,7 +74,7 @@ const routes: Routes = [
 export class OrdersRoutingModule {
     static components = [
         OrdersComponent,
-        OrdersListComponent,
+        OrdersTableComponent,
         CreateOrderComponent,
         OrderDetailsComponent,
         CreateOrderComponent,

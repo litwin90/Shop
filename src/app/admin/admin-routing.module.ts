@@ -6,8 +6,7 @@ import { AdminComponent } from './admin.component';
 import { CanLeaveProductAddGuard, CanLeaveProductEditGuard } from './guards';
 import { AddProductComponent, EditProductComponent } from './components';
 import { ProductListComponent, ResolveProductGuard } from '../products';
-import { AppPath } from '../shared';
-import { OrdersListComponent } from '../orders';
+import { OrdersTableComponent } from '../orders';
 import { ResolveAdminOrdersGuard } from './guards/resolve-admin-orders.guard';
 
 const routes: Routes = [
@@ -52,7 +51,7 @@ const routes: Routes = [
             },
             {
                 path: AdminPath.Orders,
-                component: OrdersListComponent,
+                component: OrdersTableComponent,
                 data: {
                     label: 'Manage Orders',
                 },

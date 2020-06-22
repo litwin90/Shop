@@ -11,7 +11,7 @@ import { OrdersPath } from '../orders.constants';
 @Injectable({
     providedIn: 'any',
 })
-export class OrderDetailsResolveGuard implements Resolve<IOrder | null> {
+export class ResolveOrderDetailsGuard implements Resolve<IOrder | null> {
     constructor(private router: Router, private ordersService: OrdersService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<IOrder | null> {

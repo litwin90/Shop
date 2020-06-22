@@ -6,8 +6,8 @@ import { CartComponent } from './cart.component';
 import { AppPath } from '../shared';
 import { CartPath } from './cart.constants';
 import {
-    CartItemResolveGuard,
-    CartResolveGuard,
+    ResolveCartItemGuard,
+    ResolveCartGuard,
     CanLeaveOrderEditGuard,
 } from './guards';
 
@@ -20,7 +20,7 @@ const routes: Routes = [
                 path: AppPath.Empty,
                 component: CartTableComponent,
                 resolve: {
-                    cartData: CartResolveGuard,
+                    cartData: ResolveCartGuard,
                 },
                 data: {
                     label: 'Cart',
@@ -30,7 +30,7 @@ const routes: Routes = [
                 path: `${AppPath.Edit}/:${CartPath.ProductId}`,
                 component: CartProductComponent,
                 resolve: {
-                    product: CartItemResolveGuard,
+                    product: ResolveCartItemGuard,
                 },
                 canDeactivate: [CanLeaveOrderEditGuard],
                 data: {

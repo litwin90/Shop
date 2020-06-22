@@ -12,7 +12,7 @@ import { CartService } from '../services';
 @Injectable({
     providedIn: 'any',
 })
-export class CartItemResolveGuard implements Resolve<ICartProduct> {
+export class ResolveCartItemGuard implements Resolve<ICartProduct> {
     constructor(
         private router: Router,
         private dialog: DialogService,
