@@ -9,7 +9,7 @@ import { AuthService, AppPath, WithRouteData } from '../../../shared';
 import { IProduct } from '../../models';
 import { AdminPath } from '../../../admin';
 import { CartService } from '../../../cart';
-import { IProductsState, ProductActions } from '../../state';
+import { ProductActions, selectProducts } from '../../state';
 import { IAppState } from '../../../app.state';
 
 @Component({
@@ -18,7 +18,7 @@ import { IAppState } from '../../../app.state';
     styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent extends WithRouteData implements OnInit {
-    productsState$: Observable<IProductsState>;
+    productsState$: Observable<readonly IProduct[]>;
     isLoggedIn = false;
     isAdmin = false;
 
@@ -34,7 +34,7 @@ export class ProductListComponent extends WithRouteData implements OnInit {
 
     ngOnInit(): void {
         this.store.dispatch(ProductActions.getProducts());
-        this.productsState$ = this.store.pipe(select('products'));
+        this.productsState$ = this.store.pipe(select(selectProducts));
         const authData$ = this.authService.authSubject.subscribe(
             ({ isLoggedIn, userInfo }) => {
                 this.isLoggedIn = isLoggedIn;

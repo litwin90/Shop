@@ -24,9 +24,7 @@ export class ProductsEffects {
                     map(products =>
                         ProductActions.getProductsSuccess({ products }),
                     ),
-                    catchError(error =>
-                        of(ProductActions.getProductsError({ error })),
-                    ),
+                    catchError(() => of(ProductActions.getProductsError())),
                 ),
             ),
         ),
@@ -42,9 +40,7 @@ export class ProductsEffects {
                             product: newProduct,
                         }),
                     ),
-                    catchError(error =>
-                        of(ProductActions.addProductError(error)),
-                    ),
+                    catchError(() => of(ProductActions.addProductError())),
                 ),
             ),
         ),
@@ -60,9 +56,7 @@ export class ProductsEffects {
                             product: newProduct,
                         }),
                     ),
-                    catchError(error =>
-                        of(ProductActions.updateProductError(error)),
-                    ),
+                    catchError(() => of(ProductActions.updateProductError())),
                 ),
             ),
         ),
@@ -78,9 +72,7 @@ export class ProductsEffects {
                             id,
                         }),
                     ),
-                    catchError(error =>
-                        of(ProductActions.removeProductError(error)),
-                    ),
+                    catchError(() => of(ProductActions.removeProductError())),
                 ),
             ),
         ),

@@ -9,10 +9,7 @@ export const ProductActions = {
         '[Products effect] get products success',
         props<{ products: IProduct[] }>(),
     ),
-    getProductsError: createAction(
-        '[Products effect] get products error',
-        props<{ error: Error | string }>(),
-    ),
+    getProductsError: createAction('[Products effect] get products error'),
 
     // ADD PRODUCT
     addProduct: createAction(
@@ -23,10 +20,7 @@ export const ProductActions = {
         '[Products] add product success',
         props<{ product: IProduct }>(),
     ),
-    addProductError: createAction(
-        '[Products] add products error',
-        props<{ error: Error | string }>(),
-    ),
+    addProductError: createAction('[Products] add products error'),
 
     // UPDATE PRODUCT
     updateProduct: createAction(
@@ -37,10 +31,7 @@ export const ProductActions = {
         '[Products] update product success',
         props<{ product: IProduct }>(),
     ),
-    updateProductError: createAction(
-        '[Products] update products error',
-        props<{ error: Error | string }>(),
-    ),
+    updateProductError: createAction('[Products] update products error'),
 
     // REMOVE PRODUCT
     removeProduct: createAction(
@@ -51,8 +42,5 @@ export const ProductActions = {
         '[Products] remove product success',
         props<{ id: string }>(),
     ),
-    removeProductError: createAction(
-        '[Products] remove products error',
-        props<{ error: Error | string }>(),
-    ),
+    removeProductError: createAction('[Products] remove products error'),
 };

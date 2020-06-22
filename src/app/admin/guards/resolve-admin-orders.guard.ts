@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Resolve, Router } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 import { IOrder, OrdersService } from '../../orders';
 import { AppPath, AuthService } from '../../shared';
@@ -29,10 +29,6 @@ export class ResolveAdminOrdersGuard implements Resolve<IOrder[] | null> {
                     this.router.navigate([AppPath.Admin]);
                     return of(null);
                 }
-            }),
-            catchError(() => {
-                this.router.navigate([AppPath.Admin]);
-                return of(null);
             }),
         );
     }

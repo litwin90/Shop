@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Resolve, Router } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
-import { catchError, tap, take } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 import { IOrder } from '../models';
 import { OrdersService } from '../services';
@@ -30,10 +30,6 @@ export class OrdersResolveGuard implements Resolve<IOrder[] | null> {
                     this.router.navigate([AppPath.ProductsList]);
                     return of(null);
                 }
-            }),
-            catchError(() => {
-                this.router.navigate([AppPath.ProductsList]);
-                return of(null);
             }),
         );
     }

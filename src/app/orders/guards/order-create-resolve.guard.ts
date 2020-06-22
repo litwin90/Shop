@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Resolve, Router } from '@angular/router';
 
 import { Observable, of, zip } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { AppPath, AuthService } from '../../shared';
 import { OrderData } from '../models';
@@ -35,10 +35,6 @@ export class OrderCreateResolveGuard implements Resolve<OrderData | null> {
                 }
                 this.router.navigate([AppPath.Cart]);
                 return null;
-            }),
-            catchError(() => {
-                this.router.navigate([AppPath.Cart]);
-                return of(null);
             }),
         );
     }

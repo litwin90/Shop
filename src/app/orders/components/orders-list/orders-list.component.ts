@@ -4,7 +4,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatSelectChange } from '@angular/material/select';
 
 import { of } from 'rxjs';
-import { pluck, catchError } from 'rxjs/operators';
+import { pluck } from 'rxjs/operators';
 
 import {
     DialogService,
@@ -48,14 +48,7 @@ export class OrdersListComponent extends WithRouteData implements OnInit {
 
     ngOnInit(): void {
         const activeRoute$ = this.activeRoute.data
-            .pipe(
-                pluck('orders'),
-                catchError(() => {
-                    this.dialog.show({ message: 'Something went wrong' });
-                    this.router.navigate([AppPath.Orders]);
-                    return of(null);
-                }),
-            )
+            .pipe(pluck('orders'))
             .subscribe((orders: IOrder[] | null) => {
                 this.orders = (orders || []).map(order => ({
                     ...order,

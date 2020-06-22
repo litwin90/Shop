@@ -27,7 +27,7 @@
     {
       "name": "Product 1",
       "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      "price": 200,
+      "price": 202,
       "category": "Primary",
       "isAvailable": true,
       "colors": [
@@ -106,20 +106,31 @@
       "sizes": [],
       "updateDate": 1592428887565,
       "id": "53L3TOu"
-    },
-    {
-      "name": "New Product",
-      "description": "Some description",
-      "price": 100,
-      "category": "Primary",
-      "isAvailable": true,
-      "colors": [],
-      "sizes": [],
-      "updateDate": 1592844008298,
-      "id": "lFDRvZq"
     }
   ],
-  "cart": [],
+  "cart": [
+    {
+      "quantity": 1,
+      "cost": 200,
+      "name": "Product 1",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "price": 200,
+      "category": "Primary",
+      "colors": [
+        "Blue",
+        "Red"
+      ],
+      "isAvailable": true,
+      "updateDate": 1592381514980,
+      "sizes": [
+        "L",
+        "M",
+        "S"
+      ],
+      "productId": "mbR7fje0Qu",
+      "id": 1
+    }
+  ],
   "users": [
     {
       "firstName": "Demo",

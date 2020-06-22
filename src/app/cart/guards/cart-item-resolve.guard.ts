@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
-import { take, catchError, map } from 'rxjs/operators';
+import { take, map } from 'rxjs/operators';
 
 import { ICartProduct } from '../models';
 import { AppPath, DialogService } from '../../shared';
@@ -40,10 +40,6 @@ export class CartItemResolveGuard implements Resolve<ICartProduct> {
                 }
             }),
             take(1),
-            catchError(() => {
-                this.router.navigate([AppPath.Cart]);
-                return of(null);
-            }),
         );
     }
 }

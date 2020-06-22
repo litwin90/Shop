@@ -68,10 +68,9 @@ const reducer = createReducer(
         ProductActions.removeProductError,
         ProductActions.updateProductError,
         ProductActions.getProductsError,
-        (state, { error }) => ({
+        state => ({
             ...state,
             isLoading: false,
-            error,
         }),
     ),
 );

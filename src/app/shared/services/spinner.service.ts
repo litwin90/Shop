@@ -4,6 +4,7 @@ import { Store, select } from '@ngrx/store';
 import { Subject } from 'rxjs';
 
 import { IAppState } from '../../app.state';
+import { selectProductsLoading } from '../../products/state/products.selectors';
 
 @Injectable({
     providedIn: 'root',
@@ -15,7 +16,7 @@ export class SpinnerService {
     private showRequestsCount = 0;
 
     constructor(private store: Store<IAppState>) {
-        this.store.pipe(select('products')).subscribe(({ isLoading }) => {
+        this.store.pipe(select(selectProductsLoading)).subscribe(isLoading => {
             isLoading ? this.show() : this.hide();
         });
     }
