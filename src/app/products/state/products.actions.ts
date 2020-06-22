@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IProduct } from '../../../products';
+import { IProduct } from '../../products';
 
 export const ProductActions = {
     // GET PRODUCTS
@@ -13,9 +13,6 @@ export const ProductActions = {
         '[Products effect] get products error',
         props<{ error: Error | string }>(),
     ),
-
-    // GET PRODUCT
-    getProduct: createAction('[Products] get product', props<{ id: string }>()),
 
     // ADD PRODUCT
     addProduct: createAction(

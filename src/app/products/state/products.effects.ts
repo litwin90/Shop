@@ -6,8 +6,8 @@ import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { switchMap, catchError, map } from 'rxjs/operators';
 
-import { ProductsHttpService } from '../../../products/services/products-http.service';
 import { ProductActions } from './products.actions';
+import { ProductsHttpService } from '../../products/services';
 
 @Injectable()
 export class ProductsEffects {

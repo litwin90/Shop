@@ -1,4 +1,4 @@
-import { IProduct, Category } from '../../../products/models/product';
+import { IProduct } from '../../products';
 
 export interface IProductsState {
     products: ReadonlyArray<IProduct>;

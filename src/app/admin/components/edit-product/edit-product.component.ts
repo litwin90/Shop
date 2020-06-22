@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { Store } from '@ngrx/store';
+
+import { of } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
 import { WithRouteData, AppPath, ConfirmationService } from '../../../shared';
@@ -9,11 +12,10 @@ import {
     ProductColors,
     ProductSizes,
     Category,
+    ProductActions,
 } from '../../../products';
-import { AdminPath } from '../..';
-import { of } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { IAppState, ProductActions } from '../../../core/@ngrx';
+import { AdminPath } from '../../admin.constants';
+import { IAppState } from '../../../app.state';
 
 @Component({
     templateUrl: './edit-product.component.html',

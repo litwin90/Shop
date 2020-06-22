@@ -15,7 +15,7 @@ import {
     GeneratorService,
     LocalStorageService,
 } from './shared';
-import { RootStoreModule } from './core/@ngrx';
+import { RootStoreModule } from './root-store.module';
 
 @NgModule({
     imports: [

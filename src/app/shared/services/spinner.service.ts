@@ -3,7 +3,7 @@ import { Store, select } from '@ngrx/store';
 
 import { Subject } from 'rxjs';
 
-import { IAppState } from '../../core/@ngrx';
+import { IAppState } from '../../app.state';
 
 @Injectable({
     providedIn: 'root',

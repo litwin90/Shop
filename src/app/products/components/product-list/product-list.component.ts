@@ -5,11 +5,12 @@ import { Store, select } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
 
-import { IAppState, ProductActions, IProductsState } from '../../../core/@ngrx';
 import { AuthService, AppPath, WithRouteData } from '../../../shared';
 import { IProduct } from '../../models';
 import { AdminPath } from '../../../admin';
 import { CartService } from '../../../cart';
+import { IProductsState, ProductActions } from '../../state';
+import { IAppState } from '../../../app.state';
 
 @Component({
     selector: 'app-product-list',

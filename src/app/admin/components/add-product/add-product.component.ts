@@ -1,14 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { Store } from '@ngrx/store';
+
 import { Observable, of } from 'rxjs';
 
 import { WithRouteData, ConfirmationService, AppPath } from '../../../shared';
-import { Category, ProductColors, ProductSizes } from '../../../products';
+import {
+    Category,
+    ProductColors,
+    ProductSizes,
+    ProductActions,
+} from '../../../products';
 import { ProductData } from '../../../products';
 import { AdminPath } from '../../admin.constants';
-import { IAppState, ProductActions } from '../../../core/@ngrx';
-import { Store } from '@ngrx/store';
+import { IAppState } from '../../../app.state';
 
 @Component({
     templateUrl: './add-product.component.html',
