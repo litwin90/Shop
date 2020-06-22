@@ -10,7 +10,7 @@ import {
 import { Observable, of } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
-import { AppPath, FlexDirection, WithRouteData } from '../../../shared';
+import { AppPath, FlexDirection, WithSubscriptions } from '../../../shared';
 import { ICartProduct } from '../../models';
 import { ConfirmationService } from '../../../shared/services/confirmation.service';
 import { CartService } from '../../services';
@@ -20,7 +20,7 @@ import { CartService } from '../../services';
     styleUrls: ['./cart-product.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CartProductComponent extends WithRouteData implements OnInit {
+export class CartProductComponent extends WithSubscriptions implements OnInit {
     quantityControl: FormControl;
     options: FormGroup;
 
@@ -36,7 +36,7 @@ export class CartProductComponent extends WithRouteData implements OnInit {
         private formBuilder: FormBuilder,
         private confirmation: ConfirmationService,
     ) {
-        super(activeRoute);
+        super();
     }
 
     ngOnInit(): void {

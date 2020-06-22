@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 
 import { Observable, of } from 'rxjs';
 
-import { WithRouteData, ConfirmationService, AppPath } from '../../../shared';
+import { ConfirmationService, AppPath } from '../../../shared';
 import {
     Category,
     ProductColors,
@@ -20,7 +20,7 @@ import { IAppState } from '../../../app.state';
     templateUrl: './add-product.component.html',
     styleUrls: ['./add-product.component.scss'],
 })
-export class AddProductComponent extends WithRouteData implements OnInit {
+export class AddProductComponent implements OnInit {
     productData: ProductData;
     initialProductSnapshot: string;
 
@@ -29,13 +29,10 @@ export class AddProductComponent extends WithRouteData implements OnInit {
     Category = Category;
 
     constructor(
-        private activeRoute: ActivatedRoute,
         private confirmation: ConfirmationService,
         private router: Router,
         private store: Store<IAppState>,
-    ) {
-        super(activeRoute);
-    }
+    ) {}
 
     ngOnInit(): void {
         this.productData = {

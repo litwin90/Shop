@@ -1,4 +1,4 @@
-<app-base-page [header]="headerLabel | titlecase" [flexDirection]="FlexDirection.Column">
+<app-base-page [header]="(routerData$ |async).label | titlecase" [flexDirection]="FlexDirection.Column">
     <nav
         mat-tab-nav-bar
     >
@@ -15,5 +15,5 @@
         </div>
     </nav>
 
-    <router-outlet (activate)="onActivate($event)"></router-outlet>
+    <router-outlet></router-outlet>
 </app-base-page>

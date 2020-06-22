@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Store, select } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
 
-import { AuthService, AppPath, WithRouteData } from '../../../shared';
+import { AuthService, AppPath, WithSubscriptions } from '../../../shared';
 import { IProduct } from '../../models';
 import { AdminPath } from '../../../admin';
 import { CartService } from '../../../cart';
@@ -17,7 +17,7 @@ import { IAppState } from '../../../app.state';
     templateUrl: './product-list.component.html',
     styleUrls: ['./product-list.component.scss'],
 })
-export class ProductListComponent extends WithRouteData implements OnInit {
+export class ProductListComponent extends WithSubscriptions implements OnInit {
     productsState$: Observable<readonly IProduct[]>;
     isLoggedIn = false;
     isAdmin = false;
@@ -25,11 +25,10 @@ export class ProductListComponent extends WithRouteData implements OnInit {
     constructor(
         private cartService: CartService,
         private authService: AuthService,
-        private activeRoute: ActivatedRoute,
         private router: Router,
         private store: Store<IAppState>,
     ) {
-        super(activeRoute);
+        super();
     }
 
     ngOnInit(): void {

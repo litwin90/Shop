@@ -1,3 +1,3 @@
-<app-base-page [header]="headerLabel | titlecase" [flexDirection]="FlexDirection.Column">
-    <router-outlet (activate)="onActivate($event)"></router-outlet>
+<app-base-page [header]="(routerData$ | async).label | titlecase" [flexDirection]="FlexDirection.Column">
+    <router-outlet></router-outlet>
 </app-base-page>

@@ -6,7 +6,11 @@ import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
-import { WithRouteData, AppPath, ConfirmationService } from '../../../shared';
+import {
+    AppPath,
+    ConfirmationService,
+    WithSubscriptions,
+} from '../../../shared';
 import {
     IProduct,
     ProductColors,
@@ -21,7 +25,7 @@ import { IAppState } from '../../../app.state';
     templateUrl: './edit-product.component.html',
     styleUrls: ['./edit-product.component.scss'],
 })
-export class EditProductComponent extends WithRouteData implements OnInit {
+export class EditProductComponent extends WithSubscriptions implements OnInit {
     product: IProduct;
     initialProductSnapshot: string;
 
@@ -35,7 +39,7 @@ export class EditProductComponent extends WithRouteData implements OnInit {
         private confirmation: ConfirmationService,
         private store: Store<IAppState>,
     ) {
-        super(activeRoute);
+        super();
     }
 
     ngOnInit(): void {

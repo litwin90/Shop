@@ -5,13 +5,13 @@ import { pluck } from 'rxjs/operators';
 
 import { OrdersPath } from '../../orders.constants';
 import { IOrder } from '../../models';
-import { AppPath, WithRouteData, AuthService } from '../../../shared';
+import { AppPath, AuthService, WithSubscriptions } from '../../../shared';
 
 @Component({
     templateUrl: './order-details.component.html',
     styleUrls: ['./order-details.component.scss'],
 })
-export class OrderDetailsComponent extends WithRouteData implements OnInit {
+export class OrderDetailsComponent extends WithSubscriptions implements OnInit {
     order: IOrder;
     isAdmin = false;
 
@@ -20,7 +20,7 @@ export class OrderDetailsComponent extends WithRouteData implements OnInit {
         private activeRoute: ActivatedRoute,
         private authService: AuthService,
     ) {
-        super(activeRoute);
+        super();
     }
 
     ngOnInit(): void {

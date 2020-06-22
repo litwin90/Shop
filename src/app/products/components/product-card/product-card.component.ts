@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { pluck } from 'rxjs/operators';
 
-import { AppPath, AuthService, WithRouteData } from '../../../shared';
+import { AppPath, AuthService, WithSubscriptions } from '../../../shared';
 import { IProduct } from '../../models';
 import { CartService } from '../../../cart';
 
@@ -11,7 +11,7 @@ import { CartService } from '../../../cart';
     templateUrl: './product-card.component.html',
     styleUrls: ['./product-card.component.scss'],
 })
-export class ProductCardComponent extends WithRouteData implements OnInit {
+export class ProductCardComponent extends WithSubscriptions implements OnInit {
     isLoggedIn = false;
     isAdmin = false;
     product: IProduct;
@@ -22,7 +22,7 @@ export class ProductCardComponent extends WithRouteData implements OnInit {
         private cartService: CartService,
         private authService: AuthService,
     ) {
-        super(activeRoute);
+        super();
     }
 
     ngOnInit(): void {

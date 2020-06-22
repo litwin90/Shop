@@ -3,16 +3,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatSelectChange } from '@angular/material/select';
 
-import { of } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
 import {
-    DialogService,
     AppPath,
     HOVER_BACKGROUND_COLOR,
     ISelectableEntity,
     OrderByPipe,
-    WithRouteData,
+    WithSubscriptions,
 } from '../../../shared';
 import { IOrder, IOrderSortByField, IOrderSortByFieldId } from '../../models';
 import { OrdersService } from '../../services';
@@ -23,7 +21,7 @@ import { OrdersPath } from '../../orders.constants';
     styleUrls: ['./orders-list.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrdersListComponent extends WithRouteData implements OnInit {
+export class OrdersListComponent extends WithSubscriptions implements OnInit {
     orders: IOrder[] = [];
     HOVER_BACKGROUND_COLOR = HOVER_BACKGROUND_COLOR;
     sortByFields: IOrderSortByField[] = [
@@ -39,11 +37,10 @@ export class OrdersListComponent extends WithRouteData implements OnInit {
     constructor(
         private activeRoute: ActivatedRoute,
         private router: Router,
-        private dialog: DialogService,
         private orderService: OrdersService,
         private orderBy: OrderByPipe,
     ) {
-        super(activeRoute);
+        super();
     }
 
     ngOnInit(): void {

@@ -10,7 +10,7 @@ import {
 import { Observable, of } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
-import { AppPath, WithRouteData } from '../../../shared';
+import { AppPath, WithSubscriptions } from '../../../shared';
 import { IOrder } from '../../models';
 import { OrdersService } from '../../services';
 import { ICartProduct } from '../../../cart';
@@ -22,7 +22,7 @@ import { ConfirmationService } from '../../../shared/services/confirmation.servi
     styleUrls: ['./edit-order.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditOrderComponent extends WithRouteData implements OnInit {
+export class EditOrderComponent extends WithSubscriptions implements OnInit {
     order: IOrder;
     initialOrderSnapshot: string;
 
@@ -36,7 +36,7 @@ export class EditOrderComponent extends WithRouteData implements OnInit {
         private formBuilder: FormBuilder,
         private confirmation: ConfirmationService,
     ) {
-        super(activeRoute);
+        super();
     }
 
     ngOnInit(): void {

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { pluck } from 'rxjs/operators';
 
 import { OrdersService } from '../../services';
-import { AppPath, WithRouteData } from '../../../shared';
+import { AppPath, WithSubscriptions } from '../../../shared';
 import { OrderData } from '../../models';
 
 @Component({
@@ -12,7 +12,7 @@ import { OrderData } from '../../models';
     styleUrls: ['./create-order.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateOrderComponent extends WithRouteData implements OnInit {
+export class CreateOrderComponent extends WithSubscriptions implements OnInit {
     newOrderData: OrderData;
 
     constructor(
@@ -20,7 +20,7 @@ export class CreateOrderComponent extends WithRouteData implements OnInit {
         private activeRoute: ActivatedRoute,
         private ordersService: OrdersService,
     ) {
-        super(activeRoute);
+        super();
     }
 
     ngOnInit(): void {
