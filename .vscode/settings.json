@@ -30,7 +30,8 @@
     "editor.formatOnPaste": false,
     "typescript.tsdk": "./node_modules/typescript/lib",
     "editor.codeActionsOnSave": {
-        "source.fixAll": true
+        "source.fixAll": true,
+        "source.organizeImports": true
     },
     "workbench.editor.highlightModifiedTabs": true,
     "files.trimFinalNewlines": true,
@@ -38,4 +39,26 @@
     "javascript.updateImportsOnFileMove.enabled": "always",
     "typescript.preferences.importModuleSpecifier": "relative",
     "typescript.updateImportsOnFileMove.enabled": "always",
+    "importSorter.generalConfiguration.sortOnBeforeSave": true,
+    "importSorter.sortConfiguration.customOrderingRules.rules": [
+        {
+            "regex": "^[@]",
+            "orderLevel": 10
+        },
+        {
+            "type": "importMember",
+            "regex": "^[@]ngrx.*",
+            "orderLevel": 10
+        },
+        {
+            "type": "importMember",
+            "regex": "^$",
+            "orderLevel": 30,
+            "disableSort": true
+        },
+        {
+            "regex": "^[.]",
+            "orderLevel": 40
+        }
+  ],
 }
