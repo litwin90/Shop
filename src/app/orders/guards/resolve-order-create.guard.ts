@@ -1,21 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Resolve, Router } from '@angular/router';
+import { Resolve } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 import { Observable, of, zip } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AppPath, AuthService } from '../../shared';
-import { OrderData } from '../models';
+import { IAppState } from '../../app.state';
 import { CartService } from '../../cart';
+import { RouterActions } from '../../router-state';
+import { AuthService } from '../../shared';
+import { OrderData } from '../models';
 
 @Injectable({
     providedIn: 'root',
 })
 export class ResolveOrderCreateGuard implements Resolve<OrderData | null> {
     constructor(
-        private router: Router,
         private cartService: CartService,
         private authService: AuthService,
+        private store: Store<IAppState>,
     ) {}
 
     resolve(): Observable<OrderData | null> {
@@ -33,7 +36,7 @@ export class ResolveOrderCreateGuard implements Resolve<OrderData | null> {
                         userId: authData.userInfo.id,
                     };
                 }
-                this.router.navigate([AppPath.Cart]);
+                this.store.dispatch(RouterActions.goToCart());
                 return null;
             }),
         );

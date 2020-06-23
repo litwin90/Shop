@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Resolve, Router } from '@angular/router';
+import { Resolve } from '@angular/router';
+import { Store } from '@ngrx/store';
 
-import { Observable, zip, of } from 'rxjs';
+import { Observable, of, zip } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { IAppState } from '../../app.state';
+import { RouterActions } from '../../router-state';
+import { AppSettingsService, AuthService, DialogService } from '../../shared';
 import { ICartData } from '../models';
-import {
-    AppPath,
-    DialogService,
-    AuthService,
-    AppSettingsService,
-} from '../../shared';
 import { CartService } from '../services';
 
 @Injectable({
@@ -19,10 +17,10 @@ import { CartService } from '../services';
 export class ResolveCartGuard implements Resolve<ICartData> {
     constructor(
         private cartService: CartService,
-        private router: Router,
         private dialog: DialogService,
         private authService: AuthService,
         private settings: AppSettingsService,
+        private store: Store<IAppState>,
     ) {}
 
     resolve(): Observable<ICartData> {
@@ -39,17 +37,17 @@ export class ResolveCartGuard implements Resolve<ICartData> {
                             this.dialog.show({
                                 message: `you are admin. admins might not have cart items`,
                             });
-                            this.router.navigate([AppPath.Admin]);
+                            this.store.dispatch(RouterActions.goToAdmin());
                         } else {
                             this.dialog.show({
                                 message: `you don't have any products in cart yet`,
                             });
-                            this.router.navigate([AppPath.ProductsList]);
+                            this.store.dispatch(RouterActions.goToProducts());
                         }
                     }
                     return { products, info, settings: cartSettings };
                 } else {
-                    this.router.navigate([AppPath.ProductsList]);
+                    this.store.dispatch(RouterActions.goToProducts());
                     return null;
                 }
             }),

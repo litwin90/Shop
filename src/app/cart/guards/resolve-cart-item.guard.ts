@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 import { Observable, of } from 'rxjs';
-import { take, map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
-import { ICartProduct } from '../models';
-import { AppPath, DialogService } from '../../shared';
+import { IAppState } from '../../app.state';
+import { RouterActions } from '../../router-state';
+import { DialogService } from '../../shared';
 import { CartPath } from '../cart.constants';
+import { ICartProduct } from '../models';
 import { CartService } from '../services';
 
 @Injectable({
@@ -14,9 +17,9 @@ import { CartService } from '../services';
 })
 export class ResolveCartItemGuard implements Resolve<ICartProduct> {
     constructor(
-        private router: Router,
         private dialog: DialogService,
         private cartService: CartService,
+        private store: Store<IAppState>,
     ) {}
 
     resolve(
@@ -24,7 +27,7 @@ export class ResolveCartItemGuard implements Resolve<ICartProduct> {
     ): Observable<ICartProduct | null> {
         if (!activeRouteSnapshot.paramMap.has(CartPath.ProductId)) {
             this.dialog.show({ message: `URL is wrong` });
-            this.router.navigate([AppPath.Cart]);
+            this.store.dispatch(RouterActions.goToCart());
             return of(null);
         }
 
@@ -35,7 +38,7 @@ export class ResolveCartItemGuard implements Resolve<ICartProduct> {
                 if (cartProduct) {
                     return cartProduct;
                 } else {
-                    this.router.navigate([AppPath.Cart]);
+                    this.store.dispatch(RouterActions.goToCart());
                     return null;
                 }
             }),
