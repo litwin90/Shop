@@ -1,21 +1,14 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
-import { AppPath } from '../shared';
-import { OrdersComponent } from './orders.component';
+import { AppPath } from '../shared/shared.constants';
 import {
-    OrdersTableComponent,
-    CreateOrderComponent,
-    OrderDetailsComponent,
-    EditOrderComponent,
+    CreateOrderComponent, EditOrderComponent, OrderDetailsComponent, OrdersTableComponent
 } from './components';
-import {
-    CanLeaveEditOrderGuard,
-    ResolveOrderDetailsGuard,
-    ResolveOrdersGuard,
-} from './guards';
-import { OrdersPath } from './orders.constants';
+import { CanLeaveEditOrderGuard, ResolveOrderDetailsGuard, ResolveOrdersGuard } from './guards';
 import { ResolveOrderCreateGuard } from './guards/resolve-order-create.guard';
+import { OrdersComponent } from './orders.component';
+import { OrdersPath } from './orders.constants';
 
 const routes: Routes = [
     {

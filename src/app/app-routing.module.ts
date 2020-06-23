@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
-import { PathNotFoundComponent } from './layout';
-import { AuthGuard } from './core/guards/auth.guard';
-import { AppPath } from './shared';
 import { AdminGuard } from './admin/guards';
+import { AuthGuard } from './core/guards/auth.guard';
+import { PathNotFoundComponent } from './layout';
+import { AppPath } from './shared/shared.constants';
 
 export const appRoutes: Routes = [
     {

@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { Store, select } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
 
-import { AuthService, AppPath, WithSubscriptions } from '../../../shared';
-import { IProduct } from '../../models';
-import { AdminPath } from '../../../admin';
-import { CartService } from '../../../cart';
-import { ProductActions, selectProducts } from '../../state';
 import { IAppState } from '../../../app.state';
+import { CartService } from '../../../cart';
+import { RouterActions } from '../../../router-state';
+import { AuthService, WithSubscriptions } from '../../../shared';
+import { IProduct } from '../../models';
+import { ProductActions, selectProducts } from '../../state';
 
 @Component({
     selector: 'app-product-list',
@@ -25,8 +24,8 @@ export class ProductListComponent extends WithSubscriptions implements OnInit {
     constructor(
         private cartService: CartService,
         private authService: AuthService,
-        private router: Router,
         private store: Store<IAppState>,
+        private router: Router,
     ) {
         super();
     }
@@ -50,23 +49,24 @@ export class ProductListComponent extends WithSubscriptions implements OnInit {
     }
 
     onAddNewProduct() {
-        this.router.navigate([AppPath.Admin, AdminPath.Product, AdminPath.Add]);
+        this.store.dispatch(RouterActions.goToAddProduct());
     }
 
     onRemoveProduct({ id }: IProduct) {
         this.store.dispatch(ProductActions.removeProduct({ id }));
     }
 
-    onOpenDetails(product: IProduct) {
-        this.router.navigate([AppPath.Product, product.id]);
+    onOpenDetails({ id }: IProduct) {
+        this.store.dispatch(RouterActions.goToProductDetails({ id }));
     }
 
-    onEditProduct(product: IProduct) {
-        this.router.navigate([
-            AppPath.Admin,
-            AdminPath.Product,
-            AdminPath.Edit,
-            product.id,
-        ]);
+    onEditProduct({ id }: IProduct) {
+        this.store.dispatch(RouterActions.goToEditProduct({ id }));
+        // this.router.navigate([
+        //     AppPath.Admin,
+        //     AdminPath.Product,
+        //     AdminPath.Edit,
+        //     product.id,
+        // ]);
     }
 }

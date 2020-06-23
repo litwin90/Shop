@@ -1,5 +1,5 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { RouterReducerState } from '@ngrx/router-store';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { RouterStateUrl } from './router.state';
 

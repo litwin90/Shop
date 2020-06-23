@@ -1,13 +1,7 @@
-import {
-    Component,
-    Input,
-    Output,
-    EventEmitter,
-    ChangeDetectionStrategy,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
+import { HOVER_BACKGROUND_COLOR } from '../../../shared/shared.constants';
 import { IProduct } from '../../models';
-import { HOVER_BACKGROUND_COLOR } from '../../../shared';
 
 @Component({
     selector: 'app-product-card',

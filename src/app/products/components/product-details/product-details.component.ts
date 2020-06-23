@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { Store, select } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
 
-import { AppPath, AuthService } from '../../../shared';
-import { IProduct } from '../../models';
-import { CartService } from '../../../cart';
 import { IAppState } from '../../../app.state';
+import { CartService } from '../../../cart';
+import { RouterActions } from '../../../router-state';
+import { AuthService } from '../../../shared';
+import { IProduct } from '../../models';
 import { selectProductByUrl } from '../../state';
 
 @Component({
@@ -21,7 +20,6 @@ export class ProductDetailsComponent implements OnInit {
     product$: Observable<IProduct>;
 
     constructor(
-        private router: Router,
         private cartService: CartService,
         private authService: AuthService,
         private store: Store<IAppState>,
@@ -39,7 +37,7 @@ export class ProductDetailsComponent implements OnInit {
 
     onAddToCart(product: IProduct) {
         this.cartService.addProductToCart(product).subscribe(() => {
-            this.router.navigate([AppPath.ProductsList]);
+            this.store.dispatch(RouterActions.goToProducts());
         });
     }
 

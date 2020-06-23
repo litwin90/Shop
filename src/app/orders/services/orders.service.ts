@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { IOrder, OrderData } from '../models';
-import { AuthService, LocalStorageService, AppPath } from '../../shared';
-import { CartService } from '../../cart';
-import { OrdersHttpService } from './orders-http.service';
 import { environment } from '../../../environments/environment';
-import { Router } from '@angular/router';
+import { CartService } from '../../cart';
+import { AuthService, LocalStorageService } from '../../shared';
+import { AppPath } from '../../shared/shared.constants';
+import { IOrder, OrderData } from '../models';
+import { OrdersHttpService } from './orders-http.service';
 
 @Injectable({
     providedIn: 'root',

@@ -1,25 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { Store, select } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 
 import { of } from 'rxjs';
 
-import {
-    AppPath,
-    ConfirmationService,
-    WithSubscriptions,
-} from '../../../shared';
-import {
-    IProduct,
-    ProductColors,
-    ProductSizes,
-    Category,
-    ProductActions,
-    selectProductByUrl,
-} from '../../../products';
-import { AdminPath } from '../../admin.constants';
 import { IAppState } from '../../../app.state';
+import {
+    Category, IProduct, ProductActions, ProductColors, ProductSizes, selectProductByUrl
+} from '../../../products';
+import { RouterActions } from '../../../router-state';
+import { ConfirmationService, WithSubscriptions } from '../../../shared';
 
 @Component({
     templateUrl: './edit-product.component.html',
@@ -34,7 +23,6 @@ export class EditProductComponent extends WithSubscriptions implements OnInit {
     Category = Category;
 
     constructor(
-        private router: Router,
         private confirmation: ConfirmationService,
         private store: Store<IAppState>,
     ) {
@@ -65,7 +53,7 @@ export class EditProductComponent extends WithSubscriptions implements OnInit {
             }),
         );
         this.initialProductSnapshot = JSON.stringify(this.product);
-        this.router.navigate([AppPath.Admin, AdminPath.Products]);
+        this.store.dispatch(RouterActions.goToProducts());
     }
 
     canDeactivate() {

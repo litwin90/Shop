@@ -1,15 +1,11 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
-import { CartTableComponent, CartProductComponent } from './components';
+import { AppPath } from '../shared/shared.constants';
 import { CartComponent } from './cart.component';
-import { AppPath } from '../shared';
 import { CartPath } from './cart.constants';
-import {
-    ResolveCartItemGuard,
-    ResolveCartGuard,
-    CanLeaveOrderEditGuard,
-} from './guards';
+import { CartProductComponent, CartTableComponent } from './components';
+import { CanLeaveOrderEditGuard, ResolveCartGuard, ResolveCartItemGuard } from './guards';
 
 const routes: Routes = [
     {

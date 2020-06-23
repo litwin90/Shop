@@ -1,32 +1,35 @@
 import { Injectable } from '@angular/core';
-import { Resolve, Router } from '@angular/router';
+import { Resolve } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
+import { IAppState } from '../../app.state';
 import { IOrder, OrdersService } from '../../orders';
-import { AppPath, AuthService } from '../../shared';
+import { RouterActions } from '../../router-state';
+import { AuthService } from '../../shared';
 
 @Injectable({
     providedIn: 'root',
 })
 export class ResolveAdminOrdersGuard implements Resolve<IOrder[] | null> {
     constructor(
-        private router: Router,
         private ordersService: OrdersService,
         private authService: AuthService,
+        private store: Store<IAppState>,
     ) {}
 
     resolve(): Observable<IOrder[] | null> {
         const { userInfo } = this.authService.getAuthData();
         if (!userInfo) {
-            this.router.navigate([AppPath.Admin]);
+            this.store.dispatch(RouterActions.goToAdmin());
             return of(null);
         }
         return this.ordersService.getAllOrders().pipe(
             tap(orders => {
                 if (!orders.length) {
-                    this.router.navigate([AppPath.Admin]);
+                    this.store.dispatch(RouterActions.goToAdmin());
                     return of(null);
                 }
             }),

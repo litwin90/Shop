@@ -1,20 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
 import { Store } from '@ngrx/store';
 
 import { Observable, of } from 'rxjs';
 
-import { ConfirmationService, AppPath } from '../../../shared';
-import {
-    Category,
-    ProductColors,
-    ProductSizes,
-    ProductActions,
-} from '../../../products';
-import { ProductData } from '../../../products';
-import { AdminPath } from '../../admin.constants';
 import { IAppState } from '../../../app.state';
+import {
+    Category, ProductActions, ProductColors, ProductData, ProductSizes
+} from '../../../products';
+import { RouterActions } from '../../../router-state';
+import { ConfirmationService } from '../../../shared';
 
 @Component({
     templateUrl: './add-product.component.html',
@@ -30,7 +24,6 @@ export class AddProductComponent implements OnInit {
 
     constructor(
         private confirmation: ConfirmationService,
-        private router: Router,
         private store: Store<IAppState>,
     ) {}
 
@@ -61,7 +54,7 @@ export class AddProductComponent implements OnInit {
             }),
         );
         this.initialProductSnapshot = JSON.stringify(this.productData);
-        this.router.navigate([AppPath.Admin, AdminPath.Products]);
+        this.store.dispatch(RouterActions.goToProducts());
     }
 
     canDeactivate(): Observable<boolean> {

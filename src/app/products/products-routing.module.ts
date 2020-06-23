@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
-import { ProductListComponent, ProductDetailsComponent } from './components';
+import { AppPath } from '../shared/shared.constants';
+import { ProductDetailsComponent, ProductListComponent } from './components';
 import { ProductsComponent } from './products.component';
-import { AppPath } from '../shared';
 
 const routes: Routes = [
     {

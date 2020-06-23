@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Observable, zip, merge, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, merge, Observable, zip } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { IProduct } from '../../products';
-import { ICartData, ICartProduct, ICartInfo } from '../models';
+import { AppSettingsService } from '../../shared';
+import { AppPath } from '../../shared/shared.constants';
+import { ICartData, ICartInfo, ICartProduct } from '../models';
 import { CartHttpService } from './cart-http.service';
-import { AppPath, AppSettingsService } from '../../shared';
 
 @Injectable({
     providedIn: 'root',
