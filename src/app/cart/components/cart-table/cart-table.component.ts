@@ -1,27 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Data } from '@angular/router';
-import { MatSelectChange } from '@angular/material/select';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatSelectChange } from '@angular/material/select';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 
+import { merge } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
-import {
-    OrderByPipe,
-    AppPath,
-    HOVER_BACKGROUND_COLOR,
-    AppSettingsService,
-    SortOrder,
-    WithSubscriptions,
-} from '../../../shared';
-import {
-    ICartProduct,
-    ICartSortByField,
-    ICartSortByFieldId,
-    ICartData,
-} from '../../models';
 import { OrdersPath } from '../../../orders/orders.constants';
+import { AppSettingsService, OrderByPipe, SortOrder, WithSubscriptions } from '../../../shared';
+import { AppPath, HOVER_BACKGROUND_COLOR } from '../../../shared/shared.constants';
+import { ICartData, ICartProduct, ICartSortByField, ICartSortByFieldId } from '../../models';
 import { CartService } from '../../services';
-import { merge } from 'rxjs';
 
 @Component({
     templateUrl: './cart-table.component.html',

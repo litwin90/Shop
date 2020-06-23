@@ -1,20 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import {
-    FormGroup,
-    FormControl,
-    Validators,
-    FormBuilder,
-} from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
-import { AppPath, WithSubscriptions } from '../../../shared';
+import { ICartProduct } from '../../../cart';
+import { WithSubscriptions } from '../../../shared';
+import { ConfirmationService } from '../../../shared/services/confirmation.service';
+import { AppPath } from '../../../shared/shared.constants';
 import { IOrder } from '../../models';
 import { OrdersService } from '../../services';
-import { ICartProduct } from '../../../cart';
-import { ConfirmationService } from '../../../shared/services/confirmation.service';
 
 @Component({
     selector: 'app-edit-order',

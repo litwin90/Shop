@@ -62,11 +62,5 @@ export class ProductListComponent extends WithSubscriptions implements OnInit {
 
     onEditProduct({ id }: IProduct) {
         this.store.dispatch(RouterActions.goToEditProduct({ id }));
-        // this.router.navigate([
-        //     AppPath.Admin,
-        //     AdminPath.Product,
-        //     AdminPath.Edit,
-        //     product.id,
-        // ]);
     }
 }

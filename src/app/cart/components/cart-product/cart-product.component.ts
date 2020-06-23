@@ -1,18 +1,14 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-    FormControl,
-    FormBuilder,
-    FormGroup,
-    Validators,
-} from '@angular/forms';
 
 import { Observable, of } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
-import { AppPath, FlexDirection, WithSubscriptions } from '../../../shared';
-import { ICartProduct } from '../../models';
+import { FlexDirection, WithSubscriptions } from '../../../shared';
 import { ConfirmationService } from '../../../shared/services/confirmation.service';
+import { AppPath } from '../../../shared/shared.constants';
+import { ICartProduct } from '../../models';
 import { CartService } from '../../services';
 
 @Component({

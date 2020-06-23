@@ -1,11 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { pluck } from 'rxjs/operators';
 
-import { OrdersService } from '../../services';
-import { AppPath, WithSubscriptions } from '../../../shared';
+import { WithSubscriptions } from '../../../shared';
+import { AppPath } from '../../../shared/shared.constants';
 import { OrderData } from '../../models';
+import { OrdersService } from '../../services';
 
 @Component({
     templateUrl: './create-order.component.html',

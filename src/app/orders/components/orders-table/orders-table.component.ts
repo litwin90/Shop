@@ -1,20 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatSelectChange } from '@angular/material/select';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { pluck } from 'rxjs/operators';
 
-import {
-    AppPath,
-    HOVER_BACKGROUND_COLOR,
-    ISelectableEntity,
-    OrderByPipe,
-    WithSubscriptions,
-} from '../../../shared';
+import { ISelectableEntity, OrderByPipe, WithSubscriptions } from '../../../shared';
+import { AppPath, HOVER_BACKGROUND_COLOR } from '../../../shared/shared.constants';
 import { IOrder, IOrderSortByField, IOrderSortByFieldId } from '../../models';
-import { OrdersService } from '../../services';
 import { OrdersPath } from '../../orders.constants';
+import { OrdersService } from '../../services';
 
 @Component({
     templateUrl: './orders-table.component.html',

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { pluck } from 'rxjs/operators';
 
-import { OrdersPath } from '../../orders.constants';
+import { AuthService, WithSubscriptions } from '../../../shared';
+import { AppPath } from '../../../shared/shared.constants';
 import { IOrder } from '../../models';
-import { AppPath, AuthService, WithSubscriptions } from '../../../shared';
+import { OrdersPath } from '../../orders.constants';
 
 @Component({
     templateUrl: './order-details.component.html',
