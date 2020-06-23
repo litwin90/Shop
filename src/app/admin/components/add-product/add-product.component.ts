@@ -7,7 +7,7 @@ import { IAppState } from '../../../app.state';
 import {
     Category, ProductActions, ProductColors, ProductData, ProductSizes
 } from '../../../products';
-import { RouterActions } from '../../../router-state';
+import { RouterFacade } from '../../../router-state';
 import { ConfirmationService } from '../../../shared';
 
 @Component({
@@ -25,6 +25,7 @@ export class AddProductComponent implements OnInit {
     constructor(
         private confirmation: ConfirmationService,
         private store: Store<IAppState>,
+        private routerFacade: RouterFacade,
     ) {}
 
     ngOnInit(): void {
@@ -54,7 +55,7 @@ export class AddProductComponent implements OnInit {
             }),
         );
         this.initialProductSnapshot = JSON.stringify(this.productData);
-        this.store.dispatch(RouterActions.goToProducts());
+        this.routerFacade.goToAdminProducts();
     }
 
     canDeactivate(): Observable<boolean> {

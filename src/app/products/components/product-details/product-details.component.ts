@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import { IAppState } from '../../../app.state';
 import { CartService } from '../../../cart';
-import { RouterActions } from '../../../router-state';
+import { RouterFacade } from '../../../router-state';
 import { AuthService } from '../../../shared';
 import { IProduct } from '../../models';
 import { selectProductByUrl } from '../../state';
@@ -23,6 +23,7 @@ export class ProductDetailsComponent implements OnInit {
         private cartService: CartService,
         private authService: AuthService,
         private store: Store<IAppState>,
+        private routerFacade: RouterFacade,
     ) {}
 
     ngOnInit(): void {
@@ -37,7 +38,7 @@ export class ProductDetailsComponent implements OnInit {
 
     onAddToCart(product: IProduct) {
         this.cartService.addProductToCart(product).subscribe(() => {
-            this.store.dispatch(RouterActions.goToProducts());
+            this.routerFacade.goToProducts();
         });
     }
 

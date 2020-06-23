@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
 
 import { IAppState } from '../../../app.state';
 import { CartService } from '../../../cart';
-import { RouterActions } from '../../../router-state';
+import { RouterFacade } from '../../../router-state';
 import { AuthService, WithSubscriptions } from '../../../shared';
 import { IProduct } from '../../models';
 import { ProductActions, selectProducts } from '../../state';
@@ -25,7 +24,7 @@ export class ProductListComponent extends WithSubscriptions implements OnInit {
         private cartService: CartService,
         private authService: AuthService,
         private store: Store<IAppState>,
-        private router: Router,
+        private routerFacade: RouterFacade,
     ) {
         super();
     }
@@ -49,7 +48,7 @@ export class ProductListComponent extends WithSubscriptions implements OnInit {
     }
 
     onAddNewProduct() {
-        this.store.dispatch(RouterActions.goToAddProduct());
+        this.routerFacade.goToAddProduct();
     }
 
     onRemoveProduct({ id }: IProduct) {
@@ -57,10 +56,10 @@ export class ProductListComponent extends WithSubscriptions implements OnInit {
     }
 
     onOpenDetails({ id }: IProduct) {
-        this.store.dispatch(RouterActions.goToProductDetails({ id }));
+        this.routerFacade.goToProductDetails(id);
     }
 
     onEditProduct({ id }: IProduct) {
-        this.store.dispatch(RouterActions.goToEditProduct({ id }));
+        this.routerFacade.goToEditProduct(id);
     }
 }

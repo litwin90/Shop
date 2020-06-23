@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
+import { RouterFacade } from '../../../router-state';
 import { FlexDirection, WithSubscriptions } from '../../../shared';
 import { ConfirmationService } from '../../../shared/services/confirmation.service';
-import { AppPath } from '../../../shared/shared.constants';
 import { ICartProduct } from '../../models';
 import { CartService } from '../../services';
 
@@ -26,7 +26,7 @@ export class CartProductComponent extends WithSubscriptions implements OnInit {
     FlexDirection = FlexDirection;
 
     constructor(
-        private router: Router,
+        private routerFacade: RouterFacade,
         private activeRoute: ActivatedRoute,
         private cartService: CartService,
         private formBuilder: FormBuilder,
@@ -54,14 +54,14 @@ export class CartProductComponent extends WithSubscriptions implements OnInit {
     onSave() {
         this.cartService.updateProduct(this.product).subscribe(() => {
             this.initialProductSnapshot = JSON.stringify(this.product);
-            this.router.navigate([AppPath.Cart]);
+            this.routerFacade.goToCart();
         });
     }
 
     onRemoveFromCart() {
         this.cartService
             .removeProduct(this.product.id)
-            .subscribe(() => this.router.navigate([AppPath.Cart]));
+            .subscribe(() => this.routerFacade.goToCart());
     }
 
     private configureForm() {

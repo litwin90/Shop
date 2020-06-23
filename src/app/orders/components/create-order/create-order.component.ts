@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { pluck } from 'rxjs/operators';
 
+import { RouterFacade } from '../../../router-state';
 import { WithSubscriptions } from '../../../shared';
-import { AppPath } from '../../../shared/shared.constants';
 import { OrderData } from '../../models';
 import { OrdersService } from '../../services';
 
@@ -17,7 +17,7 @@ export class CreateOrderComponent extends WithSubscriptions implements OnInit {
     newOrderData: OrderData;
 
     constructor(
-        private router: Router,
+        private routerFacade: RouterFacade,
         private activeRoute: ActivatedRoute,
         private ordersService: OrdersService,
     ) {
@@ -35,7 +35,7 @@ export class CreateOrderComponent extends WithSubscriptions implements OnInit {
 
     private createOrder() {
         this.ordersService.createNewOrder(this.newOrderData).subscribe();
-        this.router.navigate([AppPath.Orders]);
+        this.routerFacade.goToOrders();
     }
 
     onSubmit() {
@@ -43,6 +43,6 @@ export class CreateOrderComponent extends WithSubscriptions implements OnInit {
     }
 
     onDecline() {
-        this.router.navigate([AppPath.Cart]);
+        this.routerFacade.goToCart();
     }
 }

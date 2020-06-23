@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatSelectChange } from '@angular/material/select';
-import { ActivatedRoute, Data, Router } from '@angular/router';
+import { ActivatedRoute, Data } from '@angular/router';
 
 import { merge } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
-import { OrdersPath } from '../../../orders/orders.constants';
+import { RouterFacade } from '../../../router-state';
 import { AppSettingsService, OrderByPipe, SortOrder, WithSubscriptions } from '../../../shared';
-import { AppPath, HOVER_BACKGROUND_COLOR } from '../../../shared/shared.constants';
+import { HOVER_BACKGROUND_COLOR } from '../../../shared/shared.constants';
 import { ICartData, ICartProduct, ICartSortByField, ICartSortByFieldId } from '../../models';
 import { CartService } from '../../services';
 
@@ -32,7 +32,7 @@ export class CartTableComponent extends WithSubscriptions implements OnInit {
     constructor(
         private cartService: CartService,
         private orderBy: OrderByPipe,
-        private router: Router,
+        private routerFacade: RouterFacade,
         private activeRoute: ActivatedRoute,
         private settings: AppSettingsService,
     ) {
@@ -57,7 +57,7 @@ export class CartTableComponent extends WithSubscriptions implements OnInit {
 
     private navigateToProductListIfCartIsEmpty() {
         if (!this.cartData.products.length) {
-            this.router.navigate([AppPath.ProductsList]);
+            this.routerFacade.goToProducts();
         }
     }
 
@@ -135,12 +135,10 @@ export class CartTableComponent extends WithSubscriptions implements OnInit {
     }
 
     onNavigateToCartProduct(cartProductId: string) {
-        this.router.navigate([AppPath.Edit, cartProductId], {
-            relativeTo: this.activeRoute,
-        });
+        this.routerFacade.goToEditCartProduct(cartProductId);
     }
 
     onCerateOrder() {
-        this.router.navigate([AppPath.Orders, OrdersPath.Create]);
+        this.routerFacade.goToOrderCreate();
     }
 }

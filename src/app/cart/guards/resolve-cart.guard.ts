@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-import { Store } from '@ngrx/store';
 
 import { Observable, of, zip } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { IAppState } from '../../app.state';
-import { RouterActions } from '../../router-state';
+import { RouterFacade } from '../../router-state';
 import { AppSettingsService, AuthService, DialogService } from '../../shared';
 import { ICartData } from '../models';
 import { CartService } from '../services';
@@ -20,7 +18,7 @@ export class ResolveCartGuard implements Resolve<ICartData> {
         private dialog: DialogService,
         private authService: AuthService,
         private settings: AppSettingsService,
-        private store: Store<IAppState>,
+        private routerFacade: RouterFacade,
     ) {}
 
     resolve(): Observable<ICartData> {
@@ -37,17 +35,17 @@ export class ResolveCartGuard implements Resolve<ICartData> {
                             this.dialog.show({
                                 message: `you are admin. admins might not have cart items`,
                             });
-                            this.store.dispatch(RouterActions.goToAdmin());
+                            this.routerFacade.goToAdmin();
                         } else {
                             this.dialog.show({
                                 message: `you don't have any products in cart yet`,
                             });
-                            this.store.dispatch(RouterActions.goToProducts());
+                            this.routerFacade.goToProducts();
                         }
                     }
                     return { products, info, settings: cartSettings };
                 } else {
-                    this.store.dispatch(RouterActions.goToProducts());
+                    this.routerFacade.goToProducts();
                     return null;
                 }
             }),

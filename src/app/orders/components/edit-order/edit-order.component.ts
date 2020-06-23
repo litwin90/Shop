@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
 import { ICartProduct } from '../../../cart';
+import { RouterFacade } from '../../../router-state';
 import { WithSubscriptions } from '../../../shared';
 import { ConfirmationService } from '../../../shared/services/confirmation.service';
-import { AppPath } from '../../../shared/shared.constants';
 import { IOrder } from '../../models';
 import { OrdersService } from '../../services';
 
@@ -26,7 +26,7 @@ export class EditOrderComponent extends WithSubscriptions implements OnInit {
     options: FormGroup;
 
     constructor(
-        private router: Router,
+        private routerFacade: RouterFacade,
         private activeRoute: ActivatedRoute,
         private ordersService: OrdersService,
         private formBuilder: FormBuilder,
@@ -52,14 +52,14 @@ export class EditOrderComponent extends WithSubscriptions implements OnInit {
             .subscribe(order => {
                 if (order) {
                     this.initialOrderSnapshot = JSON.stringify(order);
-                    this.router.navigate([AppPath.Orders]);
+                    this.routerFacade.goToOrders();
                 }
             });
     }
 
     onDecline() {
         this.restoreOrder();
-        this.router.navigate([AppPath.Orders]);
+        this.routerFacade.goToOrders();
     }
 
     onChangeProductQuantity(product: ICartProduct) {
@@ -81,7 +81,7 @@ export class EditOrderComponent extends WithSubscriptions implements OnInit {
                         this.ordersService
                             .removeOrder(this.order.id)
                             .subscribe();
-                        this.router.navigate([AppPath.Orders]);
+                        this.routerFacade.goToOrders();
                     },
                 })
                 .subscribe();
@@ -97,7 +97,7 @@ export class EditOrderComponent extends WithSubscriptions implements OnInit {
                 message: 'Are you sure you wand to remove order?',
                 acceptAction: () => {
                     this.ordersService.removeOrder(this.order.id).subscribe();
-                    this.router.navigate([AppPath.Orders]);
+                    this.routerFacade.goToOrders();
                 },
             })
             .subscribe();

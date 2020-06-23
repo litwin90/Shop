@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatSelectChange } from '@angular/material/select';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { pluck } from 'rxjs/operators';
 
+import { RouterFacade } from '../../../router-state';
 import { ISelectableEntity, OrderByPipe, WithSubscriptions } from '../../../shared';
-import { AppPath, HOVER_BACKGROUND_COLOR } from '../../../shared/shared.constants';
+import { HOVER_BACKGROUND_COLOR } from '../../../shared/shared.constants';
 import { IOrder, IOrderSortByField, IOrderSortByFieldId } from '../../models';
-import { OrdersPath } from '../../orders.constants';
 import { OrdersService } from '../../services';
 
 @Component({
@@ -30,7 +30,7 @@ export class OrdersTableComponent extends WithSubscriptions implements OnInit {
 
     constructor(
         private activeRoute: ActivatedRoute,
-        private router: Router,
+        private routerFacade: RouterFacade,
         private orderService: OrdersService,
         private orderBy: OrderByPipe,
     ) {
@@ -89,12 +89,8 @@ export class OrdersTableComponent extends WithSubscriptions implements OnInit {
         this.isDescOrder = !this.isDescOrder;
     }
 
-    onNavigateToOrderDetails(order: IOrder) {
-        this.router.navigate([
-            AppPath.Orders,
-            OrdersPath.OrderDetails,
-            order.id,
-        ]);
+    onNavigateToOrderDetails({ id }: IOrder) {
+        this.routerFacade.goToOrderDetails(id);
     }
 
     isSomeItemSelected(): boolean {
@@ -109,7 +105,7 @@ export class OrdersTableComponent extends WithSubscriptions implements OnInit {
         );
         this.isCheckAllSelected = false;
         if (itemsToRemove.length === this.orders.length) {
-            this.router.navigate([AppPath.ProductsList]);
+            this.routerFacade.goToProducts();
         }
     }
 

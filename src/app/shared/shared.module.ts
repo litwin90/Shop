@@ -1,23 +1,18 @@
-import { NgModule } from '@angular/core';
 import { CommonModule, TitleCasePipe } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 
 import { MaterialModule } from '../material';
-import { OrderByPipe } from './pipes';
 import {
-    HighlightOnClickDirective,
-    ChangeBackgroundDirective,
-    StopPropagationDirective,
-} from './directives';
-import {
-    BasePageComponent,
-    AuthButtonComponent,
-    ConfirmationComponent,
-    AppNavComponent,
+    AppNavComponent, AuthButtonComponent, BasePageComponent, ConfirmationComponent
 } from './components';
+import {
+    ChangeBackgroundDirective, HighlightOnClickDirective, StopPropagationDirective
+} from './directives';
 import { httpInterceptorsProviders } from './interceptors';
+import { OrderByPipe } from './pipes';
 
 @NgModule({
     imports: [

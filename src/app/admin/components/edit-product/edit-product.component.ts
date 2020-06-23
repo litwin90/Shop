@@ -7,7 +7,7 @@ import { IAppState } from '../../../app.state';
 import {
     Category, IProduct, ProductActions, ProductColors, ProductSizes, selectProductByUrl
 } from '../../../products';
-import { RouterActions } from '../../../router-state';
+import { RouterFacade } from '../../../router-state';
 import { ConfirmationService, WithSubscriptions } from '../../../shared';
 
 @Component({
@@ -25,6 +25,7 @@ export class EditProductComponent extends WithSubscriptions implements OnInit {
     constructor(
         private confirmation: ConfirmationService,
         private store: Store<IAppState>,
+        private routerFacade: RouterFacade,
     ) {
         super();
     }
@@ -53,7 +54,7 @@ export class EditProductComponent extends WithSubscriptions implements OnInit {
             }),
         );
         this.initialProductSnapshot = JSON.stringify(this.product);
-        this.store.dispatch(RouterActions.goToProducts());
+        this.routerFacade.goToProducts();
     }
 
     canDeactivate() {

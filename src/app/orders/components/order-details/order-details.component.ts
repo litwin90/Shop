@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { pluck } from 'rxjs/operators';
 
+import { RouterFacade } from '../../../router-state';
 import { AuthService, WithSubscriptions } from '../../../shared';
-import { AppPath } from '../../../shared/shared.constants';
 import { IOrder } from '../../models';
-import { OrdersPath } from '../../orders.constants';
 
 @Component({
     templateUrl: './order-details.component.html',
@@ -17,7 +16,7 @@ export class OrderDetailsComponent extends WithSubscriptions implements OnInit {
     isAdmin = false;
 
     constructor(
-        private router: Router,
+        private routerFacade: RouterFacade,
         private activeRoute: ActivatedRoute,
         private authService: AuthService,
     ) {
@@ -36,6 +35,6 @@ export class OrderDetailsComponent extends WithSubscriptions implements OnInit {
     }
 
     onEdit() {
-        this.router.navigate([AppPath.Orders, OrdersPath.Edit, this.order.id]);
+        this.routerFacade.goToEditOrder(this.order.id);
     }
 }
