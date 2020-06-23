@@ -5,7 +5,7 @@ import { AdminPath } from './admin.constants';
 import { AdminComponent } from './admin.component';
 import { CanLeaveProductAddGuard, CanLeaveProductEditGuard } from './guards';
 import { AddProductComponent, EditProductComponent } from './components';
-import { ProductListComponent, ResolveProductGuard } from '../products';
+import { ProductListComponent } from '../products';
 import { OrdersTableComponent } from '../orders';
 import { ResolveAdminOrdersGuard } from './guards/resolve-admin-orders.guard';
 
@@ -42,9 +42,6 @@ const routes: Routes = [
                         canDeactivate: [CanLeaveProductEditGuard],
                         data: {
                             label: 'Edit product',
-                        },
-                        resolve: {
-                            product: ResolveProductGuard,
                         },
                     },
                 ],

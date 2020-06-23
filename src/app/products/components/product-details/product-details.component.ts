@@ -1,53 +1,50 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
-import { pluck } from 'rxjs/operators';
+import { Store, select } from '@ngrx/store';
 
-import { AppPath, AuthService, WithSubscriptions } from '../../../shared';
+import { Observable } from 'rxjs';
+
+import { AppPath, AuthService } from '../../../shared';
 import { IProduct } from '../../models';
 import { CartService } from '../../../cart';
+import { IAppState } from '../../../app.state';
+import { selectProductByUrl } from '../../state';
 
 @Component({
     templateUrl: './product-details.component.html',
     styleUrls: ['./product-details.component.scss'],
 })
-export class ProductDetailsComponent extends WithSubscriptions
-    implements OnInit {
+export class ProductDetailsComponent implements OnInit {
     isLoggedIn = false;
     isAdmin = false;
-    product: IProduct;
+    product$: Observable<IProduct>;
 
     constructor(
         private router: Router,
-        private activeRoute: ActivatedRoute,
         private cartService: CartService,
         private authService: AuthService,
-    ) {
-        super();
-    }
+        private store: Store<IAppState>,
+    ) {}
 
     ngOnInit(): void {
-        const activeRoute$ = this.activeRoute.data
-            .pipe(pluck('product'))
-            .subscribe((product: IProduct) => {
-                this.product = { ...product };
-            });
+        this.product$ = this.store.pipe(select(selectProductByUrl));
+
         const { isLoggedIn, userInfo } = this.authService.getAuthData();
         this.isLoggedIn = isLoggedIn;
         if (userInfo?.isAdmin) {
             this.isAdmin = true;
         }
-        this.subscriptions.push(activeRoute$);
     }
 
-    onAddToCart() {
-        this.cartService.addProductToCart(this.product).subscribe(() => {
+    onAddToCart(product: IProduct) {
+        this.cartService.addProductToCart(product).subscribe(() => {
             this.router.navigate([AppPath.ProductsList]);
         });
     }
 
-    getAvailabilityTitle(): string {
-        return this.product.isAvailable ? 'Available' : 'Not Available';
+    getAvailabilityTitle(product: IProduct): string {
+        return product.isAvailable ? 'Available' : 'Not Available';
     }
 
     getAddToCartTooltip(): string {

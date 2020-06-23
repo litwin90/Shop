@@ -11,3 +11,10 @@ export const selectRouterData = createSelector(
     selectRouterState,
     ({ state }) => state.data,
 );
+
+export const selectRouterProductId = createSelector(
+    selectRouterState,
+    ({ state }) => {
+        return state.params.id as string;
+    },
+);

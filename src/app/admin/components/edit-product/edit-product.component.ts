@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 
 import { of } from 'rxjs';
-import { pluck } from 'rxjs/operators';
 
 import {
     AppPath,
@@ -17,6 +16,7 @@ import {
     ProductSizes,
     Category,
     ProductActions,
+    selectProductByUrl,
 } from '../../../products';
 import { AdminPath } from '../../admin.constants';
 import { IAppState } from '../../../app.state';
@@ -34,7 +34,6 @@ export class EditProductComponent extends WithSubscriptions implements OnInit {
     Category = Category;
 
     constructor(
-        private activeRoute: ActivatedRoute,
         private router: Router,
         private confirmation: ConfirmationService,
         private store: Store<IAppState>,
@@ -43,13 +42,15 @@ export class EditProductComponent extends WithSubscriptions implements OnInit {
     }
 
     ngOnInit(): void {
-        const activeRoute$ = this.activeRoute.data
-            .pipe(pluck('product'))
-            .subscribe((product: IProduct) => {
+        const product$ = this.store
+            .pipe(select(selectProductByUrl))
+            .subscribe(product => {
+                if (!this.initialProductSnapshot) {
+                    this.initialProductSnapshot = JSON.stringify(product);
+                }
                 this.product = { ...product };
-                this.initialProductSnapshot = JSON.stringify(product);
             });
-        this.subscriptions.push(activeRoute$);
+        this.subscriptions.push(product$);
     }
 
     isProductChanged(): boolean {

@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProductListComponent, ProductDetailsComponent } from './components';
 import { ProductsComponent } from './products.component';
 import { AppPath } from '../shared';
-import { ResolveProductGuard } from './guards';
 
 const routes: Routes = [
     {
@@ -21,9 +20,6 @@ const routes: Routes = [
             {
                 path: `${AppPath.Product}/:id`,
                 component: ProductDetailsComponent,
-                resolve: {
-                    product: ResolveProductGuard,
-                },
                 data: {
                     label: 'Product Details',
                 },

@@ -1,10 +1,10 @@
-<div class="wrapper">
+<div class="wrapper" *ngIf="(product$ | async) as product">
     <mat-list>
         <mat-list-item>{{ product.description }}</mat-list-item>
         <mat-list-item>Price: {{ product.price | currency }}</mat-list-item>
         <mat-list-item>Category: {{ product.category | uppercase }}</mat-list-item>
         <mat-list-item>Updated: {{ product.updateDate | date:'fullDate' }}</mat-list-item>
-        <mat-list-item [class.not-available]="!product.isAvailable">{{ getAvailabilityTitle() }}</mat-list-item>
+        <mat-list-item [class.not-available]="!product.isAvailable">{{ getAvailabilityTitle(product) }}</mat-list-item>
     </mat-list>
     <div
         [matTooltip]="getAddToCartTooltip()"
@@ -14,7 +14,7 @@
             color="primary"
             *ngIf="product.isAvailable && !isAdmin"
             [disabled]="!isLoggedIn"
-            (click)="onAddToCart()"
+            (click)="onAddToCart(product)"
         >Add to Cart</button>
     </div>
 </div>
