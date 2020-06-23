@@ -9,7 +9,7 @@
         <div class="description" appHighlightOnClick>{{ product.description }}</div>
         <div class="price">Price: {{ product.price | currency }}</div>
     </mat-card-content>
-    <mat-card-actions>
+    <mat-card-actions class="controls">
         <button
             *ngIf="isLoggedIn && product.isAvailable && !isAdmin"
             mat-icon-button

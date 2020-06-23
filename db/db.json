@@ -106,6 +106,39 @@
       "sizes": [],
       "updateDate": 1592922294570,
       "id": "veJkZfd"
+    },
+    {
+      "name": "New Product",
+      "description": "Some description",
+      "price": 100,
+      "category": "Primary",
+      "isAvailable": true,
+      "colors": [],
+      "sizes": [],
+      "updateDate": 1592922689897,
+      "id": "qUVsMPD"
+    },
+    {
+      "name": "New Product",
+      "description": "Some description",
+      "price": 100,
+      "category": "Primary",
+      "isAvailable": true,
+      "colors": [],
+      "sizes": [],
+      "updateDate": 1592922693137,
+      "id": "d-sAzGk"
+    },
+    {
+      "name": "New Product",
+      "description": "Some description",
+      "price": 100,
+      "category": "Primary",
+      "isAvailable": true,
+      "colors": [],
+      "sizes": [],
+      "updateDate": 1592922695217,
+      "id": "IpBbFA7"
     }
   ],
   "cart": [

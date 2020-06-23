@@ -7,6 +7,8 @@
 }
 
 .wrapper {
+    display: flex;
+    flex-direction: column;
     flex-basis: 300px;
     flex-grow: 2;
     cursor: pointer;
@@ -28,8 +30,22 @@
     font-size: medium;
 }
 
+.description {
+    margin-bottom: 20px;
+    display: -webkit-box;
+
+    /* autoprefixer: ignore next */
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    overflow: hidden;
+}
+
 mat-card-actions {
     align-items: center;
     justify-content: space-between;
     display: flex;
+}
+
+.controls {
+    margin-top: auto;
 }
