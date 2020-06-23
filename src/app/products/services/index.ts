@@ -1,1 +1,1 @@
-export * from './products-http.service';
+export * from './products.service';

@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 
 import { of } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { IAppState } from '../../../app.state';
 import {
-    Category, IProduct, ProductActions, ProductColors, ProductSizes, selectProductByUrl
+    Category, IProduct, ProductColors, ProductSizes, ProductsService, selectProductByUrl
 } from '../../../products';
 import { RouterFacade } from '../../../router-state';
 import { ConfirmationService, WithSubscriptions } from '../../../shared';
@@ -24,15 +25,16 @@ export class EditProductComponent extends WithSubscriptions implements OnInit {
 
     constructor(
         private confirmation: ConfirmationService,
-        private store: Store<IAppState>,
         private routerFacade: RouterFacade,
+        private productsService: ProductsService,
+        private store: Store<IAppState>,
     ) {
         super();
     }
 
     ngOnInit(): void {
         const product$ = this.store
-            .pipe(select(selectProductByUrl))
+            .pipe(select(selectProductByUrl), take(1))
             .subscribe(product => {
                 if (!this.initialProductSnapshot) {
                     this.initialProductSnapshot = JSON.stringify(product);
@@ -47,18 +49,13 @@ export class EditProductComponent extends WithSubscriptions implements OnInit {
     }
 
     onSave() {
-        this.store.dispatch(
-            ProductActions.updateProduct({
-                id: this.product.id,
-                product: this.product,
-            }),
-        );
         this.initialProductSnapshot = JSON.stringify(this.product);
+        this.productsService.update(this.product);
         this.routerFacade.goToProducts();
     }
 
     canDeactivate() {
-        return this.isProductChanged()
+        return this.isProductChanged
             ? this.confirmation.ask({
                   message:
                       'Are you sure you want to leave this page? All data will be lost',

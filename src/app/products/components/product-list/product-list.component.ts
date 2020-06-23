@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
 
-import { IAppState } from '../../../app.state';
 import { CartService } from '../../../cart';
 import { RouterFacade } from '../../../router-state';
 import { AuthService, WithSubscriptions } from '../../../shared';
 import { IProduct } from '../../models';
-import { ProductActions, selectProducts } from '../../state';
+import { ProductsService } from '../../services';
 
 @Component({
     selector: 'app-product-list',
@@ -16,22 +14,22 @@ import { ProductActions, selectProducts } from '../../state';
     styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent extends WithSubscriptions implements OnInit {
-    productsState$: Observable<readonly IProduct[]>;
     isLoggedIn = false;
     isAdmin = false;
+    products$: Observable<IProduct[]>;
 
     constructor(
         private cartService: CartService,
         private authService: AuthService,
-        private store: Store<IAppState>,
         private routerFacade: RouterFacade,
+        private productService: ProductsService,
     ) {
         super();
     }
 
     ngOnInit(): void {
-        this.store.dispatch(ProductActions.getProducts());
-        this.productsState$ = this.store.pipe(select(selectProducts));
+        this.products$ = this.productService.entities$;
+        this.productService.getAll();
         const authData$ = this.authService.authSubject.subscribe(
             ({ isLoggedIn, userInfo }) => {
                 this.isLoggedIn = isLoggedIn;
@@ -51,8 +49,8 @@ export class ProductListComponent extends WithSubscriptions implements OnInit {
         this.routerFacade.goToAddProduct();
     }
 
-    onRemoveProduct({ id }: IProduct) {
-        this.store.dispatch(ProductActions.removeProduct({ id }));
+    onRemoveProduct(product: IProduct) {
+        this.productService.delete(product);
     }
 
     onOpenDetails({ id }: IProduct) {

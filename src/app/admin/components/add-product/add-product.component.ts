@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 
 import { Observable, of } from 'rxjs';
 
-import { IAppState } from '../../../app.state';
 import {
-    Category, ProductActions, ProductColors, ProductData, ProductSizes
+    Category, ProductColors, ProductData, ProductSizes, ProductsService
 } from '../../../products';
 import { RouterFacade } from '../../../router-state';
-import { ConfirmationService } from '../../../shared';
+import { ConfirmationService, GeneratorService } from '../../../shared';
 
 @Component({
     templateUrl: './add-product.component.html',
@@ -24,8 +22,9 @@ export class AddProductComponent implements OnInit {
 
     constructor(
         private confirmation: ConfirmationService,
-        private store: Store<IAppState>,
         private routerFacade: RouterFacade,
+        private generator: GeneratorService,
+        private productService: ProductsService,
     ) {}
 
     ngOnInit(): void {
@@ -46,14 +45,11 @@ export class AddProductComponent implements OnInit {
     }
 
     onSave() {
-        this.store.dispatch(
-            ProductActions.addProduct({
-                product: {
-                    ...this.productData,
-                    updateDate: Date.now(),
-                },
-            }),
-        );
+        this.productService.add({
+            ...this.productData,
+            updateDate: Date.now(),
+            id: this.generator.getRandomString(10),
+        });
         this.initialProductSnapshot = JSON.stringify(this.productData);
         this.routerFacade.goToAdminProducts();
     }

@@ -1,24 +1,22 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { createSelector } from '@ngrx/store';
 
-import { IProductsState } from './products.state';
+import { selectEntityCacheState } from '../../entity-store.module';
 import { selectRouterProductId } from '../../router-state';
 
-export const selectProductsState = createFeatureSelector<IProductsState>(
-    'products',
-);
-
 export const selectProducts = createSelector(
-    selectProductsState,
-    (state: IProductsState) => state.products,
-);
-
-export const selectProductsLoading = createSelector(
-    selectProductsState,
-    (state: IProductsState) => state.isLoading,
+    selectEntityCacheState,
+    (state: any) => state.Product.entities,
 );
 
 export const selectProductByUrl = createSelector(
     selectProducts,
     selectRouterProductId,
-    (products, id) => products.find(product => product.id === id),
+    (products, id) => products[id],
+);
+
+export const selectProductFromMapByUrl = createSelector(
+    selectRouterProductId,
+    (productsMap, id) => {
+        return productsMap.get(id);
+    },
 );

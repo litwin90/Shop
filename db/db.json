@@ -23,78 +23,17 @@
       "id": 2
     }
   ],
-  "products": [
+  "product": [
     {
-      "name": "Product 1",
-      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      "price": 202,
-      "category": "Primary",
-      "isAvailable": true,
-      "colors": [
-        "Blue",
-        "Red"
-      ],
-      "sizes": [
-        "L",
-        "M",
-        "S"
-      ],
-      "id": "mbR7fje0Qu",
-      "updateDate": 1592381514980
-    },
-    {
-      "name": "Product 2",
-      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      "price": 200,
-      "category": "Primary",
-      "isAvailable": true,
-      "colors": [
-        "Blue"
-      ],
-      "sizes": [
-        "M"
-      ],
-      "id": "OIjjbIAMII",
-      "updateDate": 1592381516628
-    },
-    {
-      "name": "Product 3",
-      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      "price": 250,
+      "name": "New ",
+      "description": "Some descrip",
+      "price": 113,
       "category": "Primary",
       "isAvailable": true,
       "colors": [],
       "sizes": [],
-      "id": "j1JMoziiCK",
-      "updateDate": 1592381518868
-    },
-    {
-      "name": "Product 4",
-      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      "price": 300,
-      "category": "Primary",
-      "isAvailable": true,
-      "colors": [
-        "Red"
-      ],
-      "sizes": [
-        "M"
-      ],
-      "id": "ohq8s43v1Q",
-      "updateDate": 1592382419573
-    },
-    {
-      "name": "Product 5",
-      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      "price": 100,
-      "category": "Primary",
-      "isAvailable": true,
-      "colors": [
-        "Red"
-      ],
-      "sizes": [],
-      "id": "GqUOkYsouC",
-      "updateDate": 1592383198581
+      "updateDate": 1592946866729,
+      "id": "ecaUkTSrVd"
     },
     {
       "name": "New Product",
@@ -104,8 +43,8 @@
       "isAvailable": true,
       "colors": [],
       "sizes": [],
-      "updateDate": 1592922294570,
-      "id": "veJkZfd"
+      "updateDate": 1592946868153,
+      "id": "JCnUPdgezA"
     },
     {
       "name": "New Product",
@@ -115,8 +54,8 @@
       "isAvailable": true,
       "colors": [],
       "sizes": [],
-      "updateDate": 1592922689897,
-      "id": "qUVsMPD"
+      "updateDate": 1592946869658,
+      "id": "1vQNLv8Qwk"
     },
     {
       "name": "New Product",
@@ -126,8 +65,8 @@
       "isAvailable": true,
       "colors": [],
       "sizes": [],
-      "updateDate": 1592922693137,
-      "id": "d-sAzGk"
+      "updateDate": 1592946870954,
+      "id": "QW2wkdo8Wi"
     },
     {
       "name": "New Product",
@@ -137,8 +76,52 @@
       "isAvailable": true,
       "colors": [],
       "sizes": [],
-      "updateDate": 1592922695217,
-      "id": "IpBbFA7"
+      "updateDate": 1592946872521,
+      "id": "OuAFQT7fIy"
+    },
+    {
+      "name": "New Product",
+      "description": "Some description",
+      "price": 100,
+      "category": "Primary",
+      "isAvailable": true,
+      "colors": [],
+      "sizes": [],
+      "updateDate": 1592946874313,
+      "id": "spSLKTAr7d"
+    },
+    {
+      "name": "New Product",
+      "description": "Some description",
+      "price": 100,
+      "category": "Primary",
+      "isAvailable": true,
+      "colors": [],
+      "sizes": [],
+      "updateDate": 1592946875881,
+      "id": "ANwekLlaVa"
+    },
+    {
+      "name": "New Product",
+      "description": "Some description",
+      "price": 100,
+      "category": "Primary",
+      "isAvailable": true,
+      "colors": [],
+      "sizes": [],
+      "updateDate": 1592946878394,
+      "id": "mtdVaEAamt"
+    },
+    {
+      "name": "New Product",
+      "description": "Some description",
+      "price": 100,
+      "category": "Primary",
+      "isAvailable": true,
+      "colors": [],
+      "sizes": [],
+      "updateDate": 1592946880673,
+      "id": "vm89ZFgVGb"
     }
   ],
   "cart": [],
