@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 
 import { pluck } from 'rxjs/operators';
 
-import { RouterFacade } from '../../../router-state';
 import { AuthService, WithSubscriptions } from '../../../shared';
+import { RouterFacade } from '../../../state';
 import { IOrder } from '../../models';
 
 @Component({

@@ -1,7 +1,7 @@
 import { createSelector } from '@ngrx/store';
 
-import { selectEntityCacheState } from '../../entity-store.module';
-import { selectRouterProductId } from '../../router-state';
+import { selectRouterProductId } from '../';
+import { selectEntityCacheState } from '../entity-store.module';
 
 export const selectProducts = createSelector(
     selectEntityCacheState,

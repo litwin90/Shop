@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { CartService } from '../../../cart';
-import { RouterFacade } from '../../../router-state';
 import { AuthService, WithSubscriptions } from '../../../shared';
+import { RouterFacade } from '../../../state';
+import { ProductsService } from '../../../state/products';
 import { IProduct } from '../../models';
-import { ProductsService } from '../../services';
 
 @Component({
     selector: 'app-product-list',

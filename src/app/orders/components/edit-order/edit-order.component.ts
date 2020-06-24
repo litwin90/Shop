@@ -6,9 +6,9 @@ import { Observable, of } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
 import { ICartProduct } from '../../../cart';
-import { RouterFacade } from '../../../router-state';
 import { WithSubscriptions } from '../../../shared';
 import { ConfirmationService } from '../../../shared/services/confirmation.service';
+import { RouterFacade } from '../../../state';
 import { IOrder } from '../../models';
 import { OrdersService } from '../../services';
 

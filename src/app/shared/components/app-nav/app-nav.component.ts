@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { RouterFacade } from '../../../router-state';
+import { RouterFacade } from '../../../state';
 import { WithSubscriptions } from '../../classes';
 import { TabsConfig } from '../../models';
 import { AuthService, SpinnerService, TabsService } from '../../services';

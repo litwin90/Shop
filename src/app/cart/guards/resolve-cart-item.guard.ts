@@ -4,8 +4,8 @@ import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
-import { RouterFacade } from '../../router-state';
 import { DialogService } from '../../shared';
+import { RouterFacade } from '../../state';
 import { CartPath } from '../cart.constants';
 import { ICartProduct } from '../models';
 import { CartService } from '../services';

@@ -5,8 +5,8 @@ import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { IOrder, OrdersService } from '../../orders';
-import { RouterFacade } from '../../router-state';
 import { AuthService } from '../../shared';
+import { RouterFacade } from '../../state';
 
 @Injectable({
     providedIn: 'root',

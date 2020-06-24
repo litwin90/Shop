@@ -5,8 +5,8 @@ import { Observable, of, zip } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { CartService } from '../../cart';
-import { RouterFacade } from '../../router-state';
 import { AuthService } from '../../shared';
+import { RouterFacade } from '../../state';
 import { OrderData } from '../models';
 
 @Injectable({

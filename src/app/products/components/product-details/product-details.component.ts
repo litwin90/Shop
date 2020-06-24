@@ -3,12 +3,11 @@ import { select, Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
 
-import { IAppState } from '../../../app.state';
 import { CartService } from '../../../cart';
-import { RouterFacade } from '../../../router-state';
 import { AuthService } from '../../../shared';
+import { IAppState, RouterFacade } from '../../../state';
+import { selectProductByUrl } from '../../../state/products';
 import { IProduct } from '../../models';
-import { selectProductByUrl } from '../../state';
 
 @Component({
     templateUrl: './product-details.component.html',

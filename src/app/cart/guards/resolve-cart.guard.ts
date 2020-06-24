@@ -4,8 +4,8 @@ import { Resolve } from '@angular/router';
 import { Observable, of, zip } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RouterFacade } from '../../router-state';
 import { AppSettingsService, AuthService, DialogService } from '../../shared';
+import { RouterFacade } from '../../state';
 import { ICartData } from '../models';
 import { CartService } from '../services';
 

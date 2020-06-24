@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
 
-import {
-    Category, ProductColors, ProductData, ProductSizes, ProductsService
-} from '../../../products';
-import { RouterFacade } from '../../../router-state';
+import { Category, ProductColors, ProductData, ProductSizes } from '../../../products';
 import { ConfirmationService, GeneratorService } from '../../../shared';
+import { RouterFacade } from '../../../state';
+import { ProductsService } from '../../../state/products';
 
 @Component({
     templateUrl: './add-product.component.html',

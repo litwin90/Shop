@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Data } from '@angular/router';
-
-import { Store, select } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
 
-import { IAppState } from '../app.state';
-import { selectRouterData } from '../router-state';
+import { IAppState, selectRouterData } from '../state';
 
 @Component({
     selector: 'app-products',

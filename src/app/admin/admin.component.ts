@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Data, Router } from '@angular/router';
+import { Data } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+
+import { Observable } from 'rxjs';
 
 import { FlexDirection } from '../shared';
+import { IAppState, selectRouterData } from '../state';
 import { adminTabsConfig } from './admin.constants';
-import { Observable } from 'rxjs';
-import { Store, select } from '@ngrx/store';
-import { IAppState } from '../app.state';
-import { selectRouterData } from '../router-state';
 
 @Component({
     selector: 'app-admin',

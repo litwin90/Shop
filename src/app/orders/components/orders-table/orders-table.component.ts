@@ -5,9 +5,9 @@ import { ActivatedRoute } from '@angular/router';
 
 import { pluck } from 'rxjs/operators';
 
-import { RouterFacade } from '../../../router-state';
 import { ISelectableEntity, OrderByPipe, WithSubscriptions } from '../../../shared';
 import { HOVER_BACKGROUND_COLOR } from '../../../shared/shared.constants';
+import { RouterFacade } from '../../../state';
 import { IOrder, IOrderSortByField, IOrderSortByFieldId } from '../../models';
 import { OrdersService } from '../../services';
 

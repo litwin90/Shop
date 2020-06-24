@@ -1,21 +1,16 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { Router } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
 
-import { LayoutModule } from './layout';
-import { ConstantsService } from './core';
-import { APP_CONSTANTS, APP_RANDOM_STRING_5 } from './provider-tokens';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ConstantsService } from './core';
+import { LayoutModule } from './layout';
 import { ProductsModule } from './products';
-import {
-    SharedModule,
-    GeneratorFactory,
-    GeneratorService,
-    LocalStorageService,
-} from './shared';
-import { RootStoreModule } from './root-store.module';
+import { APP_CONSTANTS, APP_RANDOM_STRING_5 } from './provider-tokens';
+import { GeneratorFactory, GeneratorService, LocalStorageService, SharedModule } from './shared';
+import { RootStoreModule } from './state';
 
 @NgModule({
     imports: [

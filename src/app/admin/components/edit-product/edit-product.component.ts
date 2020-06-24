@@ -4,12 +4,10 @@ import { select, Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { IAppState } from '../../../app.state';
-import {
-    Category, IProduct, ProductColors, ProductSizes, ProductsService, selectProductByUrl
-} from '../../../products';
-import { RouterFacade } from '../../../router-state';
+import { Category, IProduct, ProductColors, ProductSizes } from '../../../products';
 import { ConfirmationService, WithSubscriptions } from '../../../shared';
+import { IAppState, RouterFacade } from '../../../state';
+import { ProductsService, selectProductByUrl } from '../../../state/products';
 
 @Component({
     templateUrl: './edit-product.component.html',

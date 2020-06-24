@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Subject } from 'rxjs';
 
-import { ProductsService } from '../../products/services/products.service';
+import { ProductsService } from '../../state/products';
 
 @Injectable({
     providedIn: 'root',

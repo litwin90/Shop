@@ -6,9 +6,9 @@ import { ActivatedRoute, Data } from '@angular/router';
 import { merge } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
-import { RouterFacade } from '../../../router-state';
 import { AppSettingsService, OrderByPipe, SortOrder, WithSubscriptions } from '../../../shared';
 import { HOVER_BACKGROUND_COLOR } from '../../../shared/shared.constants';
+import { RouterFacade } from '../../../state';
 import { ICartData, ICartProduct, ICartSortByField, ICartSortByFieldId } from '../../models';
 import { CartService } from '../../services';
 

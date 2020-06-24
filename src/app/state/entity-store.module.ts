@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { DefaultDataServiceConfig, EntityDataModule, EntityMetadataMap } from '@ngrx/data';
 import { createFeatureSelector } from '@ngrx/store';
 
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 
 const defaultDataServiceConfig: DefaultDataServiceConfig = {
     root: environment.apiUrl,

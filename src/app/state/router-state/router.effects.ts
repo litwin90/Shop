@@ -5,9 +5,9 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { map, tap } from 'rxjs/operators';
 
-import { AdminPath } from '../admin/admin.constants';
-import { OrdersPath } from '../orders/orders.constants';
-import { AppPath } from '../shared/shared.constants';
+import { AdminPath } from '../../admin/admin.constants';
+import { OrdersPath } from '../../orders/orders.constants';
+import { AppPath } from '../../shared/shared.constants';
 import { RouterActions } from './router.actions';
 
 @Injectable()

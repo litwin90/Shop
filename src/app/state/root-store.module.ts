@@ -5,7 +5,7 @@ import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 import { EntityStoreModule } from './entity-store.module';
 import { CustomSerializer, RouterEffects, routerReducers } from './router-state';
 

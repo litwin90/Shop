@@ -4,8 +4,8 @@ import { Resolve } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { RouterFacade } from '../../router-state';
 import { AuthService } from '../../shared';
+import { RouterFacade } from '../../state';
 import { IOrder } from '../models';
 import { OrdersService } from '../services';
 

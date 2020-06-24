@@ -5,9 +5,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
-import { RouterFacade } from '../../../router-state';
 import { FlexDirection, WithSubscriptions } from '../../../shared';
 import { ConfirmationService } from '../../../shared/services/confirmation.service';
+import { RouterFacade } from '../../../state';
 import { ICartProduct } from '../../models';
 import { CartService } from '../../services';
 
