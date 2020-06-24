@@ -65,3 +65,10 @@ To see some orders and access `Orders` tab you should firstly login as `User` (n
 5. Additionally created `LoadingSpinner` interceptor to show spinner always on http requests.  
 Now it is not necessarily to trigger it in services 
 6. Created `AddSettings` service
+
+
+**Task 7. Ngrx**
+1. Added store to app (just for `Products feature area`)
+2. Added router store
+3. Created facade for router state
+4. Used @ngrx/data
